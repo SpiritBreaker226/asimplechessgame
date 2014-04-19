@@ -1,4 +1,4 @@
-asimplechessgame
+A Simple Chess Game
 ================
 
-A simple chess game created for iOS devices
+Simple chess game created for iOS devices.
