@@ -24,6 +24,9 @@
 		9612DAD21936D32700D69357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9612DAAD1936D32600D69357 /* UIKit.framework */; };
 		9612DADA1936D32700D69357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9612DAD81936D32700D69357 /* InfoPlist.strings */; };
 		9612DADC1936D32700D69357 /* asimplechessgameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612DADB1936D32700D69357 /* asimplechessgameTests.m */; };
+		963061CD1960C81100C3CD0C /* Apptimize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963061CC1960C81100C3CD0C /* Apptimize.framework */; };
+		963061CF1960C83D00C3CD0C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963061CE1960C83D00C3CD0C /* Security.framework */; };
+		963061D11960C84F00C3CD0C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963061D01960C84F00C3CD0C /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,9 @@
 		9612DAD71936D32700D69357 /* asimplechessgameTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "asimplechessgameTests-Info.plist"; sourceTree = "<group>"; };
 		9612DAD91936D32700D69357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9612DADB1936D32700D69357 /* asimplechessgameTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = asimplechessgameTests.m; sourceTree = "<group>"; };
+		963061CC1960C81100C3CD0C /* Apptimize.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Apptimize.framework; sourceTree = "<group>"; };
+		963061CE1960C83D00C3CD0C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		963061D01960C84F00C3CD0C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +73,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				963061D11960C84F00C3CD0C /* CFNetwork.framework in Frameworks */,
+				963061CF1960C83D00C3CD0C /* Security.framework in Frameworks */,
+				963061CD1960C81100C3CD0C /* Apptimize.framework in Frameworks */,
 				9612DAAC1936D32600D69357 /* CoreGraphics.framework in Frameworks */,
 				9612DAAE1936D32600D69357 /* UIKit.framework in Frameworks */,
 				9612DAB01936D32600D69357 /* SpriteKit.framework in Frameworks */,
@@ -109,6 +118,9 @@
 		9612DAA81936D32600D69357 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				963061D01960C84F00C3CD0C /* CFNetwork.framework */,
+				963061CE1960C83D00C3CD0C /* Security.framework */,
+				963061CC1960C81100C3CD0C /* Apptimize.framework */,
 				9612DAA91936D32600D69357 /* Foundation.framework */,
 				9612DAAB1936D32600D69357 /* CoreGraphics.framework */,
 				9612DAAD1936D32600D69357 /* UIKit.framework */,
@@ -390,9 +402,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "asimplechessgame/asimplechessgame-Prefix.pch";
 				INFOPLIST_FILE = "asimplechessgame/asimplechessgame-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
@@ -404,9 +421,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "asimplechessgame/asimplechessgame-Prefix.pch";
 				INFOPLIST_FILE = "asimplechessgame/asimplechessgame-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
@@ -472,6 +494,7 @@
 				9612DAE11936D32700D69357 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9612DAE21936D32700D69357 /* Build configuration list for PBXNativeTarget "asimplechessgameTests" */ = {
 			isa = XCConfigurationList;
@@ -480,6 +503,7 @@
 				9612DAE41936D32700D69357 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
