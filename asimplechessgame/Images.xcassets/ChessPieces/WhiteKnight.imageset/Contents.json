@@ -6,10 +6,12 @@
     },
     {
       "idiom" : "iphone",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "KnightWhitePiece@2x.png"
     },
     {
       "idiom" : "iphone",
+      "filename" : "KnightWhitePiece@2x-1.png",
       "subtype" : "retina4",
       "scale" : "2x"
     }
