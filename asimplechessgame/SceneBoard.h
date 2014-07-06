@@ -1,5 +1,5 @@
 //
-//  MyScene.h
+//  SceneBoard.h
 //  asimplechessgame
 //
 
@@ -8,6 +8,6 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface MyScene : SKScene
+@interface SceneBoard : SKScene
 
 @end

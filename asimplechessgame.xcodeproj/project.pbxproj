@@ -16,8 +16,7 @@
 		9612DABC1936D32700D69357 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612DABB1936D32700D69357 /* AppDelegate.m */; };
 		9612DABF1936D32700D69357 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9612DABD1936D32700D69357 /* Main.storyboard */; };
 		9612DAC21936D32700D69357 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612DAC11936D32700D69357 /* ViewController.m */; };
-		9612DAC51936D32700D69357 /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612DAC41936D32700D69357 /* MyScene.m */; };
-		9612DAC71936D32700D69357 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 9612DAC61936D32700D69357 /* Spaceship.png */; };
+		9612DAC51936D32700D69357 /* SceneBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612DAC41936D32700D69357 /* SceneBoard.m */; };
 		9612DAC91936D32700D69357 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9612DAC81936D32700D69357 /* Images.xcassets */; };
 		9612DAD01936D32700D69357 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9612DACF1936D32700D69357 /* XCTest.framework */; };
 		9612DAD11936D32700D69357 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9612DAA91936D32600D69357 /* Foundation.framework */; };
@@ -27,6 +26,7 @@
 		963061CD1960C81100C3CD0C /* Apptimize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963061CC1960C81100C3CD0C /* Apptimize.framework */; };
 		963061CF1960C83D00C3CD0C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963061CE1960C83D00C3CD0C /* Security.framework */; };
 		963061D11960C84F00C3CD0C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963061D01960C84F00C3CD0C /* CFNetwork.framework */; };
+		96C1BBF819699CC300AF40A8 /* PokemonGB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96C1BBF719699CC300AF40A8 /* PokemonGB.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,9 +54,8 @@
 		9612DABE1936D32700D69357 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9612DAC01936D32700D69357 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		9612DAC11936D32700D69357 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		9612DAC31936D32700D69357 /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
-		9612DAC41936D32700D69357 /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
-		9612DAC61936D32700D69357 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
+		9612DAC31936D32700D69357 /* SceneBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneBoard.h; sourceTree = "<group>"; };
+		9612DAC41936D32700D69357 /* SceneBoard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneBoard.m; sourceTree = "<group>"; };
 		9612DAC81936D32700D69357 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9612DACE1936D32700D69357 /* asimplechessgameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = asimplechessgameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9612DACF1936D32700D69357 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -66,6 +65,7 @@
 		963061CC1960C81100C3CD0C /* Apptimize.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Apptimize.framework; sourceTree = "<group>"; };
 		963061CE1960C83D00C3CD0C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		963061D01960C84F00C3CD0C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		96C1BBF719699CC300AF40A8 /* PokemonGB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = PokemonGB.ttf; path = "ASimpleChessGameDesign/jackster-productions_pokemon-gb/PokemonGB.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +99,7 @@
 		9612DA9D1936D32600D69357 = {
 			isa = PBXGroup;
 			children = (
+				96C1BBF619699C8D00AF40A8 /* Resource */,
 				9612DAB11936D32700D69357 /* asimplechessgame */,
 				9612DAD51936D32700D69357 /* asimplechessgameTests */,
 				9612DAA81936D32600D69357 /* Frameworks */,
@@ -138,9 +139,8 @@
 				9612DABD1936D32700D69357 /* Main.storyboard */,
 				9612DAC01936D32700D69357 /* ViewController.h */,
 				9612DAC11936D32700D69357 /* ViewController.m */,
-				9612DAC31936D32700D69357 /* MyScene.h */,
-				9612DAC41936D32700D69357 /* MyScene.m */,
-				9612DAC61936D32700D69357 /* Spaceship.png */,
+				9612DAC31936D32700D69357 /* SceneBoard.h */,
+				9612DAC41936D32700D69357 /* SceneBoard.m */,
 				9612DAC81936D32700D69357 /* Images.xcassets */,
 				9612DAB21936D32700D69357 /* Supporting Files */,
 			);
@@ -174,6 +174,14 @@
 				9612DAD81936D32700D69357 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		96C1BBF619699C8D00AF40A8 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				96C1BBF719699CC300AF40A8 /* PokemonGB.ttf */,
+			);
+			name = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,9 +260,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96C1BBF819699CC300AF40A8 /* PokemonGB.ttf in Resources */,
 				9612DAB61936D32700D69357 /* InfoPlist.strings in Resources */,
 				9612DAC91936D32700D69357 /* Images.xcassets in Resources */,
-				9612DAC71936D32700D69357 /* Spaceship.png in Resources */,
 				9612DABF1936D32700D69357 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,7 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9612DAC51936D32700D69357 /* MyScene.m in Sources */,
+				9612DAC51936D32700D69357 /* SceneBoard.m in Sources */,
 				9612DAC21936D32700D69357 /* ViewController.m in Sources */,
 				9612DABC1936D32700D69357 /* AppDelegate.m in Sources */,
 				9612DAB81936D32700D69357 /* main.m in Sources */,
