@@ -15,6 +15,15 @@
         /* Setup your scene here */
         
         self.backgroundColor = [SKColor colorWithRed:0.155 green:0.187 blue:0.14 alpha:1.0];
+        
+        SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"PokemonGB"];
+        
+        myLabel.text = @"Hello, World!";
+        myLabel.fontSize = 30;
+        myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
+                                       CGRectGetMidY(self.frame));
+        
+        [self addChild:myLabel];
     }// end of if
 	
     return self;
