@@ -12,6 +12,7 @@
 
 - (void)addChessBoard:(CGSize)size {
 	int startCurrentRowWithEvenOrOddNumber = 1;
+	NSArray* rowOfChessPeicesOrder = [[NSArray alloc] initWithObjects:@"%@Rook", @"%@Knight", @"%@Bishop", @"%@King", @"%@Queen", @"%@Bishop", @"%@Knight", @"%@Rook", @"%@Pawn", nil];
 	
 	// goes around adding the chess board with 4 black and 4 white for each row
 	for (int indexRowPads = 0, indexRowPadsPostion = 1; indexRowPads < 8; indexRowPads++, indexRowPadsPostion = indexRowPadsPostion + 2) {
@@ -40,9 +41,35 @@
 			[padThatWillBeDisplayPartChessBoard setPosition:CGPointMake((padThatWillBeDisplayPartChessBoard.size.width/2) * indexColPadsPostion,(size.height-(padThatWillBeDisplayPartChessBoard.size.height/2) * indexRowPadsPostion))];
 			
 			[self addChild:padThatWillBeDisplayPartChessBoard];
+			
+			// checks if this is row 0-1 or 6-7 as those rows will have chess peices on them when the game starts
+			if(indexRowPads < 2 || indexRowPads > 5) {
+				int indexCurrentChessPeiceToBeDisplay = indexColPads;
+				
+				// checks if the is 1 or 6 as those rows are where the pawns will go
+				if(indexRowPads == 1 || indexRowPads == 6)
+					indexCurrentChessPeiceToBeDisplay = 8;
+				
+				[self addChessPeicesToBoard:indexRowPads indexRowPadsPostion:indexRowPadsPostion padThatWillBeDisplayPartChessBoard:padThatWillBeDisplayPartChessBoard size:size indexColPadsPostion:indexColPadsPostion nameOfPeice:rowOfChessPeicesOrder[indexCurrentChessPeiceToBeDisplay]];
+			}// end of if
 		}// end of column for loop
 	}// end of row for loop
 }// end of addChessBoard()
+
+- (void)addChessPeicesToBoard:(int)indexRowPads indexRowPadsPostion:(int)indexRowPadsPostion padThatWillBeDisplayPartChessBoard:(SKSpriteNode *)padThatWillBeDisplayPartChessBoard size:(CGSize)size indexColPadsPostion:(int)indexColPadsPostion nameOfPeice:(NSString*)chessPeiceName {
+	// creates a chess peice
+	NSString* chessPeiceColour = @"Black";
+	
+	// checks if this is the White side of the borad
+	if (indexRowPads > 5)
+		chessPeiceColour = @"White";
+	
+	SKSpriteNode* chessPeice = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:chessPeiceName, chessPeiceColour]];
+	
+	[chessPeice setPosition:CGPointMake((padThatWillBeDisplayPartChessBoard.size.width/2) * indexColPadsPostion,(size.height-(padThatWillBeDisplayPartChessBoard.size.height/2) * indexRowPadsPostion))];
+	
+	[self addChild:chessPeice];
+}// end of addChessPeicesToBoard()
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
