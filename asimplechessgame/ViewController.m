@@ -28,6 +28,11 @@
     [skView presentScene:scene];
 }
 
+// turns off the status bar in code
+-(BOOL)prefersStatusBarHidden {
+	return YES;
+}//end of prefersStatusBarHidden()
+
 - (BOOL)shouldAutorotate
 {
     return YES;
