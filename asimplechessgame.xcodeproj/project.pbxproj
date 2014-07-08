@@ -27,6 +27,7 @@
 		963061CF1960C83D00C3CD0C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963061CE1960C83D00C3CD0C /* Security.framework */; };
 		963061D11960C84F00C3CD0C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963061D01960C84F00C3CD0C /* CFNetwork.framework */; };
 		96C1BBFA1969A09B00AF40A8 /* PokemonGB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96C1BBF91969A09B00AF40A8 /* PokemonGB.ttf */; };
+		96C1BBFE1969E64200AF40A8 /* chess.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 96C1BBFD1969E64200AF40A8 /* chess.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		963061CE1960C83D00C3CD0C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		963061D01960C84F00C3CD0C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		96C1BBF91969A09B00AF40A8 /* PokemonGB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = PokemonGB.ttf; path = asimplechessgame/Resource/PokemonGB.ttf; sourceTree = "<group>"; };
+		96C1BBFD1969E64200AF40A8 /* chess.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = chess.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +181,7 @@
 		96C1BBF619699C8D00AF40A8 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				96C1BBFD1969E64200AF40A8 /* chess.atlas */,
 				96C1BBF91969A09B00AF40A8 /* PokemonGB.ttf */,
 			);
 			name = Resource;
@@ -263,6 +266,7 @@
 				9612DAB61936D32700D69357 /* InfoPlist.strings in Resources */,
 				9612DAC91936D32700D69357 /* Images.xcassets in Resources */,
 				9612DABF1936D32700D69357 /* Main.storyboard in Resources */,
+				96C1BBFE1969E64200AF40A8 /* chess.atlas in Resources */,
 				96C1BBFA1969A09B00AF40A8 /* PokemonGB.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
