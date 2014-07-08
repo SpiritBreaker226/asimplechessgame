@@ -10,7 +10,7 @@
 
 @implementation SceneBoard
 
-- (void)addChessPads:(CGSize)size {
+- (void)addChessBoard:(CGSize)size {
 	int startCurrentRowWithEvenOrOddNumber = 1;
 	
 	// goes around adding the chess board with 4 black and 4 white for each row
@@ -42,7 +42,7 @@
 			[self addChild:padThatWillBeDisplayPartChessBoard];
 		}// end of column for loop
 	}// end of row for loop
-}// end of addChessPads()
+}// end of addChessBoard()
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
@@ -50,7 +50,7 @@
         
         self.backgroundColor = [UIColor colorWithRed:155/255.0f green:187/255.0f blue:14/255.0f alpha:1.0f];
 		
-		[self addChessPads:size];
+		[self addChessBoard:size];
     }// end of if
 	
     return self;
