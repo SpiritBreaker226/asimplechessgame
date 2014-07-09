@@ -65,13 +65,13 @@ static const uint32_t categoryQueen			= 0x1 << 8;
 				if(indexRowPads == 1 || indexRowPads == 6)
 					indexCurrentChessPiecesToBeDisplay = 8;
 				
-				[self addChessPiecesToBoard:indexRowPads indexRowPadsPostion:indexRowPadsPostion padThatWillBeDisplayPartChessBoard:padThatWillBeDisplayPartChessBoard size:size indexColPadsPostion:indexColPadsPostion nameOfPieces:rowOfChessPiecesOrder[indexCurrentChessPiecesToBeDisplay]];
+				[self addChessPiecesToBoard:CGPointMake((padThatWillBeDisplayPartChessBoard.size.width/2) * indexColPadsPostion,(size.height-(padThatWillBeDisplayPartChessBoard.size.height/2) * indexRowPadsPostion)) andCurrentRow:indexRowPads andNameOfPieces:rowOfChessPiecesOrder[indexCurrentChessPiecesToBeDisplay]];
 			}// end of if
 		}// end of column for loop
 	}// end of row for loop
 }// end of addChessBoard()
 
-- (void)addChessPiecesToBoard:(int)indexRowPads indexRowPadsPostion:(int)indexRowPadsPostion padThatWillBeDisplayPartChessBoard:(SKSpriteNode *)padThatWillBeDisplayPartChessBoard size:(CGSize)size indexColPadsPostion:(int)indexColPadsPostion nameOfPieces:(NSString*)chessPiecesName {
+- (void)addChessPiecesToBoard:(CGPoint)currentLocationOfChessPieceOnBoard andCurrentRow:(int)indexRowPads andNameOfPieces:(NSString*)chessPiecesName {
 	// creates a chess Pieces
 	SKSpriteNode* chessPieces = [SKSpriteNode spriteNodeWithImageNamed:[@"Black" stringByAppendingString:chessPiecesName]];
 	uint32_t categoryOfChessPieces = categoryPawn;
@@ -87,7 +87,7 @@ static const uint32_t categoryQueen			= 0x1 << 8;
 		categoryOfChessPieces = categoryKing;
 	else if ([chessPiecesName isEqual: @"Queen"])
 		categoryOfChessPieces = categoryQueen;
-	
+
 	// checks if this is the White side of the borad
 	if (indexRowPads > 5) {
 		chessPieces = [SKSpriteNode spriteNodeWithImageNamed:[@"White" stringByAppendingString:chessPiecesName]];
@@ -103,7 +103,8 @@ static const uint32_t categoryQueen			= 0x1 << 8;
 	}// end of else
 	
 	// adds the postion
-	[chessPieces setPosition:CGPointMake((padThatWillBeDisplayPartChessBoard.size.width/2) * indexColPadsPostion,(size.height-(padThatWillBeDisplayPartChessBoard.size.height/2) * indexRowPadsPostion))];
+	[chessPieces setPosition:currentLocationOfChessPieceOnBoard];
+	
 	
 	[self addChild:chessPieces];
 }// end of addChessPiecesToBoard()
