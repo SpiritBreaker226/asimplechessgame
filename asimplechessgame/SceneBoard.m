@@ -24,7 +24,7 @@ static const uint32_t categoryQueen		= 0x1 << 8;
 
 - (void)addChessBoard:(CGSize)size {
 	int startCurrentRowWithEvenOrOddNumber = 1;
-	NSArray* rowOfChessPeicesOrder = [[NSArray alloc] initWithObjects:@"%@Rook", @"%@Knight", @"%@Bishop", @"%@King", @"%@Queen", @"%@Bishop", @"%@Knight", @"%@Rook", @"%@Pawn", nil];
+	NSArray* rowOfChessPeicesOrder = [[NSArray alloc] initWithObjects:@"Rook", @"Knight", @"Bishop", @"King", @"Queen", @"Bishop", @"Knight", @"Rook", @"Pawn", nil];
 	
 	// goes around adding the chess board with 4 black and 4 white for each row
 	for (int indexRowPads = 0, indexRowPadsPostion = 1; indexRowPads < 8; indexRowPads++, indexRowPadsPostion = indexRowPadsPostion + 2) {
@@ -73,24 +73,24 @@ static const uint32_t categoryQueen		= 0x1 << 8;
 
 - (void)addChessPeicesToBoard:(int)indexRowPads indexRowPadsPostion:(int)indexRowPadsPostion padThatWillBeDisplayPartChessBoard:(SKSpriteNode *)padThatWillBeDisplayPartChessBoard size:(CGSize)size indexColPadsPostion:(int)indexColPadsPostion nameOfPeice:(NSString*)chessPeiceName {
 	// creates a chess peice
-	SKSpriteNode* chessPeice = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:chessPeiceName, @"Black"]];
+	SKSpriteNode* chessPeice = [SKSpriteNode spriteNodeWithImageNamed:[@"Black" stringByAppendingString:chessPeiceName]];
 	uint32_t categoryOfChessPeice = categoryPawn;
 
 	// checks which type of chess peice it is in order to tell which on it is later on when the game begins
-	if ([chessPeiceName isEqual: @"%@Rook"])
+	if ([chessPeiceName isEqual: @"Rook"])
 		categoryOfChessPeice = categoryRook;
-	else if ([chessPeiceName isEqual: @"%@Knight"])
+	else if ([chessPeiceName isEqual: @"Knight"])
 		categoryOfChessPeice = categoryKnight;
-	else if ([chessPeiceName isEqual: @"%@Bishop"])
+	else if ([chessPeiceName isEqual: @"Bishop"])
 		categoryOfChessPeice = categoryBishop;
-	else if ([chessPeiceName isEqual: @"%@King"])
+	else if ([chessPeiceName isEqual: @"King"])
 		categoryOfChessPeice = categoryKing;
-	else if ([chessPeiceName isEqual: @"%@Queen"])
+	else if ([chessPeiceName isEqual: @"Queen"])
 		categoryOfChessPeice = categoryQueen;
 	
 	// checks if this is the White side of the borad
 	if (indexRowPads > 5) {
-		chessPeice = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:chessPeiceName, @"White"]];
+		chessPeice = [SKSpriteNode spriteNodeWithImageNamed:[@"White" stringByAppendingString:chessPeiceName]];
 		
 		// sets the categories for this node as well as what categories will this node interactwith
 		[[chessPeice physicsBody] setCategoryBitMask:categoryWhitePeice | categoryOfChessPeice];
