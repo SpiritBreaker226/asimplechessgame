@@ -36,7 +36,9 @@
 	for (int indexRow = 0; indexRow < 2; indexRow++) {
 		// goes around for each of the column
 		for (int indexCol = 0 ; indexCol < 8; indexCol++) {
-			XCTAssertEqual(cellHasChessPiece, [_currentGameState getCurrentStateAtRow:indexRow andColumn:indexCol], @"There is a chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+			// checkis if this is not the king chess peices column
+			if(indexRow != 0 && indexCol != 3)
+				XCTAssertEqual(cellHasChessPiece, [_currentGameState getCurrentStateAtRow:indexRow andColumn:indexCol], @"There is a chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
 		}// end of column for loop
 	}// end of row for loop
 }// end of testInitialState_shouldChessPeicesBeFirstTwoRows()
@@ -56,9 +58,16 @@
 	for (int indexRow = 6; indexRow < 8; indexRow++) {
 		// goes around for each of the column
 		for (int indexCol = 0 ; indexCol < 8; indexCol++) {
-			XCTAssertEqual(cellHasChessPiece, [_currentGameState getCurrentStateAtRow:indexRow andColumn:indexCol], @"There is a chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+			// check is if this is not the king chess peices column
+			if(indexRow != 7 && indexCol != 3)
+				XCTAssertEqual(cellHasChessPiece, [_currentGameState getCurrentStateAtRow:indexRow andColumn:indexCol], @"There is a chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
 		}// end of column for loop
 	}// end of row for loop
 }// end of testInitialState_shouldChessPeicesBeLastTwoRows()
+
+- (void)testInitialState_shouldTwoChessPeiceKingsBeAtTheFirstAndLastRow {
+	XCTAssertEqual(cellHasChessPieceKing, [_currentGameState getCurrentStateAtRow:0 andColumn:3], @"There is a king chess peice on chess board at Row: %i, Column: %i", 0, 3);
+		XCTAssertEqual(cellHasChessPieceKing, [_currentGameState getCurrentStateAtRow:7 andColumn:3], @"There is a king chess peice on chess board at Row: %i, Column: %i", 7, 3);
+}// end of testInitialState_shouldTwoChessPeiceKingsBeAtTheFirstAndLastRow()
 
 @end

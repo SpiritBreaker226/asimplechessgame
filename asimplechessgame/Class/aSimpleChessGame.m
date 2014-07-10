@@ -27,9 +27,16 @@
 		// goes around for each of the column
 		for (int indexCol = 0 ; indexCol < 8; indexCol++) {
 			// checks if it is the first two row and last two rows
-			if(indexRow < 2 || indexRow > 5)
-				// adds the the chess peice for this row
-				[super setCellState:cellHasChessPiece OnRow:indexRow andColumn:indexCol];
+			if(indexRow < 2 || indexRow > 5) {
+				// checks if this row and column are the kings as they are special
+				// peices where the game will end
+				if ((indexRow == 0 && indexCol == 3) || (indexRow == 7 && indexCol == 3))
+					// adds the the chess peice for this row
+					[super setCellState:cellHasChessPieceKing OnRow:indexRow andColumn:indexCol];
+				else
+					// adds the the chess peice for this row
+					[super setCellState:cellHasChessPiece OnRow:indexRow andColumn:indexCol];
+			}// end of if
 		}// end of column for loop
 	}// end of row for loop
 	
