@@ -12,7 +12,7 @@
 
 /*
 
-Private Properties
+ Private Properties
 
 */
 	

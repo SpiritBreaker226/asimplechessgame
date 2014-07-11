@@ -31,18 +31,6 @@
 	_currentGameState = nil;
 }// end of tearDown()
 
-- (void)testInitialState_shouldChessPeicesBeFirstTwoRows {
-	// goes around for each of the row on the board
-	for (int indexRow = 0; indexRow < 2; indexRow++) {
-		// goes around for each of the column
-		for (int indexCol = 0 ; indexCol < 8; indexCol++) {
-			// checkis if this is not the king chess peices column
-			if(indexRow != 0 && indexCol != 3)
-				XCTAssertEqual(cellHasChessPiece, [_currentGameState getCurrentStateAtRow:indexRow andColumn:indexCol], @"There is a chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
-		}// end of column for loop
-	}// end of row for loop
-}// end of testInitialState_shouldChessPeicesBeFirstTwoRows()
-
 - (void)testInitialState_shouldBeEmptyInMiddleOfBoard {
 	// goes around for each of the row on the board
 	for (int indexRow = 2; indexRow < 6; indexRow++) {
@@ -58,16 +46,40 @@
 	for (int indexRow = 6; indexRow < 8; indexRow++) {
 		// goes around for each of the column
 		for (int indexCol = 0 ; indexCol < 8; indexCol++) {
-			// check is if this is not the king chess peices column
-			if(indexRow != 7 && indexCol != 3)
-				XCTAssertEqual(cellHasChessPiece, [_currentGameState getCurrentStateAtRow:indexRow andColumn:indexCol], @"There is a chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+			// checks if the is 1 or 6 as those rows are where the pawns will go
+			if(indexRow == 1 || indexRow == 6) {
+				XCTAssertEqual(cellHasChessPieceWhitePawn, [_currentGameState getCurrentStateAtRow:indexRow andColumn:indexCol], @"There is a white pawn chess peice on chess board at Row: %i, Column: %i", 0, 3);
+			}// end of if
+			else {
+				// checks which chess peices this column will have to display them
+				switch (indexCol) {
+					case 0:
+					case 7:
+						XCTAssertEqual(cellHasChessPieceWhiteRook, [_currentGameState getCurrentStateAtRow:indexRow andColumn:indexCol], @"There is a white rook chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+						break;
+					case 1:
+					case 6:
+						XCTAssertEqual(cellHasChessPieceWhiteKnight, [_currentGameState getCurrentStateAtRow:indexRow andColumn:indexCol], @"There is a white knight chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+						break;
+					case 2:
+					case 5:
+						XCTAssertEqual(cellHasChessPieceWhiteBishop, [_currentGameState getCurrentStateAtRow:indexRow andColumn:indexCol], @"There is a white bishop chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+						break;
+					case 3:
+						XCTAssertEqual(cellHasChessPieceWhiteKing, [_currentGameState getCurrentStateAtRow:indexRow andColumn:indexCol], @"There is a white queen chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+						break;
+					case 4:
+						XCTAssertEqual(cellHasChessPieceWhiteQueen, [_currentGameState getCurrentStateAtRow:indexRow andColumn:indexCol], @"There is a white king chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+						break;
+				}// end of switch
+			}// end of else
 		}// end of column for loop
 	}// end of row for loop
 }// end of testInitialState_shouldChessPeicesBeLastTwoRows()
 
 - (void)testInitialState_shouldTwoChessPeiceKingsBeAtTheFirstAndLastRow {
-	XCTAssertEqual(cellHasChessPieceKing, [_currentGameState getCurrentStateAtRow:0 andColumn:3], @"There is a king chess peice on chess board at Row: %i, Column: %i", 0, 3);
-		XCTAssertEqual(cellHasChessPieceKing, [_currentGameState getCurrentStateAtRow:7 andColumn:3], @"There is a king chess peice on chess board at Row: %i, Column: %i", 7, 3);
+	XCTAssertEqual(cellHasChessPieceBlackKing, [_currentGameState getCurrentStateAtRow:0 andColumn:3], @"There is a king chess peice on chess board at Row: %i, Column: %i", 0, 3);
+	XCTAssertEqual(cellHasChessPieceWhiteKing, [_currentGameState getCurrentStateAtRow:7 andColumn:3], @"There is a king chess peice on chess board at Row: %i, Column: %i", 7, 3);
 }// end of testInitialState_shouldTwoChessPeiceKingsBeAtTheFirstAndLastRow()
 
 @end

@@ -18,10 +18,22 @@
 
 typedef NS_ENUM(NSInteger, currentState) {
 	cellIsEmpty = 0,
-	cellHasChessPiece = 1,
-	cellHasChessPieceKing = 2,
-	cellChessPieceCanMoveHere = 3,
-	cellChessPieceCannotMoveHere = 4
+	cellChessPieceCanMoveHereBlack = 1,
+	cellChessPieceCanMoveHereWhite = 2,
+	cellChessPieceCannotMoveHereBlack = 3,
+	cellChessPieceCannotMoveHereWhite = 4,
+	cellHasChessPieceBlackPawn = 5,
+	cellHasChessPieceBlackBishop = 6,
+	cellHasChessPieceBlackKnight = 7,
+	cellHasChessPieceBlackRook = 8,
+	cellHasChessPieceBlackQueen = 9,
+	cellHasChessPieceBlackKing = 10,
+	cellHasChessPieceWhitePawn = 11,
+	cellHasChessPieceWhiteBishop = 12,
+	cellHasChessPieceWhiteKnight = 13,
+	cellHasChessPieceWhiteRook = 14,
+	cellHasChessPieceWhiteQueen = 15,
+	cellHasChessPieceWhiteKing = 16
 };// end of trype of def
 
 /*
