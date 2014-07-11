@@ -7,6 +7,7 @@
 //
 
 #import "SceneBoard.h"
+#import "ChessPiece.h"
 
 // sets the categories for either contact or collion
 
@@ -60,53 +61,65 @@ static const uint32_t categoryQueen			= 0x1 << 8;
 			// checks if this is row 0-1 or 6-7 as those rows will have chess Pieces on them when the game starts
 			if(indexRowPads < 2 || indexRowPads > 5) {
 				int indexCurrentChessPiecesToBeDisplay = indexColPads;
+				NSString* colourOfPiece = @"Black";
 				
 				// checks if the is 1 or 6 as those rows are where the pawns will go
 				if(indexRowPads == 1 || indexRowPads == 6)
 					indexCurrentChessPiecesToBeDisplay = 8;
 				
-				[self addChessPiecesToBoard:CGPointMake((padThatWillBeDisplayPartChessBoard.size.width/2) * indexColPadsPostion,(size.height-(padThatWillBeDisplayPartChessBoard.size.height/2) * indexRowPadsPostion)) andCurrentRow:indexRowPads andNameOfPieces:rowOfChessPiecesOrder[indexCurrentChessPiecesToBeDisplay]];
-			}// end of if
+				// checks if this is the White side of the borad
+				if (indexRowPads > 5)
+					colourOfPiece = @"White";
+								
+				[self addChild:[self addChessPiecesToBoard:CGPointMake((padThatWillBeDisplayPartChessBoard.size.width/2) * indexColPadsPostion,(size.height-(padThatWillBeDisplayPartChessBoard.size.height/2) * indexRowPadsPostion)) currentRow:indexRowPads currentCol:indexColPads colourOfPiece:colourOfPiece andNameOfPiece:rowOfChessPiecesOrder[indexCurrentChessPiecesToBeDisplay]]];
+			}// end of if*/
 		}// end of column for loop
 	}// end of row for loop
 }// end of addChessBoard()
 
-- (void)addChessPiecesToBoard:(CGPoint)currentLocationOfChessPieceOnBoard andCurrentRow:(int)indexRowPads andNameOfPieces:(NSString*)chessPiecesName {
+- (ChessPiece*)addChessPiecesToBoard:(CGPoint)currentLocationOfChessPieceOnBoard currentRow:(NSInteger)rowOfPiece currentCol:(NSInteger)colOfPiece colourOfPiece:(NSString*)colourOfPiece andNameOfPiece:(NSString*)chessPieceName {
 	// creates a chess Pieces
-	SKSpriteNode* chessPieces = [SKSpriteNode spriteNodeWithImageNamed:[@"Black" stringByAppendingString:chessPiecesName]];
-	uint32_t categoryOfChessPieces = categoryPawn;
-
+	SKSpriteNode* chessPiece = [SKSpriteNode spriteNodeWithImageNamed:[colourOfPiece stringByAppendingString:chessPieceName]];
+	ChessPiece* chessPieceNode = [ChessPiece node];
+	uint32_t categoryOfChessPiece = categoryPawn;
+	
 	// checks which type of chess Pieces it is in order to tell which on it is later on when the game begins
-	if ([chessPiecesName isEqual: @"Rook"])
-		categoryOfChessPieces = categoryRook;
-	else if ([chessPiecesName isEqual: @"Knight"])
-		categoryOfChessPieces = categoryKnight;
-	else if ([chessPiecesName isEqual: @"Bishop"])
-		categoryOfChessPieces = categoryBishop;
-	else if ([chessPiecesName isEqual: @"King"])
-		categoryOfChessPieces = categoryKing;
-	else if ([chessPiecesName isEqual: @"Queen"])
-		categoryOfChessPieces = categoryQueen;
+	if ([chessPieceName isEqual: @"Rook"])
+		categoryOfChessPiece = categoryRook;
+	else if ([chessPieceName isEqual: @"Knight"])
+		categoryOfChessPiece = categoryKnight;
+	else if ([chessPieceName isEqual: @"Bishop"])
+		categoryOfChessPiece = categoryBishop;
+	else if ([chessPieceName isEqual: @"King"])
+		categoryOfChessPiece = categoryKing;
+	else if ([chessPieceName isEqual: @"Queen"])
+		categoryOfChessPiece = categoryQueen;
 
 	// checks if this is the White side of the borad
-	if (indexRowPads > 5) {
-		chessPieces = [SKSpriteNode spriteNodeWithImageNamed:[@"White" stringByAppendingString:chessPiecesName]];
-		
+	if ([colourOfPiece isEqualToString:@"White"]) {
 		// sets the categories for this node as well as what categories will this node interactwith
-		[[chessPieces physicsBody] setCategoryBitMask:categoryWhitePieces | categoryOfChessPieces];
-		[[chessPieces physicsBody] setContactTestBitMask:categoryBlackPieces];
+		[[chessPieceNode physicsBody] setCategoryBitMask:categoryWhitePieces | categoryOfChessPiece];
+		[[chessPieceNode physicsBody] setContactTestBitMask:categoryBlackPieces];
 	}// end of if
 	else {
 		// sets the categories for this node as well as what categories will this node interactwith
-		[[chessPieces physicsBody] setCategoryBitMask:categoryBlackPieces | categoryOfChessPieces];
-		[[chessPieces physicsBody] setContactTestBitMask:categoryWhitePieces];
+		[[chessPieceNode physicsBody] setCategoryBitMask:categoryBlackPieces | categoryOfChessPiece];
+		[[chessPieceNode physicsBody] setContactTestBitMask:categoryWhitePieces];
 	}// end of else
 	
-	// adds the postion
-	[chessPieces setPosition:currentLocationOfChessPieceOnBoard];
+	// sets the properties for this chess piece
+	[chessPieceNode setName:chessPieceName];
+	[chessPieceNode setPosition:currentLocationOfChessPieceOnBoard];
+	[chessPieceNode updateCellRow:rowOfPiece andCellColumn:colOfPiece];
 	
+	// sets the physic body of this pieces in order to interactive with other game elements
+	chessPieceNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:chessPiece.frame.size];
+	[[chessPieceNode physicsBody] setDynamic:NO];
 	
-	[self addChild:chessPieces];
+	// adds the chess pieces to be a child of the chessPieceNode in order to have it
+	[chessPieceNode addChild:chessPiece];
+
+   return chessPieceNode;
 }// end of addChessPiecesToBoard()
 
 -(id)initWithSize:(CGSize)size {    
