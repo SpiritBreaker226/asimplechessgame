@@ -20,6 +20,22 @@
 	
     // Put setup code here. This method is called before the invocation of each test method in the class.
 	_testChessBoard = [[ChessBoard alloc] init];
+	
+	// sets the different states in different location on the board to test
+	[_testChessBoard setCellState:cellHasChessPieceBlackPawn OnRow:1 andColumn:0];
+	[_testChessBoard setCellState:cellHasChessPieceBlackPawn OnRow:1 andColumn:1];
+	[_testChessBoard setCellState:cellHasChessPieceBlackPawn OnRow:1 andColumn:2];
+	[_testChessBoard setCellState:cellHasChessPieceBlackPawn OnRow:1 andColumn:3];
+	[_testChessBoard setCellState:cellHasChessPieceBlackPawn OnRow:1 andColumn:4];
+	[_testChessBoard setCellState:cellHasChessPieceBlackPawn OnRow:1 andColumn:5];
+	[_testChessBoard setCellState:cellHasChessPieceBlackPawn OnRow:1 andColumn:6];
+	[_testChessBoard setCellState:cellHasChessPieceBlackPawn OnRow:1 andColumn:7];
+	[_testChessBoard setCellState:cellHasChessPieceBlackRook OnRow:0 andColumn:0];
+	[_testChessBoard setCellState:cellHasChessPieceBlackRook OnRow:0 andColumn:7];
+	[_testChessBoard setCellState:cellHasChessPieceWhiteRook OnRow:7 andColumn:0];
+	[_testChessBoard setCellState:cellHasChessPieceWhiteRook OnRow:7 andColumn:7];
+	[_testChessBoard setCellState:cellHasChessPieceBlackKing OnRow:0 andColumn:3];
+	[_testChessBoard setCellState:cellHasChessPieceBlackQueen OnRow:0 andColumn:4];
 }// end of setUp()
 
 - (void)tearDown {
@@ -43,5 +59,19 @@
 	// it should error out
 	XCTAssertThrows([_testChessBoard setCellState:cellIsEmpty OnRow:20 andColumn:8], @"An excetion should have been rised for this cell");
 }// end of testSetCellState_withInvalidCoords_cellShouldErrorOut()
+
+- (void)testSearchForCellState_withValidState_shouldFindBothBlackRooks {
+	NSMutableArray* findBlackRooks = [_testChessBoard findAllCellState:cellHasChessPieceBlackRook];
+	
+	XCTAssertEqual(cellHasChessPieceBlackRook, [_testChessBoard getCurrentStateAtRow:[[[findBlackRooks objectAtIndex:0] objectAtIndex:0] intValue] andColumn:[[[findBlackRooks objectAtIndex:0] objectAtIndex:1] intValue]], @"Found The First black rooks");
+	XCTAssertEqual(cellHasChessPieceBlackRook, [_testChessBoard getCurrentStateAtRow:[[[findBlackRooks objectAtIndex:1] objectAtIndex:0] intValue] andColumn:[[[findBlackRooks objectAtIndex:0] objectAtIndex:1] intValue]], @"Found The Secord black rooks");
+	XCTAssertEqual(2, [findBlackRooks count], @"Found both black rooks by count them");
+}// end of testSearchForCellState_withValidState_shouldFindBothRooks()
+
+- (void)testSearchForCellState_withInValidState_shouldFindNoResults {
+	NSMutableArray* findWhiteKnight = [_testChessBoard findAllCellState:cellHasChessPieceWhiteKnight];
+	
+	XCTAssertNotEqual(1, [findWhiteKnight count], @"No White Knight Found by count them");
+}// end of testSearchForCellState_withInValidState_shouldFindNoResults()
 
 @end

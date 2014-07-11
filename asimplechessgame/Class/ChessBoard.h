@@ -45,6 +45,9 @@ typedef NS_ENUM(NSInteger, currentState) {
 // resets all chess cells to empty
 - (void) clearBoard;
 
+// finds all types of a cell state on board
+- (NSMutableArray*) findAllCellState:(currentState)findThisCellState;
+
 // gets the current state on column and row
 - (currentState) getCurrentStateAtRow:(NSInteger)row andColumn:(NSInteger)column;
 

@@ -45,6 +45,25 @@ NSInteger _currentBoardBeingPlayed[8][8];
 	memset(_currentBoardBeingPlayed, 0, sizeof(NSUInteger) * 8 * 8);
 }// end of clearBoard()
 
+-(NSMutableArray*) findAllCellState:(currentState)findThisCellState {
+	NSMutableArray* foundCellState = [[NSMutableArray alloc] init];
+	
+	// goes around for each of the row on the board
+	for (int indexRow = 0; indexRow < 8; indexRow++) {
+		// goes around for each of the column
+		for (int indexCol = 0 ; indexCol < 8; indexCol++) {
+			// checks this cell is one of the cells the suer is looking for
+			if (findThisCellState == _currentBoardBeingPlayed[indexRow][indexCol]) {
+				
+				// adds to foundCellState with an array which will have the row and column of where the state is found
+				[foundCellState addObject:[[NSArray alloc] initWithObjects:[NSNumber numberWithInt:indexRow], [NSNumber numberWithInt:indexCol], nil]];
+			}// end of if
+		}// end of column for loop
+	}// end of row for loop
+	
+	return foundCellState;
+}// end of findAllCellState()
+
 -(currentState) getCurrentStateAtRow:(NSInteger)row andColumn:(NSInteger)column {
 	[self checkArrayBoundsForRow:row andColumn:column];
 	
