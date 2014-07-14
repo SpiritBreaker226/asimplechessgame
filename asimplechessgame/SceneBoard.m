@@ -14,8 +14,10 @@
 	@property (nonatomic) aSimpleChessGame* boardInMemory;
 @end
 
-// sets the categories for either contact or collion
+@implementation SceneBoard
 
+// sets the categories for either contact or collion
+	
 static const uint32_t categoryChessPad		= 0x1;
 static const uint32_t categoryWhitePieces	= 0x1 << 1;
 static const uint32_t categoryBlackPieces	= 0x1 << 2;
@@ -26,9 +28,13 @@ static const uint32_t categoryBishop		= 0x1 << 6;
 static const uint32_t categoryKing			= 0x1 << 7;
 static const uint32_t categoryQueen			= 0x1 << 8;
 
-@implementation SceneBoard
+/*
+ 
+ Private Methods
+ 
+*/
 
-- (void)addChessBoard:(CGSize)size {
+- (void)addChessBoardToDisplayForSize:(CGSize)size {
 	int startCurrentRowWithEvenOrOddNumber = 1;
 	NSArray* rowOfChessPiecesOrder = [[NSArray alloc] initWithObjects:@"Rook", @"Knight", @"Bishop", @"King", @"Queen", @"Bishop", @"Knight", @"Rook", @"Pawn", nil];
 	
@@ -75,12 +81,12 @@ static const uint32_t categoryQueen			= 0x1 << 8;
 				// checks if this is the White side of the borad
 				if (indexRowPads > 5)
 					colourOfPiece = @"White";
-								
+				
 				[self addChild:[self addChessPiecesToBoard:CGPointMake((padThatWillBeDisplayPartChessBoard.size.width/2) * indexColPadsPostion,(size.height-(padThatWillBeDisplayPartChessBoard.size.height/2) * indexRowPadsPostion)) currentRow:indexRowPads currentCol:indexColPads colourOfPiece:colourOfPiece andNameOfPiece:rowOfChessPiecesOrder[indexCurrentChessPiecesToBeDisplay]]];
-			}// end of if*/
+			}// end of if
 		}// end of column for loop
 	}// end of row for loop
-}// end of addChessBoard()
+}// end of addChessBoardToDisplayForSize()
 
 - (ChessPiece*)addChessPiecesToBoard:(CGPoint)currentLocationOfChessPieceOnBoard currentRow:(NSInteger)rowOfPiece currentCol:(NSInteger)colOfPiece colourOfPiece:(NSString*)colourOfPiece andNameOfPiece:(NSString*)chessPieceName {
 	// creates a chess Pieces
@@ -99,7 +105,7 @@ static const uint32_t categoryQueen			= 0x1 << 8;
 		categoryOfChessPiece = categoryKing;
 	else if ([chessPieceName isEqual: @"Queen"])
 		categoryOfChessPiece = categoryQueen;
-
+	
 	// checks if this is the White side of the borad
 	if ([colourOfPiece isEqualToString:@"White"]) {
 		// sets the categories for this node as well as what categories will this node interactwith
@@ -123,9 +129,15 @@ static const uint32_t categoryQueen			= 0x1 << 8;
 	
 	// adds the chess pieces to be a child of the chessPieceNode in order to have it
 	[chessPieceNode addChild:chessPiece];
-
-   return chessPieceNode;
+	
+	return chessPieceNode;
 }// end of addChessPiecesToBoard()
+
+/*
+ 
+ Events
+ 
+*/
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
@@ -135,19 +147,18 @@ static const uint32_t categoryQueen			= 0x1 << 8;
 		
 		// sets the physic contact to look for the two events from Delegate SKPhysicsContactDelegate in this Game Scene
 		self.physicsWorld.contactDelegate = self;
-		
-		[self addChessBoard:size];
-		
+
 		// creates the board in memory in order to keep track of where all of the pieces are on the board as well as allow for
 		// sinmilions done for AI and other checks if the Chess peice King is going to die
 		_boardInMemory = [[aSimpleChessGame alloc] init];
+		
+		[self addChessBoardToDisplayForSize:size];
     }// end of if
 	
     return self;
 }// end of initWithSize()
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    /* Called when a touch begins */
 }// end of touchesBegan()
 
 -(void)update:(CFTimeInterval)currentTime {
