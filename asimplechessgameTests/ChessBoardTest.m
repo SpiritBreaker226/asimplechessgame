@@ -74,4 +74,27 @@
 	XCTAssertNotEqual(1, [findWhiteKnight count], @"No White Knight Found by count them");
 }// end of testSearchForCellState_withInValidState_shouldFindNoResults()
 
+- (void)testMovingCellState_withVaildCoordsForBothOriginDest_shouldReturnTrue {
+	[_testChessBoard moveCellStateFromRow:0 andColumn:4 toRow:2 andColumn:5];
+	 
+	// it should have black queen at row 2 column 5 and be empty at row 0 column 4
+	XCTAssertEqual(cellHasChessPieceBlackQueen, [_testChessBoard getCurrentStateAtRow:2 andColumn:5], @"This cell should have black queen");
+	XCTAssertEqual(cellIsEmpty, [_testChessBoard getCurrentStateAtRow:0 andColumn:4], @"This cell should be emtoy as the qeen was here");
+}// end of testMovingCellState_withVaildCoordsForBothOriginDest_shouldReturnDestCoords()
+
+- (void)testMovingCellState_withInVaildCoordsForBothOriginDest_shouldErrorOut {
+	// it should error out
+	XCTAssertThrows([_testChessBoard moveCellStateFromRow:20 andColumn:4 toRow:22 andColumn:5], @"An excetion should have been rised when trying to move cell state");
+}// end of testMovingCellState_withInVaildCoordsForBothOriginDest_shouldReturnDestCoords()
+
+- (void)testMovingCellState_withInVaildCoordsForOrigin_shouldErrorOut {
+	// it should error out
+	XCTAssertThrows([_testChessBoard moveCellStateFromRow:20 andColumn:4 toRow:2 andColumn:5], @"An excetion should have been rised when trying to move cell state");
+}// end of testMovingCellState_withInVaildCoordsForBothOriginDest_shouldReturnDestCoords()
+
+- (void)testMovingCellState_withInVaildCoordsForDest_shouldErrorOut {
+	// it should error out
+	XCTAssertThrows([_testChessBoard moveCellStateFromRow:0 andColumn:4 toRow:22 andColumn:5], @"An excetion should have been rised when trying to move cell state");
+}// end of testMovingCellState_withInVaildCoordsForBothOriginDest_shouldReturnDestCoords()
+
 @end

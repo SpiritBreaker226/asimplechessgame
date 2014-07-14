@@ -70,6 +70,14 @@ NSInteger _currentBoardBeingPlayed[8][8];
 	return _currentBoardBeingPlayed[row][column];
 }// end of getCurrentStateAtRowandColumn()
 
+-(void) moveCellStateFromRow:(NSInteger)fromRow andColumn:(NSInteger)fromColumn toRow:(NSInteger)toRow andColumn:(NSInteger)toColumn {
+	
+	// sets the cell of the destion cell with the origin cell state
+	// then removes the origin cell state to be empty in order to move it
+	[self setCellState:[self getCurrentStateAtRow:fromRow andColumn:fromColumn] OnRow:toRow andColumn:toColumn];
+	[self setCellState:cellIsEmpty OnRow:fromRow andColumn:fromColumn];
+}// end of movreCellStateFromRowAndColumnToRowAndColumn()
+
 -(void) setCellState:(currentState)newState OnRow:(NSInteger)row andColumn:(NSInteger)column {
 	[self checkArrayBoundsForRow:row andColumn:column];
 	

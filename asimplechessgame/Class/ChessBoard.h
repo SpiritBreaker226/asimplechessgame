@@ -51,6 +51,9 @@ typedef NS_ENUM(NSInteger, currentState) {
 // gets the current state on column and row
 - (currentState) getCurrentStateAtRow:(NSInteger)row andColumn:(NSInteger)column;
 
+// moves the cell state from one cell to another
+-(void) moveCellStateFromRow:(NSInteger)fromRow andColumn:(NSInteger)fromColumn toRow:(NSInteger)toRow andColumn:(NSInteger)toColumn;
+
 // sets cell state to whatever new state on column and row
 -(void) setCellState:(currentState)newState OnRow:(NSInteger)row andColumn:(NSInteger)column;
 	 
