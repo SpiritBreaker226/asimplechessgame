@@ -36,6 +36,7 @@ typedef NS_ENUM(NSInteger, currentTurn) {
  
 */
 
--(void) setToInitialState;
+// sets the game state to memory which incdules loading in the board into memory with the starting postions of the peices
+-(void) setInitialGameState;
 
 @end

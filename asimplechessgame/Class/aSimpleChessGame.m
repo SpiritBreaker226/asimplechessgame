@@ -10,15 +10,27 @@
 
 @implementation aSimpleChessGame
 
+/*
+ 
+ Init
+ 
+*/
+
 -(instancetype) init {
 	if (self = [super init]) {
-		[self setToInitialState];
+		[self setInitialGameState];
 	}// end of if
 	
 	return self;
 }// end of init
 
--(void) setToInitialState {
+/*
+ 
+ Public Methods
+ 
+*/
+
+-(void) setInitialGameState {
 	// clears the board from memory
 	[super clearBoard];
 	
@@ -94,6 +106,13 @@
 	_whiteKnightOut = 0;
 	_whiteBishopOut = 0;
 	_whiteQueenOut = 0;
-}// end of setToInitialState()
+}// end of setInitialGameState()
+
+/*
+ 
+ Private Methods
+ 
+*/
+
 
 @end
