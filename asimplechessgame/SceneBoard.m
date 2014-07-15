@@ -7,11 +7,9 @@
 //
 
 #import "SceneBoard.h"
-#import "Class/aSimpleChessGame.h"
 #import "ChessPiece.h"
 
 @interface SceneBoard()
-	@property (nonatomic) aSimpleChessGame* boardInMemory;
 @end
 
 @implementation SceneBoard
@@ -147,10 +145,6 @@ static const uint32_t categoryQueen			= 0x1 << 8;
 		
 		// sets the physic contact to look for the two events from Delegate SKPhysicsContactDelegate in this Game Scene
 		self.physicsWorld.contactDelegate = self;
-
-		// creates the board in memory in order to keep track of where all of the pieces are on the board as well as allow for
-		// sinmilions done for AI and other checks if the Chess peice King is going to die
-		_boardInMemory = [[aSimpleChessGame alloc] init];
 		
 		[self addChessBoardToDisplayForSize:size];
     }// end of if

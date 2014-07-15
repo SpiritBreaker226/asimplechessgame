@@ -21,7 +21,7 @@
 	_currentGameState = [[aSimpleChessGame alloc] init];
 	
 	// sets the initial sets of the game
-	[_currentGameState setToInitialState];
+	[_currentGameState setInitialGameState];
 }// end of setUp()
 
 - (void)tearDown {

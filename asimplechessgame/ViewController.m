@@ -9,10 +9,13 @@
 #import "ViewController.h"
 #import "SceneBoard.h"
 
-@implementation ViewController
+#import "Class/aSimpleChessGame.h"
 
-- (void)viewDidLoad
-{
+@implementation ViewController {
+	aSimpleChessGame* boardInMemory;
+}// end of imlementation
+
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     // Configure the view.
@@ -26,31 +29,31 @@
     
     // Present the scene.
     [skView presentScene:scene];
-}
+	
+	// creates the board in memory in order to keep track of where all of the pieces are on the board as well as allow for
+	// sinmilions done for AI and other checks if the Chess peice King is going to die
+	boardInMemory = [[aSimpleChessGame alloc] init];
+}// end of viewDidLoad()
 
 // turns off the status bar in code
 -(BOOL)prefersStatusBarHidden {
 	return YES;
 }//end of prefersStatusBarHidden()
 
-- (BOOL)shouldAutorotate
-{
+- (BOOL)shouldAutorotate {
     return YES;
-}
+}// end of shouldAutorotate()
 
-- (NSUInteger)supportedInterfaceOrientations
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+- (NSUInteger)supportedInterfaceOrientations {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
         return UIInterfaceOrientationMaskAllButUpsideDown;
-    } else {
+	else
         return UIInterfaceOrientationMaskAll;
-    }
-}
+}// end of supportedInterfaceOrientations()
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
-}
+}// end of didReceiveMemoryWarning()
 
 @end
