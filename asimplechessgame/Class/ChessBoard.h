@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+static const NSInteger NumOfRows = 8;
+static const NSInteger NumOfCols = 8;
+
 @interface ChessBoard : NSObject
 
 /*
 	
- Public Properties
+ Properties
  
 */
 

@@ -15,9 +15,9 @@
  Private Properties
 
 */
-	
-NSInteger _currentBoardBeingPlayed[8][8];
-	
+
+NSInteger _currentBoardBeingPlayed[NumOfRows][NumOfCols];
+
 }// end of implatentation
 
 /*
@@ -42,7 +42,7 @@ NSInteger _currentBoardBeingPlayed[8][8];
 -(void) clearBoard {
 	// clears currentBoardBeingPlayed by setting each buty of the block of memory
 	// occupied by currentBoardBeingPlayed to zero
-	memset(_currentBoardBeingPlayed, 0, sizeof(NSUInteger) * 8 * 8);
+	memset(_currentBoardBeingPlayed, 0, sizeof(NSUInteger) * NumOfRows * NumOfCols);
 }// end of clearBoard()
 
 -(NSMutableArray*) findAllCellState:(currentState)findThisCellState {
@@ -92,7 +92,7 @@ NSInteger _currentBoardBeingPlayed[8][8];
 
 -(void)checkArrayBoundsForRow:(NSInteger)row andColumn:(NSInteger)column {
 	// checks if row and column are in the range of _currentBoardBeingPlayed
-	if(column < 0 || column > 7 || row < 0 || row > 7)
+	if(column < 0 || column > (NumOfCols - 1) || row < 0 || row > (NumOfRows - 1))
 		[NSException raise:NSRangeException format:@"cell out of bounds"];
 }// end of checkArryBonundsForRowandColumn
 
