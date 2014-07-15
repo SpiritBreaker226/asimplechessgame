@@ -6,20 +6,35 @@
 //  Copyright (c) 2014 Jason Stathopulos. All rights reserved.
 //
 
-#import <SpriteKit/SpriteKit.h>
+#import <Foundation/Foundation.h>
+@import SpriteKit;
 
-@interface ChessPiece : SKNode
+const static NSInteger numberOfChessPieceTypes = 12;
+
+@interface ChessPiece : NSObject
+
 /*
  
  Properties
  
- the cells are need in order to know where the peices are on the baord in memory and which will make finding the peice on the board quicker
 */
 
-typedef struct {
-	NSInteger cellRow;
-	NSInteger cellCol;
-} cellLocationOnBoard;
+@property (assign, nonatomic) NSInteger cellRow;
+@property (assign, nonatomic) NSInteger cellCol;
+@property (assign, nonatomic) NSUInteger chessPieceType;
+@property (nonatomic) SKSpriteNode *spriteForThisPiece;
+
+/*
+ 
+ init
+ 
+*/
+
+// 2nd init - sets the row, column and chessPieceType is nil
+-(instancetype)initWithRow:(NSInteger)row andColumn:(NSInteger)column;
+
+// 3rd init - sets the row, column and chessPieceType
+-(instancetype)initWithRow:(NSInteger)row Column:(NSInteger)column andChessPieceType:(NSUInteger)type;
 
 /*
  
@@ -27,8 +42,8 @@ typedef struct {
  
 */
 
-// gets the coodend using for thsi chess peice
--(cellLocationOnBoard)getLocationOnChessBoard;
+// get name of the image that this chess piece is using
+-(NSString*) getSpriteImageName;
 
 // updates this Chess Peice location on the memory chess board
 -(void)updateCellRow:(NSInteger)row andCellColumn:(NSInteger)column;

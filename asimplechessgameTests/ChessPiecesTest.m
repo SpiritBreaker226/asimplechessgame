@@ -18,30 +18,14 @@
 - (void)setUp {
     [super setUp];
 	
-	_testChessPiece = [ChessPiece node];
+	_testChessPiece = [[ChessPiece alloc] init];
 }// end of setUp()
 
 - (void)tearDown {
     [super tearDown];
 	
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+	_testChessPiece = nil;
 }// end of tearDown()
-
-- (void)testCellLocation_withValidCoords_shouldBeATThoseCoords {
-	[_testChessPiece updateCellRow:4 andCellColumn:3];
-	
-	cellLocationOnBoard testingCellLocation;
-	cellLocationOnBoard testObjectCellLocation = [_testChessPiece getLocationOnChessBoard];
-	
-	// set dump data
-	testingCellLocation.cellRow = 4;
-	testingCellLocation.cellCol = 3;
-
-	// checks if the testdata and the object data are the same
-	if (testingCellLocation.cellRow == testObjectCellLocation.cellRow && testingCellLocation.cellCol == testObjectCellLocation.cellCol)
-		XCTAssert(@"Find Location of Test Chess Piece");
-	else
-		XCTFail(@"Unable To Find Location of Test Chess Piece");
-}// end of testCellLocation_withValidCoords_shouldBeATThoseCoords()
 
 @end
