@@ -7,37 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ChessPiece.h"
 
 static const NSInteger NumOfRows = 8;
 static const NSInteger NumOfCols = 8;
 
 @interface ChessBoard : NSObject
-
-/*
-	
- Properties
- 
-*/
-
-typedef NS_ENUM(NSInteger, currentState) {
-	cellIsEmpty = 0,
-	cellChessPieceCanMoveHereBlack = 1,
-	cellChessPieceCanMoveHereWhite = 2,
-	cellChessPieceCannotMoveHereBlack = 3,
-	cellChessPieceCannotMoveHereWhite = 4,
-	cellHasChessPieceBlackPawn = 5,
-	cellHasChessPieceBlackBishop = 6,
-	cellHasChessPieceBlackKnight = 7,
-	cellHasChessPieceBlackRook = 8,
-	cellHasChessPieceBlackQueen = 9,
-	cellHasChessPieceBlackKing = 10,
-	cellHasChessPieceWhitePawn = 11,
-	cellHasChessPieceWhiteBishop = 12,
-	cellHasChessPieceWhiteKnight = 13,
-	cellHasChessPieceWhiteRook = 14,
-	cellHasChessPieceWhiteQueen = 15,
-	cellHasChessPieceWhiteKing = 16
-};// end of trype of def
 
 /*
  
@@ -49,15 +24,18 @@ typedef NS_ENUM(NSInteger, currentState) {
 - (void) clearBoard;
 
 // finds all types of a cell state on board
-- (NSMutableArray*) findAllCellState:(currentState)findThisCellState;
+- (NSMutableArray*) findAllCellState:(NSUInteger)findThisCellState;
 
 // gets the current state on column and row
-- (currentState) getCurrentStateAtRow:(NSInteger)row andColumn:(NSInteger)column;
+- (ChessPiece*) getCurrentStateAtRow:(NSInteger)row andColumn:(NSInteger)column;
+
+// sets the initial state of the board
+-(void) initChessBoardState;
 
 // moves the cell state from one cell to another
 -(void) moveCellStateFromRow:(NSInteger)fromRow andColumn:(NSInteger)fromColumn toRow:(NSInteger)toRow andColumn:(NSInteger)toColumn;
 
-// sets cell state to whatever new state on column and row
--(void) setCellState:(currentState)newState OnRow:(NSInteger)row andColumn:(NSInteger)column;
+// updates a cell state to whatever new state on column and row
+-(void) setCellState:(NSUInteger)newChessPeiceType OnRow:(NSInteger)row andColumn:(NSInteger)column;
 	 
 @end

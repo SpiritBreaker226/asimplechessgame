@@ -49,17 +49,17 @@
 -(NSString*)getSpriteImageName {
 	NSString* imageNameOfSprite[] = {
 		@"BlackPawn",
-		@"BlackBishop",
-		@"BlackKnight",
 		@"BlackRook",
-		@"BlackQueen",
+		@"BlackKnight",
+		@"BlackBishop",
 		@"BlackKing",
+		@"BlackQueen",
 		@"WhitePawn",
-		@"WhiteBishop",
-		@"WhiteKnight",
 		@"WhiteRook",
-		@"WhiteQueen",
+		@"WhiteKnight",
+		@"WhiteBishop",
 		@"WhiteKing",
+		@"WhiteQueen",
 	};
 	
 	// because zero is empty in chessPieceType getting the image name needs to be subtract one

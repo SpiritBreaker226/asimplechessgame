@@ -16,7 +16,7 @@
 
 */
 
-NSInteger _currentBoardBeingPlayed[NumOfRows][NumOfCols];
+ChessPiece* _currentBoardBeingPlayed[NumOfRows][NumOfCols];
 
 }// end of implatentation
 
@@ -43,9 +43,12 @@ NSInteger _currentBoardBeingPlayed[NumOfRows][NumOfCols];
 	// clears currentBoardBeingPlayed by setting each buty of the block of memory
 	// occupied by currentBoardBeingPlayed to zero
 	memset(_currentBoardBeingPlayed, 0, sizeof(NSUInteger) * NumOfRows * NumOfCols);
+	
+	// reapplys the starting postion of all of the chess pieces
+	[self initChessBoardState];
 }// end of clearBoard()
 
--(NSMutableArray*) findAllCellState:(currentState)findThisCellState {
+-(NSMutableArray*) findAllCellState:(NSUInteger)findThisCellState {
 	NSMutableArray* foundCellState = [[NSMutableArray alloc] init];
 	
 	// goes around for each of the row on the board
@@ -53,7 +56,7 @@ NSInteger _currentBoardBeingPlayed[NumOfRows][NumOfCols];
 		// goes around for each of the column
 		for (int indexCol = 0 ; indexCol < 8; indexCol++) {
 			// checks this cell is one of the cells the suer is looking for
-			if (findThisCellState == _currentBoardBeingPlayed[indexRow][indexCol]) {
+			if (findThisCellState == [_currentBoardBeingPlayed[indexRow][indexCol] chessPieceType]) {
 				
 				// adds to foundCellState with an array which will have the row and column of where the state is found
 				[foundCellState addObject:[[NSArray alloc] initWithObjects:[NSNumber numberWithInt:indexRow], [NSNumber numberWithInt:indexCol], nil]];
@@ -64,24 +67,89 @@ NSInteger _currentBoardBeingPlayed[NumOfRows][NumOfCols];
 	return foundCellState;
 }// end of findAllCellState()
 
--(currentState) getCurrentStateAtRow:(NSInteger)row andColumn:(NSInteger)column {
+-(ChessPiece*) getCurrentStateAtRow:(NSInteger)row andColumn:(NSInteger)column {
 	[self checkArrayBoundsForRow:row andColumn:column];
 	
 	return _currentBoardBeingPlayed[row][column];
 }// end of getCurrentStateAtRowandColumn()
 
+-(void) initChessBoardState {
+	// goes around for each of the row on the board
+	for (int indexRow = 0; indexRow < 8; indexRow++) {
+		// goes around for each of the column
+		for (int indexCol = 0 ; indexCol < 8; indexCol++) {
+			// checks if it is the first two row and last two rows
+			if(indexRow < 2 || indexRow > 5) {
+				// checks if the is 1 or 6 as those rows are where the pawns will go
+				if(indexRow == 1) {
+					[self setCellState:1 OnRow:indexRow andColumn:indexCol];
+				}// end of if
+				else if(indexRow == 6) {
+					[self setCellState:7 OnRow:indexRow andColumn:indexCol];
+				}// end of else if
+				else if(indexRow == 0) {
+					// checks which white chess peices this column will have to display them
+					switch (indexCol) {
+						case 0:
+						case 7:
+							[self setCellState:2 OnRow:indexRow andColumn:indexCol];
+							break;
+						case 1:
+						case 6:
+							[self setCellState:3 OnRow:indexRow andColumn:indexCol];
+							break;
+						case 2:
+						case 5:
+							[self setCellState:4 OnRow:indexRow andColumn:indexCol];
+							break;
+						case 3:
+							[self setCellState:5 OnRow:indexRow andColumn:indexCol];
+							break;
+						case 4:
+							[self setCellState:6 OnRow:indexRow andColumn:indexCol];
+							break;
+					}// end of switch
+				}// end of else if
+				else {
+					// checks which white chess peices this column will have to display them
+					switch (indexCol) {
+						case 0:
+						case 7:
+							[self setCellState:8 OnRow:indexRow andColumn:indexCol];
+							break;
+						case 1:
+						case 6:
+							[self setCellState:9 OnRow:indexRow andColumn:indexCol];
+							break;
+						case 2:
+						case 5:
+							[self setCellState:10 OnRow:indexRow andColumn:indexCol];
+							break;
+						case 3:
+							[self setCellState:11 OnRow:indexRow andColumn:indexCol];
+							break;
+						case 4:
+							[self setCellState:12 OnRow:indexRow andColumn:indexCol];
+							break;
+					}// end of switch
+				}// end of else
+			}// end of if
+		}// end of column for loop
+	}// end of row for loop
+}// end of initChessBoardState()
+
 -(void) moveCellStateFromRow:(NSInteger)fromRow andColumn:(NSInteger)fromColumn toRow:(NSInteger)toRow andColumn:(NSInteger)toColumn {
 	
 	// sets the cell of the destion cell with the origin cell state
 	// then removes the origin cell state to be empty in order to move it
-	[self setCellState:[self getCurrentStateAtRow:fromRow andColumn:fromColumn] OnRow:toRow andColumn:toColumn];
-	[self setCellState:cellIsEmpty OnRow:fromRow andColumn:fromColumn];
+	[self setCellState:[[self getCurrentStateAtRow:fromRow andColumn:fromColumn] chessPieceType] OnRow:toRow andColumn:toColumn];
+	[self setCellState:0 OnRow:fromRow andColumn:fromColumn];
 }// end of movreCellStateFromRowAndColumnToRowAndColumn()
 
--(void) setCellState:(currentState)newState OnRow:(NSInteger)row andColumn:(NSInteger)column {
+-(void) setCellState:(NSUInteger)newChessPeiceType OnRow:(NSInteger)row andColumn:(NSInteger)column {
 	[self checkArrayBoundsForRow:row andColumn:column];
 	
-	_currentBoardBeingPlayed[row][column] = newState;
+	_currentBoardBeingPlayed[row][column] = [[ChessPiece alloc] initWithRow:row Column:column andChessPieceType:newChessPeiceType];
 }// end of setCellStateOnRowandColumn()
 
 /*
@@ -90,10 +158,22 @@ NSInteger _currentBoardBeingPlayed[NumOfRows][NumOfCols];
  
 */
 
+// checks if the row or column are outside the arraoy
 -(void)checkArrayBoundsForRow:(NSInteger)row andColumn:(NSInteger)column {
 	// checks if row and column are in the range of _currentBoardBeingPlayed
 	if(column < 0 || column > (NumOfCols - 1) || row < 0 || row > (NumOfRows - 1))
 		[NSException raise:NSRangeException format:@"cell out of bounds"];
 }// end of checkArryBonundsForRowandColumn
+
+// creates a new Chess Piece
+-(ChessPiece*) createCellState:(NSUInteger)newChessPeiceType OnRow:(NSInteger)row andColumn:(NSInteger)column {
+	[self checkArrayBoundsForRow:row andColumn:column];
+	
+	// creates a new version of the chess piece and adds it to the board in memory
+	ChessPiece* newChessPiece = [[ChessPiece alloc] initWithRow:row Column:column andChessPieceType:newChessPeiceType];
+	_currentBoardBeingPlayed[row][column] = newChessPiece;
+	
+	return newChessPiece;
+}// end of setCellStateOnRowandColumn()
 
 @end
