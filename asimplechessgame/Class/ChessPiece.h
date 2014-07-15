@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @import SpriteKit;
 
-const static NSInteger numberOfChessPieceTypes = 12;
+const static NSInteger numberOfChessPieceTypes = 13;
 
 @interface ChessPiece : NSObject
 
