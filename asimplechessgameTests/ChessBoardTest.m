@@ -20,6 +20,9 @@
 	
     // Put setup code here. This method is called before the invocation of each test method in the class.
 	_testChessBoard = [[ChessBoard alloc] init];
+	
+	// clears and applys the starting baord
+	[_testChessBoard clearBoard];
 }// end of setUp()
 
 - (void)tearDown {
@@ -79,6 +82,10 @@
 	XCTAssertEqual(5, [[_testChessBoard getCurrentStateAtRow:0 andColumn:3] chessPieceType], @"There is a king chess peice on chess board at Row: %i, Column: %i", 0, 3);
 	XCTAssertEqual(11, [[_testChessBoard getCurrentStateAtRow:7 andColumn:3] chessPieceType], @"There is a king chess peice on chess board at Row: %i, Column: %i", 7, 3);
 }// end of testInitialState_shouldTwoChessPeiceKingsBeAtTheFirstAndLastRow()
+
+- (void)testInitialState_clearBoard_shouldHaveCountOf32ChessPiecess {
+	XCTAssertEqual(32, [[_testChessBoard clearBoard] count], @"There are 32 chess peices at the start of the game");
+}//end of testInitialState_clearBoard_shouldHaveCountOf32ChessPiecess()
 
 - (void)testSetCellState_withValidCoords_cellStateShouldChange {
 	XCTAssertNil([_testChessBoard getCurrentStateAtRow:3 andColumn:6], @"This cell Chess Pirce should be empty");

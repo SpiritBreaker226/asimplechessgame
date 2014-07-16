@@ -31,9 +31,6 @@
 */
 
 -(void) setInitialGameState {
-	// clears the board from memory
-	[super clearBoard];
-	
 	// sets the defaults for all of the proeprties
 	_blackPawnsOut = 0;
 	_blackKnightOut = 0;
