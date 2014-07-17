@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ChessPiece.h"
+#import "ChessCell.h"
 
 static const NSInteger NumOfRows = 8;
 static const NSInteger NumOfCols = 8;
@@ -20,8 +21,11 @@ static const NSInteger NumOfCols = 8;
 
 */
 
-// resets all chess cells to empty
+// resets all chess board in memory to empty and re loads the peices into it
 - (NSMutableArray*) clearBoard;
+
+// creates each of the cells that will be used to  the all of the cells
+-(NSMutableArray*) createCellsOnBoard;
 
 // finds all types of a cell state on board
 - (NSMutableArray*) findAllCellState:(NSUInteger)findThisCellState;
