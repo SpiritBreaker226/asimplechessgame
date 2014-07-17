@@ -37,7 +37,7 @@
 	for (int indexRow = 2; indexRow < 6; indexRow++) {
 		// goes around for each of the column
 		for (int indexCol = 0 ; indexCol < 8; indexCol++) {
-			XCTAssertNil([_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol], @"There Row: %i, Column: %i is empty on chess board", indexRow, indexCol);
+			XCTAssertEqual(0, [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType], @"There Row: %i, Column: %i is empty on chess board", indexRow, indexCol);
 		}// end of column for loop
 	}// end of row for loop
 }// end of testInitialState_shouldBeEmptyInMiddleOfBoard()
@@ -92,7 +92,7 @@
 }//end of testInitialState_createCellsOnBoard_shouldHaveCountOf64ChessCells()
 
 - (void)testSetCellState_withValidCoords_cellStateShouldChange {
-	XCTAssertNil([_testChessBoard getCurrentStateAtRow:3 andColumn:6], @"This cell Chess Pirce should be empty");
+	XCTAssertEqual(0, [[_testChessBoard getCurrentStateAtRow:3 andColumn:6] chessPieceType], @"This cell Chess Pirce should be empty");
 	
 	// sets the state of a cell to White Bishop on the chess board to test
 	[_testChessBoard setCellState:10 OnRow:3 andColumn:6];

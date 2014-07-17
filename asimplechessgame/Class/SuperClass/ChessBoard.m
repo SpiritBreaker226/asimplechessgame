@@ -95,6 +95,10 @@ ChessPiece* _currentBoardBeingPlayed[NumOfRows][NumOfCols];
 					}// end of switch
 				}// end of else
 			}// end of if
+			else
+				// sets empty chess pieces if there is no peices type at the start in order to make
+				// the code a little simplier later one
+				[self createCellState:0 OnRow:indexRow andColumn:indexCol];
 		}// end of column for loop
 	}// end of row for loop
 
