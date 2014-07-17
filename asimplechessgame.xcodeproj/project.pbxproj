@@ -26,11 +26,13 @@
 		963061CD1960C81100C3CD0C /* Apptimize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963061CC1960C81100C3CD0C /* Apptimize.framework */; };
 		963061CF1960C83D00C3CD0C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963061CE1960C83D00C3CD0C /* Security.framework */; };
 		963061D11960C84F00C3CD0C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963061D01960C84F00C3CD0C /* CFNetwork.framework */; };
+		96B5D1061978484800DE97AE /* ChessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B5D1051978484800DE97AE /* ChessCell.m */; };
+		96B5D10C19784CD500DE97AE /* ChessBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B5D10919784CD500DE97AE /* ChessBoard.m */; };
+		96B5D10D19784CD500DE97AE /* ChessBoardParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B5D10B19784CD500DE97AE /* ChessBoardParts.m */; };
 		96C1BBFE1969E64200AF40A8 /* chess.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 96C1BBFD1969E64200AF40A8 /* chess.atlas */; };
 		96CB22B4196D9BA500FC773D /* PokemonGB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96CB22B3196D9BA500FC773D /* PokemonGB.ttf */; };
 		96CB22B9196DC3F800FC773D /* ChessPiecesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CB22B8196DC3F800FC773D /* ChessPiecesTest.m */; };
 		96CB22BC196DC55A00FC773D /* ChessPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CB22BB196DC55A00FC773D /* ChessPiece.m */; };
-		96CB22C0196EFACD00FC773D /* ChessBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CB22BF196EFACD00FC773D /* ChessBoard.m */; };
 		96CB22C4196F20ED00FC773D /* ChessBoardTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CB22C3196F20ED00FC773D /* ChessBoardTest.m */; };
 		96CB22C7196F22EF00FC773D /* aSimpleChessGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CB22C6196F22EF00FC773D /* aSimpleChessGame.m */; };
 /* End PBXBuildFile section */
@@ -71,13 +73,17 @@
 		963061CC1960C81100C3CD0C /* Apptimize.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Apptimize.framework; sourceTree = "<group>"; };
 		963061CE1960C83D00C3CD0C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		963061D01960C84F00C3CD0C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		96B5D1041978484800DE97AE /* ChessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChessCell.h; path = asimplechessgame/Class/ChessCell.h; sourceTree = "<group>"; };
+		96B5D1051978484800DE97AE /* ChessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChessCell.m; path = asimplechessgame/Class/ChessCell.m; sourceTree = "<group>"; };
+		96B5D10819784CD500DE97AE /* ChessBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChessBoard.h; path = asimplechessgame/Class/SuperClass/ChessBoard.h; sourceTree = "<group>"; };
+		96B5D10919784CD500DE97AE /* ChessBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChessBoard.m; path = asimplechessgame/Class/SuperClass/ChessBoard.m; sourceTree = "<group>"; };
+		96B5D10A19784CD500DE97AE /* ChessBoardParts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChessBoardParts.h; path = asimplechessgame/Class/SuperClass/ChessBoardParts.h; sourceTree = "<group>"; };
+		96B5D10B19784CD500DE97AE /* ChessBoardParts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChessBoardParts.m; path = asimplechessgame/Class/SuperClass/ChessBoardParts.m; sourceTree = "<group>"; };
 		96C1BBFD1969E64200AF40A8 /* chess.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = chess.atlas; sourceTree = "<group>"; };
 		96CB22B3196D9BA500FC773D /* PokemonGB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PokemonGB.ttf; sourceTree = "<group>"; };
 		96CB22B8196DC3F800FC773D /* ChessPiecesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessPiecesTest.m; sourceTree = "<group>"; };
 		96CB22BA196DC55A00FC773D /* ChessPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChessPiece.h; path = asimplechessgame/Class/ChessPiece.h; sourceTree = "<group>"; };
 		96CB22BB196DC55A00FC773D /* ChessPiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChessPiece.m; path = asimplechessgame/Class/ChessPiece.m; sourceTree = "<group>"; };
-		96CB22BE196EFACD00FC773D /* ChessBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChessBoard.h; path = asimplechessgame/Class/ChessBoard.h; sourceTree = "<group>"; };
-		96CB22BF196EFACD00FC773D /* ChessBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChessBoard.m; path = asimplechessgame/Class/ChessBoard.m; sourceTree = "<group>"; };
 		96CB22C3196F20ED00FC773D /* ChessBoardTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessBoardTest.m; sourceTree = "<group>"; };
 		96CB22C5196F22EF00FC773D /* aSimpleChessGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = aSimpleChessGame.h; path = asimplechessgame/Class/aSimpleChessGame.h; sourceTree = "<group>"; };
 		96CB22C6196F22EF00FC773D /* aSimpleChessGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = aSimpleChessGame.m; path = asimplechessgame/Class/aSimpleChessGame.m; sourceTree = "<group>"; };
@@ -194,6 +200,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		96B5D10719784A0800DE97AE /* SuperClass */ = {
+			isa = PBXGroup;
+			children = (
+				96B5D10819784CD500DE97AE /* ChessBoard.h */,
+				96B5D10919784CD500DE97AE /* ChessBoard.m */,
+				96B5D10A19784CD500DE97AE /* ChessBoardParts.h */,
+				96B5D10B19784CD500DE97AE /* ChessBoardParts.m */,
+			);
+			name = SuperClass;
+			sourceTree = "<group>";
+		};
 		96C1BBF619699C8D00AF40A8 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,10 +225,11 @@
 			children = (
 				96CB22C5196F22EF00FC773D /* aSimpleChessGame.h */,
 				96CB22C6196F22EF00FC773D /* aSimpleChessGame.m */,
-				96CB22BE196EFACD00FC773D /* ChessBoard.h */,
-				96CB22BF196EFACD00FC773D /* ChessBoard.m */,
+				96B5D1041978484800DE97AE /* ChessCell.h */,
+				96B5D1051978484800DE97AE /* ChessCell.m */,
 				96CB22BA196DC55A00FC773D /* ChessPiece.h */,
 				96CB22BB196DC55A00FC773D /* ChessPiece.m */,
+				96B5D10719784A0800DE97AE /* SuperClass */,
 			);
 			name = CustomClasses;
 			sourceTree = "<group>";
@@ -316,10 +334,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				96CB22C7196F22EF00FC773D /* aSimpleChessGame.m in Sources */,
-				96CB22C0196EFACD00FC773D /* ChessBoard.m in Sources */,
+				96B5D10C19784CD500DE97AE /* ChessBoard.m in Sources */,
 				9612DAC51936D32700D69357 /* SceneBoard.m in Sources */,
+				96B5D10D19784CD500DE97AE /* ChessBoardParts.m in Sources */,
 				9612DAC21936D32700D69357 /* ViewController.m in Sources */,
 				96CB22BC196DC55A00FC773D /* ChessPiece.m in Sources */,
+				96B5D1061978484800DE97AE /* ChessCell.m in Sources */,
 				9612DABC1936D32700D69357 /* AppDelegate.m in Sources */,
 				9612DAB81936D32700D69357 /* main.m in Sources */,
 			);
