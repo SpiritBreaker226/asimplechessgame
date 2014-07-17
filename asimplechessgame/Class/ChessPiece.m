@@ -16,18 +16,6 @@
 
 */
 
--(instancetype)init {
-	return [self initWithRow:0 andColumn:0];
-}// end of init
-
--(instancetype)initWithRow:(NSInteger)row andColumn:(NSInteger)column {
-	if (self = [super init]) {
-		[self updateCellRow:row andCellColumn:column];
-	}// end of if
-	
-	return self;
-}// end of initWithRowAndColumn()
-
 -(instancetype)initWithRow:(NSInteger)row Column:(NSInteger)column andChessPieceType:(NSUInteger)type {
 	// gets self and updates the row and column
 	self = [self initWithRow:row andColumn:column];
@@ -67,11 +55,6 @@
 	return imageNameOfSprite[self.chessPieceType - 1];
 }// end of getSpriteImageName()
 
--(void)updateCellRow:(NSInteger)row andCellColumn:(NSInteger)column {
-	[self setCellRow:row];
-	[self setCellCol:column];
-}// end of updateCellRowAndCellColumn()
-
 /*
  
  Override Methods
@@ -79,8 +62,7 @@
 */
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"type:%i cell:(%i, %i)", self.chessPieceType,
-			_cellRow, _cellCol];
+	return [NSString stringWithFormat:@"type:%i cell:(%i, %i)", self.chessPieceType, self.cellRow, self.cellCol];
 }// end of description()
 
 @end

@@ -6,23 +6,13 @@
 //  Copyright (c) 2014 Jason Stathopulos. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-@import SpriteKit;
+#import "SuperClass/ChessBoardParts.h"
 
 const static NSInteger numberOfChessPieceTypes = 13;
 
-@interface ChessPiece : NSObject
+@interface ChessPiece : ChessBoardParts
 
-/*
- 
- Properties
- 
-*/
-
-@property (assign, nonatomic) NSInteger cellRow;
-@property (assign, nonatomic) NSInteger cellCol;
 @property (assign, nonatomic) NSUInteger chessPieceType;
-@property (nonatomic) SKSpriteNode *spriteForThisPiece;
 
 /*
  
@@ -30,22 +20,7 @@ const static NSInteger numberOfChessPieceTypes = 13;
  
 */
 
-// 2nd init - sets the row, column and chessPieceType is nil
--(instancetype)initWithRow:(NSInteger)row andColumn:(NSInteger)column;
-
-// 3rd init - sets the row, column and chessPieceType
+// sets the row, column and chessPieceType
 -(instancetype)initWithRow:(NSInteger)row Column:(NSInteger)column andChessPieceType:(NSUInteger)type;
-
-/*
- 
- Public Methods
- 
-*/
-
-// get name of the image that this chess piece is using
--(NSString*) getSpriteImageName;
-
-// updates this Chess Peice location on the memory chess board
--(void)updateCellRow:(NSInteger)row andCellColumn:(NSInteger)column;
 
 @end
