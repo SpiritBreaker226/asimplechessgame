@@ -7,32 +7,64 @@
 //
 
 #import "ViewController.h"
-#import "SceneBoard.h"
 
-#import "Class/aSimpleChessGame.h"
+@interface ViewController()
+/*
+ 
+ Private Properties
+ 
+*/
 
-@implementation ViewController {
-	aSimpleChessGame* boardInMemory;
-}// end of imlementation
+@property (nonatomic) aSimpleChessGame* gameState;
+@property (nonatomic) SceneBoard* sceneOfTheBoard;
+
+@end
+
+@implementation ViewController
+
+/*
+ 
+ Private Methods
+ 
+*/
+
+-(void)startChessGame {
+	// adds the cells to the board
+	[self.sceneOfTheBoard addChessCellsToBoard:[self.gameState createCellsOnBoard]];
+	
+	// clears the memory board and starts the game
+	[self.sceneOfTheBoard addChessPiecesToBoard:[self.gameState clearBoard]];
+}// end of startChessGame
+
+/*
+ 
+ Events
+ 
+*/
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     // Configure the view.
     SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
+	skView.multipleTouchEnabled = NO;
     
     // Create and configure the scene.
-    SKScene * scene = [SceneBoard sceneWithSize:skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
+    self.sceneOfTheBoard = [SceneBoard sceneWithSize:skView.bounds.size];
+    self.sceneOfTheBoard.scaleMode = SKSceneScaleModeAspectFill;
     
-    // Present the scene.
-    [skView presentScene:scene];
-	
 	// creates the board in memory in order to keep track of where all of the pieces are on the board as well as allow for
 	// sinmilions done for AI and other checks if the Chess peice King is going to die
-	boardInMemory = [[aSimpleChessGame alloc] init];
+	self.gameState = [[aSimpleChessGame alloc] init];
+	
+	// loads the game state into the sceneOfTheBoard
+	self.sceneOfTheBoard.gameState = self.gameState;
+	
+    // Present the scene.
+    [skView presentScene:self.sceneOfTheBoard];
+	
+	// loads the game on to the sceen
+	[self startChessGame];
 }// end of viewDidLoad()
 
 // turns off the status bar in code

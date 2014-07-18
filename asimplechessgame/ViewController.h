@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
+#import "SceneBoard.h"
+
+#import "Class/aSimpleChessGame.h"
 
 @interface ViewController : UIViewController
-
 @end
