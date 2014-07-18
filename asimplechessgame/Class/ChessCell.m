@@ -21,7 +21,7 @@
 	self = [self initWithRow:row andColumn:column];
 	
 	// checks if chess piece type is under
-	NSAssert1(type < numberOfChessCellTypes, @"Invalid Chess Cell Type: %i", type);
+	NSAssert1(type < numberOfChessCellTypes, @"Invalid Chess Cell Type: %li", (long)type);
 	
 	[self setChessCellType:type];
 	
@@ -51,6 +51,6 @@
  */
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"Cell Type:%i cell:(%i, %i)", self.chessCellType, self.cellRow, self.cellCol];
+	return [NSString stringWithFormat:@"Cell Type:%li cell:(%li, %li)", (long)self.chessCellType, (long)self.cellRow, (long)self.cellCol];
 }// end of description()
 @end
