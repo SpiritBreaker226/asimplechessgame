@@ -15,6 +15,8 @@ static const CGFloat cellBoardHeight = 40.0;
 	@property (nonatomic) SKNode* gameLayer;
 	@property (nonatomic) SKNode* boardCellLayer;
 	@property (nonatomic) SKNode* boardPeicesLayer;
+	@property (assign, nonatomic) NSInteger originSwipeFromRow;
+	@property (assign, nonatomic) NSInteger originSwipeFromCol;
 @end
 
 // sets the categories for either contact or collion
@@ -73,6 +75,28 @@ static const uint32_t categoryQueen			= 0x1 << 8;*/
  
 */
 
+// converts Tounches into positon of the cell in the sence space
+-(BOOL)convertPoint:(CGPoint)point toRow:(NSInteger*)row andColumn:(NSInteger*)column {
+	NSParameterAssert(row);
+	NSParameterAssert(column);
+	
+	// checks if this in a valid location inside the chess piece board layer
+	if(point.y >= 0 && point.y < (NumOfRows * cellBoardHeight) && point.x >= 0 && point.x < (NumOfCols * cellBoardWidth)){
+		// calculate the corresponding row and column
+		*row = point.y / cellBoardHeight;
+		*column = point.x / cellBoardWidth;
+		
+		return YES;
+	}// end of if
+	else {
+		// sets the touches properties to not found as it is a invalid location
+		*row = NSNotFound;
+		*column = NSNotFound;
+		
+		return NO;
+	}// end of else
+}// end of covertPointToRowAndColumn()
+
 // returns poistion of the cell in the sence space
 - (CGPoint)pointForRow:(NSInteger)row andColumn:(NSInteger)column {
 	return CGPointMake((column * cellBoardWidth) + (cellBoardWidth / 2), (row * cellBoardHeight) + (cellBoardHeight / 2));
@@ -107,12 +131,30 @@ static const uint32_t categoryQueen			= 0x1 << 8;*/
 
 		// sets the physic contact to look for the two events from Delegate SKPhysicsContactDelegate in this Game Scene
 		self.physicsWorld.contactDelegate = self;
+		
+		// sets the touches properties to not found
+		[self setOriginSwipeFromRow:NSNotFound];
+		[self setOriginSwipeFromCol:NSNotFound];
     }// end of if
 	
     return self;
 }// end of initWithSize()
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	NSInteger locationOfTounchOnBoradCellRow;
+	NSInteger locationOfTounchOnBoradCellColumn;
+	
+	// checks if the tounch is on the board
+	if ([self convertPoint:[[touches anyObject] locationInNode:[self boardPeicesLayer]] toRow:&locationOfTounchOnBoradCellRow andColumn:&locationOfTounchOnBoradCellColumn]) {
+		ChessPiece* chessPieceAtTounchLocation = [self.gameState getCurrentStateAtRow:locationOfTounchOnBoradCellRow andColumn:locationOfTounchOnBoradCellColumn];
+		
+		// checks if the touch is a valid location
+		if (chessPieceAtTounchLocation != 0) {
+			// sets the touches properties to the location of the touch on the board
+			[self setOriginSwipeFromRow:locationOfTounchOnBoradCellRow];
+			[self setOriginSwipeFromCol:locationOfTounchOnBoradCellColumn];
+		}// end of if
+	}// end of if
 }// end of touchesBegan()
 
 -(void)update:(CFTimeInterval)currentTime {
