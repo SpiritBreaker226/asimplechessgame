@@ -29,6 +29,8 @@
 		96B5D1061978484800DE97AE /* ChessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B5D1051978484800DE97AE /* ChessCell.m */; };
 		96B5D10C19784CD500DE97AE /* ChessBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B5D10919784CD500DE97AE /* ChessBoard.m */; };
 		96B5D10D19784CD500DE97AE /* ChessBoardParts.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B5D10B19784CD500DE97AE /* ChessBoardParts.m */; };
+		96B5D1121979A1C400DE97AE /* ChessMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B5D1111979A1C400DE97AE /* ChessMoves.m */; };
+		96B5D1141979A21F00DE97AE /* ChessMovesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B5D1131979A21F00DE97AE /* ChessMovesTest.m */; };
 		96C1BBFE1969E64200AF40A8 /* chess.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 96C1BBFD1969E64200AF40A8 /* chess.atlas */; };
 		96CB22B4196D9BA500FC773D /* PokemonGB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96CB22B3196D9BA500FC773D /* PokemonGB.ttf */; };
 		96CB22B9196DC3F800FC773D /* ChessPiecesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CB22B8196DC3F800FC773D /* ChessPiecesTest.m */; };
@@ -79,6 +81,9 @@
 		96B5D10919784CD500DE97AE /* ChessBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChessBoard.m; path = asimplechessgame/Class/SuperClass/ChessBoard.m; sourceTree = "<group>"; };
 		96B5D10A19784CD500DE97AE /* ChessBoardParts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChessBoardParts.h; path = asimplechessgame/Class/SuperClass/ChessBoardParts.h; sourceTree = "<group>"; };
 		96B5D10B19784CD500DE97AE /* ChessBoardParts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChessBoardParts.m; path = asimplechessgame/Class/SuperClass/ChessBoardParts.m; sourceTree = "<group>"; };
+		96B5D1101979A1C400DE97AE /* ChessMoves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChessMoves.h; path = asimplechessgame/Class/ChessMoves.h; sourceTree = "<group>"; };
+		96B5D1111979A1C400DE97AE /* ChessMoves.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChessMoves.m; path = asimplechessgame/Class/ChessMoves.m; sourceTree = "<group>"; };
+		96B5D1131979A21F00DE97AE /* ChessMovesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessMovesTest.m; sourceTree = "<group>"; };
 		96C1BBFD1969E64200AF40A8 /* chess.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = chess.atlas; sourceTree = "<group>"; };
 		96CB22B3196D9BA500FC773D /* PokemonGB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PokemonGB.ttf; sourceTree = "<group>"; };
 		96CB22B8196DC3F800FC773D /* ChessPiecesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessPiecesTest.m; sourceTree = "<group>"; };
@@ -185,6 +190,7 @@
 			children = (
 				9612DADB1936D32700D69357 /* asimplechessgameTests.m */,
 				96CB22C3196F20ED00FC773D /* ChessBoardTest.m */,
+				96B5D1131979A21F00DE97AE /* ChessMovesTest.m */,
 				96CB22B8196DC3F800FC773D /* ChessPiecesTest.m */,
 				9612DAD61936D32700D69357 /* Supporting Files */,
 			);
@@ -227,6 +233,8 @@
 				96CB22C6196F22EF00FC773D /* aSimpleChessGame.m */,
 				96B5D1041978484800DE97AE /* ChessCell.h */,
 				96B5D1051978484800DE97AE /* ChessCell.m */,
+				96B5D1101979A1C400DE97AE /* ChessMoves.h */,
+				96B5D1111979A1C400DE97AE /* ChessMoves.m */,
 				96CB22BA196DC55A00FC773D /* ChessPiece.h */,
 				96CB22BB196DC55A00FC773D /* ChessPiece.m */,
 				96B5D10719784A0800DE97AE /* SuperClass */,
@@ -334,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96CB22C7196F22EF00FC773D /* aSimpleChessGame.m in Sources */,
+				96B5D1121979A1C400DE97AE /* ChessMoves.m in Sources */,
 				96B5D10C19784CD500DE97AE /* ChessBoard.m in Sources */,
 				9612DAC51936D32700D69357 /* SceneBoard.m in Sources */,
 				96B5D10D19784CD500DE97AE /* ChessBoardParts.m in Sources */,
@@ -352,6 +361,7 @@
 				96CB22C4196F20ED00FC773D /* ChessBoardTest.m in Sources */,
 				9612DADC1936D32700D69357 /* asimplechessgameTests.m in Sources */,
 				96CB22B9196DC3F800FC773D /* ChessPiecesTest.m in Sources */,
+				96B5D1141979A21F00DE97AE /* ChessMovesTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
