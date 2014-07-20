@@ -34,6 +34,15 @@
 
 */
 
+-(NSString*)getChessPieceColour {
+	// checks if the chess peices is below 7 meaning it is a black piece
+	if ([self chessPieceType] < 7)
+		return @"Black";
+	else
+		return @"White";
+}// end of getChessPieceColour()
+
+// from Chess Parts
 -(NSString*)getSpriteImageName {
 	NSString* imageNameOfSprite[] = {
 		@"PawnPiece",

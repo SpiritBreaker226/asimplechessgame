@@ -23,4 +23,13 @@ const static NSInteger numberOfChessPieceTypes = 13;
 // sets the row, column and chessPieceType
 -(instancetype)initWithRow:(NSInteger)row Column:(NSInteger)column andChessPieceType:(NSUInteger)type;
 
+/*
+ 
+ Public Methods
+ 
+ gets the name of the colour this peice is a part of
+*/
+
+-(NSString*)getChessPieceColour;
+
 @end
