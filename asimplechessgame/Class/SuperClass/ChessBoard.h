@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#import "ChessMoves.h"
 #import "ChessPiece.h"
 #import "ChessCell.h"
 
@@ -29,6 +31,9 @@ static const NSInteger NumOfCols = 8;
 
 // finds all types of a cell state on board
 - (NSMutableArray*) findAllCellState:(NSUInteger)findThisCellState;
+
+// finds all moves for a chess peice
+- (NSArray*) getAllAllowedMovementForChessPiece:(ChessPiece*)chessPiece;
 
 // gets the current state on column and row
 - (ChessPiece*) getCurrentStateAtRow:(NSInteger)row andColumn:(NSInteger)column;

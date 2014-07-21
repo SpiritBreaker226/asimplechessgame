@@ -8,17 +8,25 @@
 
 #import "ChessBoard.h"
 
+
 @implementation ChessBoard {
+	ChessPiece* _currentBoardBeingPlayed[NumOfRows][NumOfCols];
+	ChessMoves* _findingMovesForChessPiecesOnChessBoard;
+}// end of implatentation
 
 /*
-
- Private Properties
-
+ 
+ Init
+ 
 */
 
-ChessPiece* _currentBoardBeingPlayed[NumOfRows][NumOfCols];
-
-}// end of implatentation
+-(instancetype)init {
+	if (self = [super init]) {
+		_findingMovesForChessPiecesOnChessBoard = [[ChessMoves alloc] init];
+	}// end of if
+	
+	return self;
+}// end of default init
 
 /*
  
@@ -155,6 +163,75 @@ ChessPiece* _currentBoardBeingPlayed[NumOfRows][NumOfCols];
 	return foundCellState;
 }// end of findAllCellState()
 
+-(NSArray *)getAllAllowedMovementForChessPiece:(ChessPiece *)chessPiece {
+	NSMutableArray* foundPostionForThisChessPiece = [[NSMutableArray alloc] init];
+	NSInteger locationOfDestinationRow = [chessPiece cellRow];
+	NSInteger locationOfDestinationCol = [chessPiece cellCol];
+	
+	// checks which type of chess piece it is
+	switch ([chessPiece chessPieceType]) {
+		// Pawn
+		case 1:
+		case 7:
+			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheTopCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:2];
+			
+			[self checkThereIsADestinationRow:locationOfDestinationRow andLocationOfDestinationCol:locationOfDestinationCol forChessPiece:chessPiece toBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
+		break;
+		// Rook
+		case 2:
+		case 8:
+			// gets all of the possible moves for the rook
+			
+			// goes around getting each rook movements
+			for (NSInteger indexSides = 0; indexSides < 4; indexSides++) {
+				// checks which side the loop is one and calls that function to get the moves
+				switch (indexSides) {
+					case 0:
+						[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheTopCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:8];
+					break;
+					case 1:
+						[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheRightCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:8];
+					break;
+					case 2:
+						[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheBottomCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:8];
+					break;
+					case 3:
+						[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheLeftCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:8];
+					break;
+				}// end of switch
+				
+				[self checkThereIsADestinationRow:locationOfDestinationRow andLocationOfDestinationCol:locationOfDestinationCol forChessPiece:chessPiece toBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
+				
+				// reset the row and column for the next side
+				locationOfDestinationRow = [chessPiece cellRow];
+				locationOfDestinationCol = [chessPiece cellCol];
+			}// end of for loop
+		break;
+		// Knight
+		case 3:
+		case 9:
+			
+		break;
+		// Bishop
+		case 4:
+		case 10:
+			
+		break;
+		// King
+		case 5:
+		case 11:
+			
+		break;
+		// Queen
+		case 6:
+		case 12:
+			
+		break;
+	}// end of switch
+	
+	return foundPostionForThisChessPiece;
+}// end of getAllAllowedMovementForChessPiece()
+
 -(ChessPiece*) getCurrentStateAtRow:(NSInteger)row andColumn:(NSInteger)column {
 	[self checkArrayBoundsForRow:row andColumn:column];
 	
@@ -187,6 +264,13 @@ ChessPiece* _currentBoardBeingPlayed[NumOfRows][NumOfCols];
 	if(column < 0 || column > (NumOfCols - 1) || row < 0 || row > (NumOfRows - 1))
 		[NSException raise:NSRangeException format:@"cell out of bounds"];
 }// end of checkArryBonundsForRowandColumn
+
+// checks to make sure that locationOfDestinationRow and locationOfDestinationCol have change
+- (void)checkThereIsADestinationRow:(NSInteger)locationOfDestinationRow andLocationOfDestinationCol:(NSInteger)locationOfDestinationCol forChessPiece:(ChessPiece *)chessPiece toBeAddToFoundPostionForThisChessPiece:(NSMutableArray *)foundPostionForThisChessPiece {
+	if (locationOfDestinationRow != [chessPiece cellRow] || locationOfDestinationCol != [chessPiece cellCol])
+		// adds to the array
+		[foundPostionForThisChessPiece addObject:[[NSArray alloc] initWithObjects:[NSNumber numberWithInt:locationOfDestinationRow], [NSNumber numberWithInt:locationOfDestinationCol], nil]];
+}// end of checkThereIsADestinationRowAndLocationOfDestinationColForChessPieceToBeAddToFoundPostionForThisChessPiece()
 
 // creates a new Chess Piece
 -(ChessPiece*) createCellState:(NSUInteger)newChessPeiceType OnRow:(NSInteger)row andColumn:(NSInteger)column {

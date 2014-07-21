@@ -109,9 +109,9 @@
 - (void)testSearchForCellState_withValidState_shouldFindBothBlackRooks {
 	NSMutableArray* findBlackRooks = [_testChessBoard findAllCellState:2];
 	
+	XCTAssertEqual(2, [findBlackRooks count], @"Found both black rooks by count them");
 	XCTAssertEqual(2, [[_testChessBoard getCurrentStateAtRow:[[[findBlackRooks objectAtIndex:0] objectAtIndex:0] intValue] andColumn:[[[findBlackRooks objectAtIndex:0] objectAtIndex:1] intValue]] chessPieceType], @"Found The First black rooks");
 	XCTAssertEqual(2, [[_testChessBoard getCurrentStateAtRow:[[[findBlackRooks objectAtIndex:1] objectAtIndex:0] intValue] andColumn:[[[findBlackRooks objectAtIndex:0] objectAtIndex:1] intValue]] chessPieceType], @"Found The Secord black rooks");
-	XCTAssertEqual(2, [findBlackRooks count], @"Found both black rooks by count them");
 }// end of testSearchForCellState_withValidState_shouldFindBothRooks()
 
 - (void)testSearchForCellState_withInValidState_shouldFindNoResults {
@@ -142,5 +142,27 @@
 	// it should error out
 	XCTAssertThrows([_testChessBoard moveCellStateFromRow:0 andColumn:4 toRow:22 andColumn:5], @"An excetion should have been rised when trying to move cell state");
 }// end of testMovingCellState_withInVaildCoordsForBothOriginDest_shouldReturnDestCoords()
+
+- (void)testGetAllowMovementForThisBlackPawn_withVaildChessPieceType_shouldGiveOnePointToMoveUp {
+	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[[ChessPiece alloc] initWithRow:1 Column:5 andChessPieceType:1]];
+	
+	// it should return an array of one since it just move one positon up
+	XCTAssertEqual(1, [allPostionsAllowedForThisChessPiece count], @"There should be one move for this chess piece");
+	XCTAssertEqual(3, [[[allPostionsAllowedForThisChessPiece objectAtIndex:0] objectAtIndex:0] intValue], @"The destionasion can go up to row at 3");
+	XCTAssertEqual(5, [[[allPostionsAllowedForThisChessPiece objectAtIndex:0] objectAtIndex:1] intValue], @"The destionasion can go up to column at 4");
+}// end of testGetAllowMovementForThisBlackPawn_withVaildChessPieceType_shouldGiveOnePointToMoveUp()
+
+- (void)testGetAllowMovementForThisBlackRook_withMoveToCenterOfBoard_shouldGiveFourPointsToMove {
+	// moves the black rook to row 4 column 6
+	[_testChessBoard moveCellStateFromRow:0 andColumn:0 toRow:4 andColumn:6];
+	
+	// there should be a black rook at row 4 column 6
+	XCTAssertEqual(2, [[_testChessBoard getCurrentStateAtRow:4 andColumn:6] chessPieceType], @"There is a black rook in the center of the chess board for testing getting alloed movments");
+	
+	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[[ChessPiece alloc] initWithRow:4 Column:6 andChessPieceType:2]];
+	
+	// it should return an array of one since it just move one positon up
+	XCTAssertEqual(4, [allPostionsAllowedForThisChessPiece count], @"There should be four move for the rook");
+}// end of testGetAllowMovementForThisBlackRook_withMoveToCenterOfBoard_shouldGiveFourPointsToMove()
 
 @end
