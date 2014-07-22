@@ -268,8 +268,8 @@
 // checks to make sure that locationOfDestinationRow and locationOfDestinationCol have change
 - (void)checkThereIsADestinationRow:(NSInteger)locationOfDestinationRow andLocationOfDestinationCol:(NSInteger)locationOfDestinationCol forChessPiece:(ChessPiece *)chessPiece toBeAddToFoundPostionForThisChessPiece:(NSMutableArray *)foundPostionForThisChessPiece {
 	if (locationOfDestinationRow != [chessPiece cellRow] || locationOfDestinationCol != [chessPiece cellCol])
-		// adds to the array
-		[foundPostionForThisChessPiece addObject:[[NSArray alloc] initWithObjects:[NSNumber numberWithInt:locationOfDestinationRow], [NSNumber numberWithInt:locationOfDestinationCol], nil]];
+		// adds to the array with a chessPiece object of that cell
+		[foundPostionForThisChessPiece addObject:[self getCurrentStateAtRow:locationOfDestinationRow andColumn:locationOfDestinationCol]];
 }// end of checkThereIsADestinationRowAndLocationOfDestinationColForChessPieceToBeAddToFoundPostionForThisChessPiece()
 
 // creates a new Chess Piece
