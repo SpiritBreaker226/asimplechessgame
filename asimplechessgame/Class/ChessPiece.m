@@ -24,6 +24,7 @@
 	NSAssert1(type < numberOfChessPieceTypes, @"Invalid Chess Piece Type: %li", (long)type);
 	
 	[self setChessPieceType:type];
+	[self setHasThisChessPieceMovedOnce:2];
 	
 	return self;
 }// end of initWithRowColumnAndChessPieceType()
