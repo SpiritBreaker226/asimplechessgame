@@ -172,8 +172,13 @@
 	switch ([chessPiece chessPieceType]) {
 		// Pawn
 		case 1:
+			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheTopCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
+			
+			[self checkThereIsADestinationRow:locationOfDestinationRow andLocationOfDestinationCol:locationOfDestinationCol forChessPiece:chessPiece toBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
+		break;
+		// White Pawn
 		case 7:
-			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheTopCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:2];
+			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheBottomCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
 			
 			[self checkThereIsADestinationRow:locationOfDestinationRow andLocationOfDestinationCol:locationOfDestinationCol forChessPiece:chessPiece toBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
 		break;
