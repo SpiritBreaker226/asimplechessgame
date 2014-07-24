@@ -32,7 +32,7 @@
 		if([self checkForFriendOrFoeOnRowOrColumn:indexRow withOriginRowOrColumn:originRow forCellType:cellType andCellsChessPiece:cellsChessPiece andAddToRow:YES] == YES)
 			break;
 		
-		if([self checksMaxNumberOfRowsColumns:indexRow withOriginRowColumn:originRow andNumberOfMoves:numberOfMoves andNumberOfRowsOrColumns:NumOfRows] == YES)
+		if([self checksMaxNumberOfRowsColumns:indexRow withOriginRowColumn:originRow andThereIsDIffForMaxNumberOfMoves:((*originRow - indexRow) == numberOfMoves)  andNumberOfRowsOrColumns:NumOfRows] == YES)
 			break;
 	}// end of for loop
 }// end of getLocationOfDestinationToTheBottomCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
@@ -49,7 +49,7 @@
 		if([self checkForFriendOrFoeOnRowOrColumn:indexCol withOriginRowOrColumn:originColumn forCellType:cellType andCellsChessPiece:cellsChessPiece andAddToRow:YES] == YES)
 			break;
 		
-		if([self checksMaxNumberOfRowsColumns:indexCol withOriginRowColumn:originColumn andNumberOfMoves:numberOfMoves andNumberOfRowsOrColumns:NumOfCols] == YES)
+		if([self checksMaxNumberOfRowsColumns:indexCol withOriginRowColumn:originColumn  andThereIsDIffForMaxNumberOfMoves:((*originColumn - indexCol) == numberOfMoves)  andNumberOfRowsOrColumns:NumOfCols] == YES)
 			break;
 	}// end of for loop
 }// end of getLocationOfDestinationToTheLeftCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
@@ -66,7 +66,7 @@
 		if([self checkForFriendOrFoeOnRowOrColumn:indexCol withOriginRowOrColumn:originColumn forCellType:cellType andCellsChessPiece:cellsChessPiece andAddToRow:NO] == YES)
 			break;
 		
-		if([self checksMaxNumberOfRowsColumns:indexCol withOriginRowColumn:originColumn andNumberOfMoves:numberOfMoves andNumberOfRowsOrColumns:NumOfCols] == YES)
+		if([self checksMaxNumberOfRowsColumns:indexCol withOriginRowColumn:originColumn andThereIsDIffForMaxNumberOfMoves:((indexCol - *originColumn) == numberOfMoves)  andNumberOfRowsOrColumns:NumOfCols] == YES)
 			break;
 	}// end of for loop
 }// end of getLocationOfDestinationToTheRightCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
@@ -83,7 +83,7 @@
 		if([self checkForFriendOrFoeOnRowOrColumn:indexRow withOriginRowOrColumn:originRow forCellType:cellType andCellsChessPiece:cellsChessPiece andAddToRow:NO] == YES)
 			break;
 		
-		if([self checksMaxNumberOfRowsColumns:indexRow withOriginRowColumn:originRow andNumberOfMoves:numberOfMoves andNumberOfRowsOrColumns:NumOfRows] == YES)
+		if([self checksMaxNumberOfRowsColumns:indexRow withOriginRowColumn:originRow andThereIsDIffForMaxNumberOfMoves:((indexRow - *originRow) == numberOfMoves) andNumberOfRowsOrColumns:NumOfRows] == YES)
 			break;
 	}// end of for loop
 }// end of getLocationOfDestinationToTheTopCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
@@ -129,14 +129,14 @@
 }// end of checkForVaildNumberOfMoves()
 
 // checks if this is last row if so then updates originRow as the chess piece cannot go any further or if the max number of moves have been used up
-- (bool)checksMaxNumberOfRowsColumns:(NSInteger)indexRowColumn withOriginRowColumn:(NSInteger *)origin andNumberOfMoves:(NSInteger)numberOfMoves andNumberOfRowsOrColumns:(NSInteger)maxNumberOfRowsColumns{
-	if (indexRowColumn == (maxNumberOfRowsColumns - 1) || indexRowColumn == 0 || (indexRowColumn - *origin) == numberOfMoves) {
+- (bool)checksMaxNumberOfRowsColumns:(NSInteger)indexRowColumn withOriginRowColumn:(NSInteger *)origin andThereIsDIffForMaxNumberOfMoves:(BOOL)isThereDiffForNumberOfMoves andNumberOfRowsOrColumns:(NSInteger)maxNumberOfRowsColumns{
+	if (indexRowColumn == (maxNumberOfRowsColumns - 1) || indexRowColumn == 0 || isThereDiffForNumberOfMoves == YES) {
 		*origin = indexRowColumn;
 		
 		return YES;
 	}// end of if
 	else
 		return NO;
-}// end of checksMaxNumberOfRowsColumnsWithOriginRowOrColumnsAndNumberOfMoves()
+}// end of checksMaxNumberOfRowsColumnsWithOriginRowOrColumnsAndThereIsDIffForMaxNumberOfMovesAndNumberOfRowsOrColumns()
 
 @end
