@@ -199,6 +199,18 @@
 	XCTAssertEqual(0, [[_testChessBoard getCurrentStateAtRow:locationOfDestinationRow andColumn:locationOfDestinationCol] chessPieceType], @"Chess Moves Check Cells To The Bottom: Location of Destionation On Cell Type is Empty Space");
 }// end of testCheckCellsToTheBottom_withVaildCoordsUntilEndOnVaildBoard_shouldRetunLocationOfEmptySpace()
 
+- (void)testCheckCellsToTheBottom_withVaildChessPieceType_shouldGiveOnePointToMoveUp {
+	NSInteger locationOfDestinationRow = 6;
+	NSInteger locationOfDestinationCol = 4;
+		
+	[_testChessMoves getLocationOfDestinationToTheBottomCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:_testChessBoard forCellType:@"White" withAllowedNumberOfMoves:2];
+	
+	// it should return an array of one since it just move one positon up
+	XCTAssertEqual(4, locationOfDestinationRow, @"Chess Moves Check Cells To The Bottom: The destionasion can go up to row at 4");
+	XCTAssertEqual(4, locationOfDestinationCol, @"Chess Moves Check Cells To The Bottom: The destionasion can go up to column at 4");
+	XCTAssertEqual(0, [[_testChessBoard getCurrentStateAtRow:locationOfDestinationRow andColumn:locationOfDestinationCol] chessPieceType], @"Chess Moves Check Cells To The Bottom: Location of Destionation On Cell Type is Empty");
+}// end of testGetAllowMovementForThisWhitePawn_withVaildChessPieceType_shouldGiveOnePointToMoveUp()
+
 -(void)testCheckCellsToTheBottom_withRemoveBlackKingOnVaildBoard_shouldDestinationRow0ForPawn {
 	NSInteger locationOfDestinationRow = 1;
 	NSInteger locationOfDestinationCol = 3;
