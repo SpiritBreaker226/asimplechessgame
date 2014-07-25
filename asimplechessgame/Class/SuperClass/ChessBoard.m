@@ -8,6 +8,17 @@
 
 #import "ChessBoard.h"
 
+typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
+	chessPieceSideTop = 0,
+	chessPieceSideRight = 1,
+	chessPieceSideBottom = 2,
+	chessPieceSideLeft = 3,
+	chessPieceSideTopRight = 4,
+	chessPieceSideBottomRight = 5,
+	chessPieceSideBottomLeft = 6,
+	chessPieceSideTopLeft = 7,
+	chessPieceSideAll = 8
+};// end of eumn
 
 @implementation ChessBoard {
 	ChessPiece* _currentBoardBeingPlayed[NumOfRows][NumOfCols];
@@ -172,35 +183,19 @@
 	switch ([chessPiece chessPieceType]) {
 		// Black Pawn
 		case 1:
-			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheTopCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
-			
-			[self checkThereIsADestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol forChessPiece:chessPiece toBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
+			[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideTop whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
 			
 			// checks either side of this pawn is a pawn that did the two column just during their last turn
 			if ([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:([chessPiece cellCol] + 1)] hasThisChessPieceMovedOnce] == 0) {
-				// reset the row and column for the next side
-				locationOfDestinationRow = [chessPiece cellRow];
-				locationOfDestinationCol = [chessPiece cellCol];
-				
-				[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheRightCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
-				
-				[self checkThereIsADestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol forChessPiece:chessPiece toBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
+				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideRight whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
 			}// end of if
 			else if ([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:([chessPiece cellCol] - 1)] hasThisChessPieceMovedOnce] == 0) {
-				// reset the row and column for the next side
-				locationOfDestinationRow = [chessPiece cellRow];
-				locationOfDestinationCol = [chessPiece cellCol];
-				
-				[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheLeftCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
-				
-				[self checkThereIsADestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol forChessPiece:chessPiece toBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
+				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideLeft whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
 			}// end of else if
 		break;
 		// White Pawn
 		case 7:
-			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheBottomCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
-			
-			[self checkThereIsADestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol forChessPiece:chessPiece toBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
+			[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideBottom whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
 		break;
 		// Rook
 		case 2:
@@ -209,23 +204,7 @@
 			
 			// goes around getting each rook movements
 			for (NSInteger indexSides = 0; indexSides < 4; indexSides++) {
-				// checks which side the loop is one and calls that function to get the moves
-				switch (indexSides) {
-					case 0:
-						[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheTopCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:8];
-					break;
-					case 1:
-						[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheRightCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:8];
-					break;
-					case 2:
-						[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheBottomCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:8];
-					break;
-					case 3:
-						[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheLeftCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:8];
-					break;
-				}// end of switch
-				
-				[self checkThereIsADestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol forChessPiece:chessPiece toBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
+				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:indexSides whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:8];
 			}// end of for loop
 		break;
 		// Knight
@@ -286,18 +265,6 @@
 		[NSException raise:NSRangeException format:@"cell out of bounds"];
 }// end of checkArryBonundsForRowandColumn
 
-// checks to make sure that locationOfDestinationRow and locationOfDestinationCol have change
-- (void)checkThereIsADestinationRow:(NSInteger*)locationOfDestinationRow andLocationOfDestinationCol:(NSInteger*)locationOfDestinationCol forChessPiece:(ChessPiece *)chessPiece toBeAddToFoundPostionForThisChessPiece:(NSMutableArray *)foundPostionForThisChessPiece {
-	if (*locationOfDestinationRow != [chessPiece cellRow] || *locationOfDestinationCol != [chessPiece cellCol]) {
-		// adds to the array with a chessPiece object of that cell
-		[foundPostionForThisChessPiece addObject:[self getCurrentStateAtRow:*locationOfDestinationRow andColumn:*locationOfDestinationCol]];
-
-		// reset the row and column for the next side
-		*locationOfDestinationRow = [chessPiece cellRow];
-		*locationOfDestinationCol = [chessPiece cellCol];
-	}// end of if
-}// end of checkThereIsADestinationRowAndLocationOfDestinationColForChessPieceToBeAddToFoundPostionForThisChessPiece()
-
 // creates a new Chess Piece
 -(ChessPiece*) createCellState:(NSUInteger)newChessPeiceType OnRow:(NSInteger)row andColumn:(NSInteger)column {
 	[self checkArrayBoundsForRow:row andColumn:column];
@@ -308,5 +275,33 @@
 	
 	return newChessPiece;
 }// end of setCellStateOnRowandColumn()
+
+- (void)findMovesForChessPiece:(ChessPiece *)chessPiece atLocationOfDestinationRow:(NSInteger *)locationOfDestinationRow andLocationOfDestinationCol:(NSInteger *)locationOfDestinationCol onThisSideOfChessPiece:(NSInteger)indexSides whichWillBeAddToFoundPostionForThisChessPiece:(NSMutableArray *)foundPostionForThisChessPiece withAllowedNumberOfMoves:(NSInteger)maxNumberOfMoves {
+	// checks which side to check
+	switch (indexSides) {
+		case 0:
+			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheTopCellOnRow:*(&locationOfDestinationRow) andColumn:*(&locationOfDestinationCol) onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:maxNumberOfMoves];
+			break;
+		case 1:
+			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheRightCellOnRow:*(&locationOfDestinationRow) andColumn:*(&locationOfDestinationCol) onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:maxNumberOfMoves];
+			break;
+		case 2:
+			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheBottomCellOnRow:*(&locationOfDestinationRow) andColumn:*(&locationOfDestinationCol) onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:maxNumberOfMoves];
+			break;
+		case 3:
+			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheLeftCellOnRow:*(&locationOfDestinationRow) andColumn:*(&locationOfDestinationCol) onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:maxNumberOfMoves];
+			break;
+	}// end of switch
+	
+	// checks to make sure that locationOfDestinationRow and locationOfDestinationCol have change
+	if (*locationOfDestinationRow != [chessPiece cellRow] || *locationOfDestinationCol != [chessPiece cellCol]) {
+		// adds to the array with a chessPiece object of that cell
+		[foundPostionForThisChessPiece addObject:[self getCurrentStateAtRow:*locationOfDestinationRow andColumn:*locationOfDestinationCol]];
+		
+		// reset the row and column for the next side
+		*locationOfDestinationRow = [chessPiece cellRow];
+		*locationOfDestinationCol = [chessPiece cellCol];
+	}// end of if
+}// end of findMovesForChessPieceAtLocationOfDestinationRowAndLocationOfDestinationColOnThisSideOfChessPieceWhichWillBeAddToFoundPostionForThisChessPieceWithAllowedNumberOfMoves()
 
 @end
