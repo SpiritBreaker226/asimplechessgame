@@ -144,23 +144,125 @@
 }// end of testMovingCellState_withInVaildCoordsForBothOriginDest_shouldReturnDestCoords()
 
 - (void)testGetAllowMovementForThisBlackPawn_withVaildChessPieceType_shouldGiveOnePointToMoveUp {
-	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[[ChessPiece alloc] initWithRow:1 Column:5 andChessPieceType:1]];
+	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:1 andColumn:5]];
 	
 	// it should return an array of one since it just move one positon up
 	XCTAssertEqual(1, [allPostionsAllowedForThisChessPiece count], @"Chess Board Get Allow Movement For This Black Pawn: There should be one move for this chess piece");
 	XCTAssertEqual(3, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellRow], @"Chess Board Get Allow Movement For This Black Pawn: The destionasion can go up to row at 3");
-	XCTAssertEqual(5, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellCol], @"Chess Board Get Allow Movement For This Black Pawn: The destionasion can go up to column at 4");
+	XCTAssertEqual(5, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellCol], @"Chess Board Get Allow Movement For This Black Pawn: The destionasion can go up to column at 5");
 	XCTAssertEqual(0, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] chessPieceType], @"Chess Board Get Allow Movement For This Black Pawn: Location of Destionation On Cell Type is Empty");
 }// end of testGetAllowMovementForThisBlackPawn_withVaildChessPieceType_shouldGiveOnePointToMoveUp()
+
+- (void)testGetAllowMovementForThisBlackPawnWhenItAlreadyMoved_withVaildChessPieceType_shouldThenMoveOnlyOneMove {
+	[_testChessBoard moveCellStateFromRow:1 andColumn:5 toRow:2 andColumn:5];
+	[[_testChessBoard getCurrentStateAtRow:2 andColumn:5] setHasThisChessPieceMovedOnce:1];
+	
+	XCTAssertEqual(1, [[_testChessBoard getCurrentStateAtRow:2 andColumn:5] chessPieceType], @"Chess Board Get Allow Movement For This Black Pawn: There is a black Pawn who has already moved");
+	
+	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:2 andColumn:5]];
+	
+	// it should return an array of one since it just move one positon up
+	XCTAssertEqual(1, [allPostionsAllowedForThisChessPiece count], @"Chess Board Get Allow Movement For This Black Pawn: There should be one move for this chess piece");
+	XCTAssertEqual(3, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellRow], @"Chess Board Get Allow Movement For This Black Pawn: The destionasion can go up to row at 3");
+	XCTAssertEqual(5, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellCol], @"Chess Board Get Allow Movement For This Black Pawn: The destionasion can go up to column at 5");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] chessPieceType], @"Chess Board Get Allow Movement For This Black Pawn: Location of Destionation On Cell Type is Empty");
+}// end of testGetAllowMovementForThisBlackPawnWhenItAlreadyMoved_withVaildChessPieceType_shouldThenMoveOnlyOneMove()
+
+- (void)testGetAllowMovementForThisWhitePawn_withVaildChessPieceType_shouldGiveOnePointToMoveUp {
+	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:6 andColumn:5]];
+	
+	// it should return an array of one since it just move one positon up
+	XCTAssertEqual(1, [allPostionsAllowedForThisChessPiece count], @"Chess Board Get Allow Movement For This White Pawn: There should be one move for this chess piece");
+	XCTAssertEqual(4, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellRow], @"Chess Board Get Allow Movement For This White Pawn: The destionasion can go up to row at 4");
+	XCTAssertEqual(5, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellCol], @"Chess Board Get Allow Movement For This White Pawn: The destionasion can go up to column at 5");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] chessPieceType], @"Chess Board Get Allow Movement For This White Pawn: Location of Destionation On Cell Type is Empty");
+}// end of testGetAllowMovementForThisWhitePawn_withVaildChessPieceType_shouldGiveOnePointToMoveUp()
+
+- (void)testGetAllowMovementForThisWhitePawnWhenItAlreadyMoved_withVaildChessPieceType_shouldThenMoveOnlyOneMove {
+	[_testChessBoard moveCellStateFromRow:6 andColumn:5 toRow:5 andColumn:5];
+	[[_testChessBoard getCurrentStateAtRow:5 andColumn:5] setHasThisChessPieceMovedOnce:1];
+	
+	XCTAssertEqual(7, [[_testChessBoard getCurrentStateAtRow:5 andColumn:5] chessPieceType], @"Chess Board Get Allow Movement For This White Pawn: There is a White Pawn who has already moved");
+	
+	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:5 andColumn:5]];
+	
+	// it should return an array of one since it just move one positon up
+	XCTAssertEqual(1, [allPostionsAllowedForThisChessPiece count], @"Chess Board Get Allow Movement For This White Pawn: There should be one move for this chess piece");
+	XCTAssertEqual(4, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellRow], @"Chess Board Get Allow Movement For This White Pawn: The destionasion can go up to row at 4");
+	XCTAssertEqual(5, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellCol], @"Chess Board Get Allow Movement For This White Pawn: The destionasion can go up to column at 5");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] chessPieceType], @"Chess Board Get Allow Movement For This White Pawn: Location of Destionation On Cell Type is Empty");
+}// end of testGetAllowMovementForThisWhitePawnWhenItAlreadyMoved_withVaildChessPieceType_shouldThenMoveOnlyOneMove()
+
+- (void)testDoingEnPassant_withVaildChessPieceTypes_shouldGiveOptionToAttackTheWhitePawnOnRightSide {
+	/*
+	  En Passant
+	 
+	  If a pawn moves out two squares on its first move, and by doing so lands to the side of an opponent’s pawn (effectively jumping past the other pawn’s ability to capture it), that other pawn has the option of capturing the first pawn as it passes by. This special move must be done immediately after the first pawn has moved past, otherwise the option to capture it is no longer available.
+	*/
+	
+	[_testChessBoard moveCellStateFromRow:6 andColumn:4 toRow:3 andColumn:4];
+	[_testChessBoard moveCellStateFromRow:1 andColumn:3 toRow:3 andColumn:3];
+	[[_testChessBoard getCurrentStateAtRow:3 andColumn:3] setHasThisChessPieceMovedOnce:1];
+	
+	XCTAssertEqual(7, [[_testChessBoard getCurrentStateAtRow:3 andColumn:4] chessPieceType], @"Chess Board Doing En Passant: There is a White Pawn which just made a two column move");
+	XCTAssertEqual(1, [[_testChessBoard getCurrentStateAtRow:3 andColumn:3] chessPieceType], @"Chess Board Doing En Passant: There is a Black Pawn in the row beside the white pawn");
+	
+	NSArray* movesForBlackPawn = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:3 andColumn:3]];
+	
+	// It should return one move that for the black pawn
+	XCTAssertEqual(1, [movesForBlackPawn count], @"Chess Board Doing En Passant: Before The White Pawn Has Moved Twice There Will Be Two Moves avaiable");
+	XCTAssertEqual(4, [[movesForBlackPawn objectAtIndex:0] cellRow], @"Chess Board Doing En Passant: The destionasion can go up to row at 4");
+	XCTAssertEqual(3, [[movesForBlackPawn objectAtIndex:0] cellCol], @"Chess Board Doing En Passant: The destionasion can go up to col at 3");
+	
+	[[_testChessBoard getCurrentStateAtRow:3 andColumn:4] setHasThisChessPieceMovedOnce:0];
+	XCTAssertEqual(0, [[_testChessBoard getCurrentStateAtRow:3 andColumn:4] hasThisChessPieceMovedOnce], @"Chess Board Doing En Passant: This Pawn Move Two Columns");
+	
+	movesForBlackPawn = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:3 andColumn:3]];
+	
+	// it should return an array of two that there is on to move up and other
+	XCTAssertEqual(2, [movesForBlackPawn count], @"Chess Board Doing En Passant: After The White Pawn Has Moved Twice There Will Be Two Moves avaiable");
+	XCTAssertEqual(4, [[movesForBlackPawn objectAtIndex:0] cellRow], @"Chess Board Doing En Passant: The destionasion can go up to row at 4");
+	XCTAssertEqual(3, [[movesForBlackPawn objectAtIndex:0] cellCol], @"Chess Board Doing En Passant: The destionasion can go up to col at 3");
+	XCTAssertEqual(3, [[movesForBlackPawn objectAtIndex:1] cellRow], @"Chess Board Doing En Passant: The destionasion can go to right to row at 3");
+	XCTAssertEqual(4, [[movesForBlackPawn objectAtIndex:1] cellCol], @"Chess Board Doing En Passant: The destionasion can go to right to col at 4");
+}// end of testDoingEnPassant_withVaildChessPieceTypes_shouldGiveOptionToAttackTheWhitePawnOnRightSide()
+
+- (void)testDoingEnPassant_withVaildChessPieceTypes_shouldGiveOptionToAttackTheWhitePawnOnLeftSide {
+	[_testChessBoard moveCellStateFromRow:6 andColumn:4 toRow:3 andColumn:2];
+	[_testChessBoard moveCellStateFromRow:1 andColumn:3 toRow:3 andColumn:3];
+	[[_testChessBoard getCurrentStateAtRow:3 andColumn:3] setHasThisChessPieceMovedOnce:1];
+	
+	XCTAssertEqual(7, [[_testChessBoard getCurrentStateAtRow:3 andColumn:2] chessPieceType], @"Chess Board Doing En Passant: There is a White Pawn which just made a two column move");
+	XCTAssertEqual(1, [[_testChessBoard getCurrentStateAtRow:3 andColumn:3] chessPieceType], @"Chess Board Doing En Passant: There is a Black Pawn in the row beside the white pawn");
+	
+	NSArray* movesForBlackPawn = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:3 andColumn:3]];
+	
+	// It should return one move that for the black pawn
+	XCTAssertEqual(1, [movesForBlackPawn count], @"Chess Board Doing En Passant: Before The White Pawn Has Moved Twice There Will Be Two Moves avaiable");
+	XCTAssertEqual(4, [[movesForBlackPawn objectAtIndex:0] cellRow], @"Chess Board Doing En Passant: The destionasion can go up to row at 4");
+	XCTAssertEqual(3, [[movesForBlackPawn objectAtIndex:0] cellCol], @"Chess Board Doing En Passant: The destionasion can go up to col at 3");
+	
+	[[_testChessBoard getCurrentStateAtRow:3 andColumn:2] setHasThisChessPieceMovedOnce:0];
+	XCTAssertEqual(0, [[_testChessBoard getCurrentStateAtRow:3 andColumn:2] hasThisChessPieceMovedOnce], @"Chess Board Doing En Passant: This Pawn Move Two Columns");
+	
+	movesForBlackPawn = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:3 andColumn:3]];
+	
+	// it should return an array of two that there is on to move up and other
+	XCTAssertEqual(2, [movesForBlackPawn count], @"Chess Board Doing En Passant: After The White Pawn Has Moved Twice There Will Be Two Moves avaiable");
+	XCTAssertEqual(4, [[movesForBlackPawn objectAtIndex:0] cellRow], @"Chess Board Doing En Passant: The destionasion can go up to row at 4");
+	XCTAssertEqual(3, [[movesForBlackPawn objectAtIndex:0] cellCol], @"Chess Board Doing En Passant: The destionasion can go up to col at 3");
+	XCTAssertEqual(3, [[movesForBlackPawn objectAtIndex:1] cellRow], @"Chess Board Doing En Passant: The destionasion can go to right to row at 3");
+	XCTAssertEqual(2, [[movesForBlackPawn objectAtIndex:1] cellCol], @"Chess Board Doing En Passant: The destionasion can go to left to col at 2");
+}// end of testDoingEnPassant_withVaildChessPieceTypes_shouldGiveOptionToAttackTheWhitePawnOnLeftSide()
 
 - (void)testGetAllowMovementForThisBlackRook_withMoveToCenterOfBoard_shouldGiveFourPointsToMove {
 	// moves the black rook to row 4 column 6
 	[_testChessBoard moveCellStateFromRow:0 andColumn:0 toRow:4 andColumn:6];
 	
 	// there should be a black rook at row 4 column 6
-	XCTAssertEqual(2, [[_testChessBoard getCurrentStateAtRow:4 andColumn:6] chessPieceType], @"Chess Board Get Allow Movement For This Black Rook: LThere is a black rook in the center of the chess board for testing getting alloed movments");
+	XCTAssertEqual(2, [[_testChessBoard getCurrentStateAtRow:4 andColumn:6] chessPieceType], @"Chess Board Get Allow Movement For This Black Rook: There is a black rook in the center of the chess board for testing getting alloed movments");
 	
-	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[[ChessPiece alloc] initWithRow:4 Column:6 andChessPieceType:2]];
+	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:4 andColumn:6]];
 	
 	// it should return an array of four for all four main sides top, right, bottom and left
 	XCTAssertEqual(4, [allPostionsAllowedForThisChessPiece count], @"Chess Board Get Allow Movement For This Black Rook: There should be four move for the rook");

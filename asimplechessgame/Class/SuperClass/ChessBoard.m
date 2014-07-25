@@ -170,11 +170,31 @@
 	
 	// checks which type of chess piece it is
 	switch ([chessPiece chessPieceType]) {
-		// Pawn
+		// Black Pawn
 		case 1:
 			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheTopCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
 			
 			[self checkThereIsADestinationRow:locationOfDestinationRow andLocationOfDestinationCol:locationOfDestinationCol forChessPiece:chessPiece toBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
+			
+			// checks either side of this pawn is a pawn that did the two column just during their last turn
+			if ([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:([chessPiece cellCol] + 1)] hasThisChessPieceMovedOnce] == 0) {
+				// reset the row and column for the next side
+				locationOfDestinationRow = [chessPiece cellRow];
+				locationOfDestinationCol = [chessPiece cellCol];
+				
+				[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheRightCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
+				
+				[self checkThereIsADestinationRow:locationOfDestinationRow andLocationOfDestinationCol:locationOfDestinationCol forChessPiece:chessPiece toBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
+			}// end of if
+			else if ([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:([chessPiece cellCol] - 1)] hasThisChessPieceMovedOnce] == 0) {
+				// reset the row and column for the next side
+				locationOfDestinationRow = [chessPiece cellRow];
+				locationOfDestinationCol = [chessPiece cellCol];
+				
+				[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheLeftCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
+				
+				[self checkThereIsADestinationRow:locationOfDestinationRow andLocationOfDestinationCol:locationOfDestinationCol forChessPiece:chessPiece toBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
+			}// end of else if
 		break;
 		// White Pawn
 		case 7:
