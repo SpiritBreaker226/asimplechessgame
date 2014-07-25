@@ -25,7 +25,7 @@
 	_testChessBoard = [[ChessBoard alloc] init];
 	
 	// clears and applys the starting baord
-	[_testChessBoard clearBoard];
+	[_testChessBoard clearBoardAndSetChessColour:@"Black"];
 }// end of setUp()
 
 - (void)tearDown {

@@ -33,7 +33,8 @@
 	[self.sceneOfTheBoard addChessCellsToBoard:[self.gameState createCellsOnBoard]];
 	
 	// clears the memory board and starts the game
-	[self.sceneOfTheBoard addChessPiecesToBoard:[self.gameState clearBoard]];
+	// TODO: when the SceneGameOptions is created one of the options needs to be which colour is the user
+	[self.sceneOfTheBoard addChessPiecesToBoard:[self.gameState clearBoardAndSetChessColour:@"Black"]];
 }// end of startChessGame
 
 /*

@@ -22,7 +22,7 @@
 	_testChessBoard = [[ChessBoard alloc] init];
 	
 	// clears and applys the starting baord
-	[_testChessBoard clearBoard];
+	[_testChessBoard clearBoardAndSetChessColour:@"Black"];
 }// end of setUp()
 
 - (void)tearDown {
@@ -31,6 +31,12 @@
 	// Put teardown code here. This method is called after the invocation of each test method in the class.
 	_testChessBoard = nil;
 }// end of tearDown()
+
+/*
+ 
+ Iniitial State Test
+ 
+*/
 
 - (void)testInitialState_shouldBeEmptyInMiddleOfBoard {
 	// goes around for each of the row on the board
@@ -42,7 +48,7 @@
 	}// end of row for loop
 }// end of testInitialState_shouldBeEmptyInMiddleOfBoard()
 
-- (void)testInitialState_shouldChessPeicesBeLastTwoRows {
+- (void)testInitialState_shouldChessPeicesBeLastTwoRowsShouldBeWhite {
 	// goes around for each of the row on the board
 	for (int indexRow = 6; indexRow < 8; indexRow++) {
 		// goes around for each of the column
@@ -67,29 +73,78 @@
 						XCTAssertEqual(10, [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType], @"Chess Board Initial State: There is a white bishop chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
 						break;
 					case 3:
-						XCTAssertEqual(11, [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType], @"Chess Board Initial State: There is a white queen chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+						XCTAssertEqual(11, [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType], @"Chess Board Initial State: There is a white king chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
 						break;
 					case 4:
-						XCTAssertEqual(12, [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType], @"Chess Board Initial State: There is a white king chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+						XCTAssertEqual(12, [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType], @"Chess Board Initial State: There is a white queen chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
 						break;
 				}// end of switch
 			}// end of else
 		}// end of column for loop
 	}// end of row for loop
-}// end of testInitialState_shouldChessPeicesBeLastTwoRows()
+}// end of testInitialState_shouldChessPeicesBeLastTwoRowsShouldBeWhite()
+
+- (void)testInitialState_shouldChessPeicesBeLastTwoRowsShouldBeBlack {
+	// clears and applys the starting baord for White colour
+	[_testChessBoard clearBoardAndSetChessColour:@"White"];
+	
+	// goes around for each of the row on the board
+	for (int indexRow = 6; indexRow < 8; indexRow++) {
+		// goes around for each of the column
+		for (int indexCol = 0 ; indexCol < 8; indexCol++) {
+			// checks if the is 6 as those rows are where the pawns will go
+			if(indexRow == 6) {
+				XCTAssertEqual(1, [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType], @"Chess Board Initial State: There is a black pawn chess peice on chess board at Row: %i, Column: %i", 6, indexCol);
+			}// end of if
+			else {
+				// checks which chess peices this column will have to display them
+				switch (indexCol) {
+					case 0:
+					case 7:
+						XCTAssertEqual(2, [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType], @"Chess Board Initial State: There is a black rook chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+						break;
+					case 1:
+					case 6:
+						XCTAssertEqual(3, [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType], @"Chess Board Initial State: There is a black knight chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+						break;
+					case 2:
+					case 5:
+						XCTAssertEqual(4, [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType], @"Chess Board Initial State: There is a black bishop chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+						break;
+					case 3:
+						XCTAssertEqual(5, [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType], @"Chess Board Initial State: There is a black king chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+						break;
+					case 4:
+						XCTAssertEqual(6, [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType], @"Chess Board Initial State: There is a black queen chess peice on chess board at Row: %i, Column: %i", indexRow, indexCol);
+						break;
+				}// end of switch
+			}// end of else
+		}// end of column for loop
+	}// end of row for loop
+}// end of testInitialState_shouldChessPeicesBeLastTwoRowsShouldBeBlack()
 
 - (void)testInitialState_shouldTwoChessPeiceKingsBeAtTheFirstAndLastRow {
 	XCTAssertEqual(5, [[_testChessBoard getCurrentStateAtRow:0 andColumn:3] chessPieceType], @"Chess Board Initial State: There is a king chess peice on chess board at Row: %i, Column: %i", 0, 3);
 	XCTAssertEqual(11, [[_testChessBoard getCurrentStateAtRow:7 andColumn:3] chessPieceType], @"Chess Board Initial State: There is a king chess peice on chess board at Row: %i, Column: %i", 7, 3);
 }// end of testInitialState_shouldTwoChessPeiceKingsBeAtTheFirstAndLastRow()
 
-- (void)testInitialState_clearBoard_shouldHaveCountOf32ChessPieces {
-	XCTAssertEqual(32, [[_testChessBoard clearBoard] count], @"Chess Board Initial State: There are 32 chess peices at the start of the game");
-}//end of testInitialState_clearBoard_shouldHaveCountOf32ChessPieces()
+- (void)testInitialState_clearBoard_shouldHaveCountOf32ChessPiecesWhenUserSelectsWhite {
+	XCTAssertEqual(32, [[_testChessBoard clearBoardAndSetChessColour:@"White"] count], @"Chess Board Initial State: There are 32 chess peices at the start of the game when user selects white");
+}//end of testInitialState_clearBoard_shouldHaveCountOf32ChessPiecesWhenUserSelectsWhite()
+
+- (void)testInitialState_clearBoard_shouldHaveCountOf32ChessPiecesWhenUserSelectsBlack {
+	XCTAssertEqual(32, [[_testChessBoard clearBoardAndSetChessColour:@"Black"] count], @"Chess Board Initial State: There are 32 chess peices at the start of the game when user selects black");
+}//end of testInitialState_clearBoard_shouldHaveCountOf32ChessPiecesWhenUserSelectsBlack()
 
 - (void)testInitialState_createCellsOnBoard_shouldHaveCountOf64ChessCells {
 	XCTAssertEqual(64, [[_testChessBoard createCellsOnBoard] count], @"Chess Board Initial State: There are 64 chess board cells in the game");
 }//end of testInitialState_createCellsOnBoard_shouldHaveCountOf64ChessCells()
+
+/*
+ 
+ Cell State Test
+ 
+*/
 
 - (void)testSetCellState_withValidCoords_cellStateShouldChange {
 	XCTAssertEqual(0, [[_testChessBoard getCurrentStateAtRow:3 andColumn:6] chessPieceType], @"Chess Board Set Cell State: This cell Chess Pirce should be empty");
@@ -107,7 +162,7 @@
 }// end of testSetCellState_withInvalidCoords_cellShouldErrorOut()
 
 - (void)testSearchForCellState_withValidState_shouldFindBothBlackRooks {
-	NSMutableArray* findBlackRooks = [_testChessBoard findAllCellState:2];
+	NSArray* findBlackRooks = [_testChessBoard findAllCellState:2];
 	
 	XCTAssertEqual(2, [findBlackRooks count], @"Chess Board Search For Cell State: Found both black rooks by count them");
 	XCTAssertEqual(2, [[_testChessBoard getCurrentStateAtRow:[[[findBlackRooks objectAtIndex:0] objectAtIndex:0] intValue] andColumn:[[[findBlackRooks objectAtIndex:0] objectAtIndex:1] intValue]] chessPieceType], @"Chess Board Search For Cell State: Found The First black rooks");
@@ -115,7 +170,7 @@
 }// end of testSearchForCellState_withValidState_shouldFindBothRooks()
 
 - (void)testSearchForCellState_withInValidState_shouldFindNoResults {
-	NSMutableArray* findWhiteKnight = [_testChessBoard findAllCellState:9];
+	NSArray* findWhiteKnight = [_testChessBoard findAllCellState:9];
 	
 	XCTAssertNotEqual(1, [findWhiteKnight count], @"Chess Board Search For Cell State: No White Knight Found by count them");
 }// end of testSearchForCellState_withInValidState_shouldFindNoResults()
@@ -142,6 +197,12 @@
 	// it should error out
 	XCTAssertThrows([_testChessBoard moveCellStateFromRow:0 andColumn:4 toRow:22 andColumn:5], @"Chess Board Moving Cell State: An excetion should have been rised when trying to move cell state");
 }// end of testMovingCellState_withInVaildCoordsForBothOriginDest_shouldReturnDestCoords()
+
+/*
+ 
+ Pawn Test
+ 
+*/
 
 - (void)testGetAllowMovementForThisBlackPawn_withVaildChessPieceType_shouldGiveOnePointToMoveUp {
 	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:1 andColumn:5]];
@@ -254,6 +315,12 @@
 	XCTAssertEqual(3, [[movesForBlackPawn objectAtIndex:1] cellRow], @"Chess Board Doing En Passant: The destionasion can go to right to row at 3");
 	XCTAssertEqual(2, [[movesForBlackPawn objectAtIndex:1] cellCol], @"Chess Board Doing En Passant: The destionasion can go to left to col at 2");
 }// end of testDoingEnPassant_withVaildChessPieceTypes_shouldGiveOptionToAttackTheWhitePawnOnLeftSide()
+
+/*
+ 
+ Rook Test
+ 
+*/
 
 - (void)testGetAllowMovementForThisBlackRook_withMoveToCenterOfBoard_shouldGiveFourPointsToMove {
 	// moves the black rook to row 4 column 6

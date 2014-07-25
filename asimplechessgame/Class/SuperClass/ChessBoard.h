@@ -24,7 +24,7 @@ static const NSInteger NumOfCols = 8;
 */
 
 // resets all chess board in memory to empty and re loads the peices into it
-- (NSArray*) clearBoard;
+- (NSArray*) clearBoardAndSetChessColour:(NSString*)chessColourType;
 
 // creates each of the cells that will be used to  the all of the cells
 - (NSArray*) createCellsOnBoard;

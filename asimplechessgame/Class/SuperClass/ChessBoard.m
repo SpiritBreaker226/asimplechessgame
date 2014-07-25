@@ -45,79 +45,68 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
  
 */
 
--(NSArray*) clearBoard {
+-(NSArray*) clearBoardAndSetChessColour:(NSString*)chessColourType {
 	NSMutableArray* itemsOnTheBaord = [[NSMutableArray alloc] init];
+	NSInteger cellStateMultipler = 0;// holds the multipler in order to both the white chess pieces, which is add 6 to the cell state for the which pieces cell state and the black chess pieces, which is zero since the cell state from 1-6 is for black pieces
 	
 	// clears currentBoardBeingPlayed by setting each buty of the block of memory
 	// occupied by currentBoardBeingPlayed to zero
 	memset(_currentBoardBeingPlayed, 0, sizeof(NSUInteger) * NumOfRows * NumOfCols);
+	
+	// checks if the chessColourType is White then change cellStateMultipler to 6
+	if ([chessColourType isEqualToString:@"White"])
+		cellStateMultipler = 6;
 	
 	// reapplys the starting postion of all of the chess pieces
 	
 	// goes around for each of the row on the board
 	for (int indexRow = 0; indexRow < NumOfRows; indexRow++) {
 		// goes around for each of the column
-		for (int indexCol = 0 ; indexCol < NumOfCols; indexCol++) {
+		for (int indexCol = 0; indexCol < NumOfCols; indexCol++) {
 			// checks if it is the first two row and last two rows
 			if(indexRow < 2 || indexRow > 5) {
-				// checks if the is 1 or 6 as those rows are where the pawns will go
-				if(indexRow == 1) {
-					[itemsOnTheBaord addObject:[self createCellState:1 OnRow:indexRow andColumn:indexCol]];
+				// checks if indexRow is near the top of the board
+				if (indexRow > 5) {
+					// checks if the chessColourType is White the flip it to the black chess pieces
+					if ([chessColourType isEqualToString:@"White"])
+						cellStateMultipler = 0;
+					else
+						cellStateMultipler = 6;
 				}// end of if
-				else if(indexRow == 6) {
-					[itemsOnTheBaord addObject:[self createCellState:7 OnRow:indexRow andColumn:indexCol]];
-				}// end of else if
-				else if(indexRow == 0) {
-					// checks which white chess peices this column will have to display them
-					switch (indexCol) {
-						case 0:
-						case 7:
-							[itemsOnTheBaord addObject:[self createCellState:2 OnRow:indexRow andColumn:indexCol]];
-							break;
-						case 1:
-						case 6:
-							[itemsOnTheBaord addObject:[self createCellState:3 OnRow:indexRow andColumn:indexCol]];
-							break;
-						case 2:
-						case 5:
-							[itemsOnTheBaord addObject:[self createCellState:4 OnRow:indexRow andColumn:indexCol]];
-							break;
-						case 3:
-							[itemsOnTheBaord addObject:[self createCellState:5 OnRow:indexRow andColumn:indexCol]];
-							break;
-						case 4:
-							[itemsOnTheBaord addObject:[self createCellState:6 OnRow:indexRow andColumn:indexCol]];
-							break;
-					}// end of switch
-				}// end of else if
+				
+				// checks if the is 1 or 6 as those rows are where the pawns will go
+				if(indexRow == 1 || indexRow == 6) {
+					[itemsOnTheBaord addObject:[self createCellState:(1 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
+				}// end of if
 				else {
 					// checks which white chess peices this column will have to display them
 					switch (indexCol) {
 						case 0:
 						case 7:
-							[itemsOnTheBaord addObject:[self createCellState:8 OnRow:indexRow andColumn:indexCol]];
+							[itemsOnTheBaord addObject:[self createCellState:(2 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
 							break;
 						case 1:
 						case 6:
-							[itemsOnTheBaord addObject:[self createCellState:9 OnRow:indexRow andColumn:indexCol]];
+							[itemsOnTheBaord addObject:[self createCellState:(3 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
 							break;
 						case 2:
 						case 5:
-							[itemsOnTheBaord addObject:[self createCellState:10 OnRow:indexRow andColumn:indexCol]];
+							[itemsOnTheBaord addObject:[self createCellState:(4 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
 							break;
 						case 3:
-							[itemsOnTheBaord addObject:[self createCellState:11 OnRow:indexRow andColumn:indexCol]];
+							[itemsOnTheBaord addObject:[self createCellState:(5 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
 							break;
 						case 4:
-							[itemsOnTheBaord addObject:[self createCellState:12 OnRow:indexRow andColumn:indexCol]];
+							[itemsOnTheBaord addObject:[self createCellState:(6 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
 							break;
 					}// end of switch
 				}// end of else
 			}// end of if
-			else
+			else {
 				// sets empty chess pieces if there is no peices type at the start in order to make
 				// the code a little simplier later one
 				[self createCellState:0 OnRow:indexRow andColumn:indexCol];
+			}// end of else
 		}// end of column for loop
 	}// end of row for loop
 
