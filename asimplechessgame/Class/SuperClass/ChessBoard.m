@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
  
 */
 
--(NSMutableArray*) clearBoard {
+-(NSArray*) clearBoard {
 	NSMutableArray* itemsOnTheBaord = [[NSMutableArray alloc] init];
 	
 	// clears currentBoardBeingPlayed by setting each buty of the block of memory
@@ -124,7 +124,7 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 	return itemsOnTheBaord;
 }// end of clearBoard()
 
--(NSMutableArray*)createCellsOnBoard {
+-(NSArray*)createCellsOnBoard {
 	NSMutableArray* cellsOnTheBoard = [[NSMutableArray alloc] init];
 	int startCurrentRowWithEvenOrOddNumber = 1;
 	
@@ -155,7 +155,7 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 	return cellsOnTheBoard;
 }// end of createCellsOnBoard()
 
--(NSMutableArray*) findAllCellState:(NSUInteger)findThisCellState {
+-(NSArray*) findAllCellState:(NSUInteger)findThisCellState {
 	NSMutableArray* foundCellState = [[NSMutableArray alloc] init];
 	
 	// goes around for each of the row on the board

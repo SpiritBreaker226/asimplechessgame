@@ -39,7 +39,7 @@ static const uint32_t categoryQueen			= 0x1 << 8;*/
  
 */
 
--(void)addChessCellsToBoard:(NSMutableArray *)itemmsBeingAdded {
+-(void)addChessCellsToBoard:(NSArray *)itemmsBeingAdded {
 	// goes around adding the chess pieces to boardCellsLayer
 	for (ChessCell* cellBeingAdd in itemmsBeingAdded) {
 		SKSpriteNode* chessCellSpriteBeingAdded = [SKSpriteNode spriteNodeWithImageNamed:[cellBeingAdd getSpriteImageName]];
@@ -54,7 +54,7 @@ static const uint32_t categoryQueen			= 0x1 << 8;*/
 	}// end of for in loop
 }// end of addChessPiecesToBoard()
 
--(void)addChessPiecesToBoard:(NSMutableArray *)itemmsBeingAdded {
+-(void)addChessPiecesToBoard:(NSArray *)itemmsBeingAdded {
 	// goes around adding the chess pieces to boardPiecesLayer
 	for (ChessPiece* pieceBeingAdd in itemmsBeingAdded) {
 		SKSpriteNode* chessPeiceSpriteBeingAdded = [SKSpriteNode spriteNodeWithImageNamed:[pieceBeingAdd getSpriteImageName]];

@@ -27,9 +27,9 @@
 */
 
 // adds the chess cell to the display on the chess board
--(void)addChessCellsToBoard:(NSMutableArray*)itemsBeingAdded;
+-(void)addChessCellsToBoard:(NSArray*)itemsBeingAdded;
 
 // adds the chess pieces to the display on a chess board
--(void)addChessPiecesToBoard:(NSMutableArray*)itemmsBeingAdded;
+-(void)addChessPiecesToBoard:(NSArray*)itemmsBeingAdded;
 
 @end

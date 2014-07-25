@@ -24,13 +24,13 @@ static const NSInteger NumOfCols = 8;
 */
 
 // resets all chess board in memory to empty and re loads the peices into it
-- (NSMutableArray*) clearBoard;
+- (NSArray*) clearBoard;
 
 // creates each of the cells that will be used to  the all of the cells
--(NSMutableArray*) createCellsOnBoard;
+- (NSArray*) createCellsOnBoard;
 
 // finds all types of a cell state on board
-- (NSMutableArray*) findAllCellState:(NSUInteger)findThisCellState;
+- (NSArray*) findAllCellState:(NSUInteger)findThisCellState;
 
 // finds all moves for a chess peice
 - (NSArray*) getAllAllowedMovementForChessPiece:(ChessPiece*)chessPiece;
