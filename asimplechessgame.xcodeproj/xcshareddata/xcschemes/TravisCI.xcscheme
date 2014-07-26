@@ -20,6 +20,20 @@
                ReferencedContainer = "container:asimplechessgame.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9612DACD1936D32700D69357"
+               BuildableName = "asimplechessgameTests.xctest"
+               BlueprintName = "asimplechessgameTests"
+               ReferencedContainer = "container:asimplechessgame.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
