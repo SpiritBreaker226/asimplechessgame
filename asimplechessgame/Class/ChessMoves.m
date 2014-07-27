@@ -88,6 +88,21 @@
 	}// end of for loop
 }// end of getLocationOfDestinationToTheTopCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
 
+-(void)getLocationOfDestinationToTheTopRightCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
+	// checks if the arugments are valid
+	[self checkForVaildChessBoard:chessBoard];
+	[self checkForVaildNumberOfMoves:numberOfMoves];
+	
+	// goes around for each row chcking if there is a chess peice on it and if so can this cell type remove it
+	for (NSInteger indexRow = (*originRow + 1), indexColumn = (*originColumn + 1); indexRow < NumOfRows; indexRow++, indexColumn++) {
+		if([self checkForFriendOrFoeOnRow:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:indexRow andColumn:indexColumn] andAddToCell:NO] == YES)
+			break;
+		
+		if([self checksMaxNumberOfRows:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn andThereIsDIffForMaxNumberOfMoves:((indexRow - *originRow) == numberOfMoves) andNumberOfRows:NumOfRows numberOfColumns:NumOfCols] == YES)
+			break;
+	}// end of for loop
+}// end of getLocationOfDestinationToTheTopRightCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
+
 /*
  
  Private Methods
@@ -116,6 +131,33 @@
 		return NO;
 }// end of checkForFriendOrFoeOnRowOrColumnWithOriginRowOrColumnForCellTypeAndCellsChessPiece()
 
+// checks if this cell is either friend or Foe
+- (bool)checkForFriendOrFoeOnRow:(NSInteger)indexRow andColumn:(NSInteger)indexColumn withOriginRow:(NSInteger *)originRow andColumn:(NSInteger*)originColumn forCellType:(NSString *)cellType andCellsChessPiece:(ChessPiece *)cellsChessPiece andAddToCell:(bool)addToCell {
+	// checks if this not an empty cell
+	if ([cellsChessPiece chessPieceType] != 0) {
+		// checks if the cell type is the same colour as the originCell or not
+		if ([[cellsChessPiece getChessPieceColour] isEqualToString:cellType]) {
+			// goes back one as this cell is the same colour as the originCell
+			if (addToCell == YES) {
+				indexRow++;
+				indexColumn++;
+			}// end of if
+			else {
+				indexRow--;
+				indexColumn--;
+			}// end of else
+		}// end of if
+		
+		// both updates originRow and originColumn
+		*originRow = indexRow;
+		*originColumn = indexColumn;
+		
+		return YES;
+	}// end of if
+	else
+		return NO;
+}// end of checkForFriendOrFoeOnRowAndColumnWithOriginRowAndColumnForCellTypeAndCellsChessPiece()
+
 // checks if there is this is a vaild board
 - (void)checkForVaildChessBoard:(ChessBoard *)chessBoard {
 	if (chessBoard == nil)
@@ -129,7 +171,7 @@
 }// end of checkForVaildNumberOfMoves()
 
 // checks if this is last row if so then updates originRow as the chess piece cannot go any further or if the max number of moves have been used up
-- (bool)checksMaxNumberOfRowsColumns:(NSInteger)indexRowColumn withOriginRowColumn:(NSInteger *)origin andThereIsDIffForMaxNumberOfMoves:(BOOL)isThereDiffForNumberOfMoves andNumberOfRowsOrColumns:(NSInteger)maxNumberOfRowsColumns{
+- (bool)checksMaxNumberOfRowsColumns:(NSInteger)indexRowColumn withOriginRowColumn:(NSInteger *)origin andThereIsDIffForMaxNumberOfMoves:(BOOL)isThereDiffForNumberOfMoves andNumberOfRowsOrColumns:(NSInteger)maxNumberOfRowsColumns {
 	if (indexRowColumn == (maxNumberOfRowsColumns - 1) || indexRowColumn == 0 || isThereDiffForNumberOfMoves == YES) {
 		*origin = indexRowColumn;
 		
@@ -138,5 +180,17 @@
 	else
 		return NO;
 }// end of checksMaxNumberOfRowsColumnsWithOriginRowOrColumnsAndThereIsDIffForMaxNumberOfMovesAndNumberOfRowsOrColumns()
+
+// checks if this is last row if so then updates originRow and originColumn as the chess piece cannot go any further or if the max number of moves have been used up
+- (bool)checksMaxNumberOfRows:(NSInteger)indexRow andColumn:(NSInteger)indexColumn withOriginRow:(NSInteger *)originRow andColumn:(NSInteger *)originColumn andThereIsDIffForMaxNumberOfMoves:(BOOL)isThereDiffForNumberOfMoves andNumberOfRows:(NSInteger)maxNumberOfRows numberOfColumns:(NSInteger)maxNumberOfColumns {
+	if (indexRow == (maxNumberOfRows - 1) || indexRow == 0 || indexColumn == (maxNumberOfColumns - 1) || indexColumn == 0 || isThereDiffForNumberOfMoves == YES) {
+		*originRow = indexRow;
+		*originColumn = indexColumn;
+		
+		return YES;
+	}// end of if
+	else
+		return NO;
+}// end of checksMaxNumberOfRowsAndColumnsWithOriginRowAndColumnsAndThereIsDIffForMaxNumberOfMovesAndNumberOfRowsNumberofColumns()
 
 @end
