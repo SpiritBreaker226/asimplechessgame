@@ -19,7 +19,6 @@
  
 */
 
-
 -(void)getLocationOfDestinationToTheBottomCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
 	// checks if the arugments are valid
 	[self checkForVaildChessBoard:chessBoard];
@@ -36,6 +35,21 @@
 			break;
 	}// end of for loop
 }// end of getLocationOfDestinationToTheBottomCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
+
+-(void)getLocationOfDestinationToTheBottomRightCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
+	// checks if the arugments are valid
+	[self checkForVaildChessBoard:chessBoard];
+	[self checkForVaildNumberOfMoves:numberOfMoves];
+	
+	// goes around for each row chcking if there is a chess peice on it and if so can this cell type remove it
+	for (NSInteger indexRow = (*originRow - 1), indexColumn = (*originColumn + 1); indexRow < NumOfRows; indexRow--, indexColumn++) {
+		if([self checkForFriendOrFoeOnRow:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:indexRow andColumn:indexColumn] andGoingBackToWhichCell:4] == YES)
+			break;
+		
+		if([self checksMaxNumberOfRows:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn andThereIsDIffForMaxNumberOfMoves:((*originRow - indexRow) == numberOfMoves) andNumberOfRows:NumOfRows numberOfColumns:NumOfCols] == YES)
+			break;
+	}// end of for loop
+}// end of getLocationOfDestinationToTheBottomRightCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
 
 -(void)getLocationOfDestinationToTheLeftCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
 	// checks if the arugments are valid
@@ -95,7 +109,7 @@
 	
 	// goes around for each row chcking if there is a chess peice on it and if so can this cell type remove it
 	for (NSInteger indexRow = (*originRow + 1), indexColumn = (*originColumn + 1); indexRow < NumOfRows; indexRow++, indexColumn++) {
-		if([self checkForFriendOrFoeOnRow:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:indexRow andColumn:indexColumn] andAddToCell:NO] == YES)
+		if([self checkForFriendOrFoeOnRow:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:indexRow andColumn:indexColumn] andGoingBackToWhichCell:2] == YES)
 			break;
 		
 		if([self checksMaxNumberOfRows:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn andThereIsDIffForMaxNumberOfMoves:((indexRow - *originRow) == numberOfMoves) andNumberOfRows:NumOfRows numberOfColumns:NumOfCols] == YES)
@@ -129,23 +143,37 @@
 	}// end of if
 	else
 		return NO;
-}// end of checkForFriendOrFoeOnRowOrColumnWithOriginRowOrColumnForCellTypeAndCellsChessPiece()
+}// end of checkForFriendOrFoeOnRowOrColumnWithOriginRowOrColumnForCellTypeAndCellsChessPieceAndAddToRow()
 
 // checks if this cell is either friend or Foe
-- (bool)checkForFriendOrFoeOnRow:(NSInteger)indexRow andColumn:(NSInteger)indexColumn withOriginRow:(NSInteger *)originRow andColumn:(NSInteger*)originColumn forCellType:(NSString *)cellType andCellsChessPiece:(ChessPiece *)cellsChessPiece andAddToCell:(bool)addToCell {
+- (bool)checkForFriendOrFoeOnRow:(NSInteger)indexRow andColumn:(NSInteger)indexColumn withOriginRow:(NSInteger *)originRow andColumn:(NSInteger*)originColumn forCellType:(NSString *)cellType andCellsChessPiece:(ChessPiece *)cellsChessPiece andGoingBackToWhichCell:(NSInteger)whichDiangleMovementToGoBackTo {
 	// checks if this not an empty cell
 	if ([cellsChessPiece chessPieceType] != 0) {
 		// checks if the cell type is the same colour as the originCell or not
 		if ([[cellsChessPiece getChessPieceColour] isEqualToString:cellType]) {
-			// goes back one as this cell is the same colour as the originCell
-			if (addToCell == YES) {
-				indexRow++;
-				indexColumn++;
-			}// end of if
-			else {
-				indexRow--;
-				indexColumn--;
-			}// end of else
+			// because diagonal movement uses two numbers in order to go back both the indexRow and index column will need to change and some times in different directions so go back: 0 = top left, 2, top right, 4 = bottom right and 6 = bottom left
+			switch (whichDiangleMovementToGoBackTo) {
+				// top left
+				case 0:
+					indexRow--;
+					indexColumn++;
+				break;
+				// top right
+				case 2:
+					indexRow--;
+					indexColumn--;
+				break;
+				// bottom right
+				case 4:
+					indexRow++;
+					indexColumn--;
+				break;
+				// bottom left
+				case 6:
+					indexRow++;
+					indexColumn++;
+				break;
+			}// end of switch
 		}// end of if
 		
 		// both updates originRow and originColumn
@@ -156,7 +184,7 @@
 	}// end of if
 	else
 		return NO;
-}// end of checkForFriendOrFoeOnRowAndColumnWithOriginRowAndColumnForCellTypeAndCellsChessPiece()
+}// end of checkForFriendOrFoeOnRowAndColumnWithOriginRowAndColumnForCellTypeAndCellsChessPieceAndGoingBackToWhichCell()
 
 // checks if there is this is a vaild board
 - (void)checkForVaildChessBoard:(ChessBoard *)chessBoard {

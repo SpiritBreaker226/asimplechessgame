@@ -18,10 +18,13 @@
  
 */
 
-// finds the location of destination going to the Bottom of the chess piece
+// finds the location of destination going to the bottom of the chess piece
 -(void)getLocationOfDestinationToTheBottomCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard*)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves;
 
-// finds the location of destination going to the Left of the chess piece
+// find the location of destination going bottom and to the right
+-(void)getLocationOfDestinationToTheBottomRightCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard*)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves;
+
+// finds the location of destination going to the left of the chess piece
 -(void)getLocationOfDestinationToTheLeftCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard*)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves;
 
 // finds the location of destination going to the right of the chess piece
