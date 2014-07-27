@@ -503,4 +503,77 @@
 	XCTAssertThrows([_testChessMoves getLocationOfDestinationToTheBottomRightCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:_testChessBoard forCellType:@"Black" withAllowedNumberOfMoves:10], @"Chess Moves Check Cells To The Bottom Right: Error Outside Of Board");
 }// end of testCheckCellsToTheBottomRight_withInVaildCoordsOnVaildBoard_shouldNotErrorOut()
 
+/*
+ 
+ Get Cells To the Bottom Left test
+ 
+*/
+
+-(void)testCheckCellsToTheBottomLeft_withVaildCoordsOnVaildBoard_shouldRetunLocationOfEmpty {
+	NSInteger locationOfDestinationRow = 4;
+	NSInteger locationOfDestinationCol = 2;
+	
+	[_testChessMoves getLocationOfDestinationToTheBottomLeftCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:_testChessBoard forCellType:@"Black" withAllowedNumberOfMoves:8];
+	
+	// should be one point and on that point it should be a Empty Space
+	XCTAssertEqual(2, locationOfDestinationRow, @"Chess Moves Check Cells To The Bottom Left: Location of Destionation On Cell Row 2");
+	XCTAssertEqual(0, locationOfDestinationCol, @"Chess Moves Check Cells To The Bottom Left: Location of Destionation On Cell Column 0");
+	XCTAssertEqual(0, [[_testChessBoard getCurrentStateAtRow:locationOfDestinationRow andColumn:locationOfDestinationCol] chessPieceType], @"Chess Moves Check Cells To The Bottom Left: Location of Destionation On Cell Type is Empty Space");
+}// end of testCheckCellsToTheBottomLeft_withVaildCoordsOnVaildBoard_shouldRetunLocationOfWhitePawn()
+
+-(void)testCheckCellsToTheBottomLeft_withVaildCoordsForLimitsOnMovementOnVaildBoard_shouldRetunLocationOfEmpty {
+	NSInteger locationOfDestinationRow = 5;
+	NSInteger locationOfDestinationCol = 3;
+	
+	[_testChessMoves getLocationOfDestinationToTheBottomLeftCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:_testChessBoard forCellType:@"Black" withAllowedNumberOfMoves:2];
+	
+	// should be one point and on that point it should be a Empty Space
+	XCTAssertEqual(3, locationOfDestinationRow, @"Chess Moves Check Cells To The Bottom Left: Location of Destionation On Cell Row 3");
+	XCTAssertEqual(1, locationOfDestinationCol, @"Chess Moves Check Cells To The Bottom Left: Location of Destionation On Cell Column 1");
+	XCTAssertEqual(0, [[_testChessBoard getCurrentStateAtRow:locationOfDestinationRow andColumn:locationOfDestinationCol] chessPieceType], @"Chess Moves Check Cells To The Bottom Left: Location of Destionation On Cell Type is Empty Space");
+}// end of testCheckCellsToTheBottomLeft_withVaildCoordsForLimitsOnMovementOnVaildBoard_shouldRetunLocationOfEmpty()
+
+-(void)testCheckCellsToTheBottomLeft_withVaildCoordsOnVaildBoard_shouldRetunLocationOfWhitePawn {
+	NSInteger locationOfDestinationRow = 5;
+	NSInteger locationOfDestinationCol = 7;
+	
+	[_testChessBoard moveCellStateFromRow:6 andColumn:7 toRow:2 andColumn:4];
+	
+	// there should be a White Pawn at row 2 column 4
+	XCTAssertEqual(7, [[_testChessBoard getCurrentStateAtRow:2 andColumn:4] chessPieceType], @"Chess Moves Check Cells To The Bottom Left: There is a white pawn in the frount of the row being checked");
+	
+	[_testChessMoves getLocationOfDestinationToTheBottomLeftCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:_testChessBoard forCellType:@"Black" withAllowedNumberOfMoves:8];
+	
+	// should be one point and on that point it should be a White Pawn
+	XCTAssertEqual(2, locationOfDestinationRow, @"Chess Moves Check Cells To The Bottom Left: Location of Destionation On Cell Row 2");
+	XCTAssertEqual(4, locationOfDestinationCol, @"Chess Moves Check Cells To The Bottom Left: Location of Destionation On Cell Column 4");
+	XCTAssertEqual(7, [[_testChessBoard getCurrentStateAtRow:locationOfDestinationRow andColumn:locationOfDestinationCol] chessPieceType], @"Chess Moves Check Cells To The Bottom Left: Location of Destionation On Cell Type is White Pawn");
+}// end of testCheckCellsToTheBottomLeft_withVaildCoordsUntilEndOnVaildBoard_shouldRetunLocationOfWhitePawn()
+
+-(void)testCheckCellsToTheBottomLeft_withVaildCoordsWithSameColourPawnInFrontOfRowOnVaildBoard_shouldRetunLocationOfEmptySpace {
+	NSInteger locationOfDestinationRow = 3;
+	NSInteger locationOfDestinationCol = 4;
+	
+	[_testChessMoves getLocationOfDestinationToTheBottomLeftCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:_testChessBoard forCellType:@"Black" withAllowedNumberOfMoves:8];
+	
+	// should be one point and on that point it should be a Empty at Row 2 Column 5
+	XCTAssertEqual(2, locationOfDestinationRow, @"Chess Moves Check Cells To The Bottom Left: Location of Destionation On Cell Row 2");
+	XCTAssertEqual(3, locationOfDestinationCol, @"Chess Moves Check Cells To The Bottom Left: Location of Destionation On Cell Column 3");
+	XCTAssertEqual(0, [[_testChessBoard getCurrentStateAtRow:locationOfDestinationRow andColumn:locationOfDestinationCol] chessPieceType], @"Chess Moves Check Cells To The Bottom Left: Location of Destionation On Cell Type is Empty Space");
+}// end of testCheckCellsToTheBottomLeft_withVaildCoordsWithSameColourPawnInFrontOfRowOnVaildBoard_shouldRetunLocationOfEmptySpace()
+
+-(void)testCheckCellsToTheBottomLeft_withVaildCoordsOnInVaildBoard_shouldErrorOut {
+	NSInteger locationOfDestinationRow = 4;
+	NSInteger locationOfDestinationCol = 4;
+	
+	XCTAssertThrows([_testChessMoves getLocationOfDestinationToTheBottomLeftCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:nil forCellType:@"Black" withAllowedNumberOfMoves:8], @"Chess Moves Check Cells To The Bottom Left: Error not a valid board");
+}// end of testCheckCellsToTheBottomLeft_withInVaildCoordsOnVaildBoard_shouldErrorOut()
+
+-(void)testCheckCellsToTheBottomLeft_withInVaildAllowedNumbersOnVaildBoard_shouldNotErrorOut {
+	NSInteger locationOfDestinationRow = 20;
+	NSInteger locationOfDestinationCol = 4;
+	
+	XCTAssertThrows([_testChessMoves getLocationOfDestinationToTheBottomLeftCellOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:_testChessBoard forCellType:@"Black" withAllowedNumberOfMoves:10], @"Chess Moves Check Cells To The Bottom Left: Error Outside Of Board");
+}// end of testCheckCellsToTheBottomLeft_withInVaildCoordsOnVaildBoard_shouldNotErrorOut()
+
 @end
