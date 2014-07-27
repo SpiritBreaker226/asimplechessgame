@@ -36,21 +36,6 @@
 	}// end of for loop
 }// end of getLocationOfDestinationToTheBottomCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
 
--(void)getLocationOfDestinationToTheBottomRightCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
-	// checks if the arugments are valid
-	[self checkForVaildChessBoard:chessBoard];
-	[self checkForVaildNumberOfMoves:numberOfMoves];
-	
-	// goes around for each row chcking if there is a chess peice on it and if so can this cell type remove it
-	for (NSInteger indexRow = (*originRow - 1), indexColumn = (*originColumn + 1); indexRow < NumOfRows; indexRow--, indexColumn++) {
-		if([self checkForFriendOrFoeOnRow:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:indexRow andColumn:indexColumn] andGoingBackToWhichCell:4] == YES)
-			break;
-		
-		if([self checksMaxNumberOfRows:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn andThereIsDIffForMaxNumberOfMoves:((*originRow - indexRow) == numberOfMoves) andNumberOfRows:NumOfRows numberOfColumns:NumOfCols] == YES)
-			break;
-	}// end of for loop
-}// end of getLocationOfDestinationToTheBottomRightCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
-
 -(void)getLocationOfDestinationToTheBottomLeftCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
 	// checks if the arugments are valid
 	[self checkForVaildChessBoard:chessBoard];
@@ -65,6 +50,21 @@
 			break;
 	}// end of for loop
 }// end of getLocationOfDestinationToTheBottomLeftCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
+
+-(void)getLocationOfDestinationToTheBottomRightCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
+	// checks if the arugments are valid
+	[self checkForVaildChessBoard:chessBoard];
+	[self checkForVaildNumberOfMoves:numberOfMoves];
+	
+	// goes around for each row chcking if there is a chess peice on it and if so can this cell type remove it
+	for (NSInteger indexRow = (*originRow - 1), indexColumn = (*originColumn + 1); indexRow < NumOfRows; indexRow--, indexColumn++) {
+		if([self checkForFriendOrFoeOnRow:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:indexRow andColumn:indexColumn] andGoingBackToWhichCell:4] == YES)
+			break;
+		
+		if([self checksMaxNumberOfRows:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn andThereIsDIffForMaxNumberOfMoves:((*originRow - indexRow) == numberOfMoves) andNumberOfRows:NumOfRows numberOfColumns:NumOfCols] == YES)
+			break;
+	}// end of for loop
+}// end of getLocationOfDestinationToTheBottomRightCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
 
 -(void)getLocationOfDestinationToTheLeftCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
 	// checks if the arugments are valid
@@ -116,6 +116,21 @@
 			break;
 	}// end of for loop
 }// end of getLocationOfDestinationToTheTopCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
+
+-(void)getLocationOfDestinationToTheTopLeftCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
+	// checks if the arugments are valid
+	[self checkForVaildChessBoard:chessBoard];
+	[self checkForVaildNumberOfMoves:numberOfMoves];
+	
+	// goes around for each row chcking if there is a chess peice on it and if so can this cell type remove it
+	for (NSInteger indexRow = (*originRow + 1), indexColumn = (*originColumn - 1); indexRow < NumOfRows; indexRow++, indexColumn--) {
+		if([self checkForFriendOrFoeOnRow:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:indexRow andColumn:indexColumn] andGoingBackToWhichCell:0] == YES)
+			break;
+		
+		if([self checksMaxNumberOfRows:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn andThereIsDIffForMaxNumberOfMoves:((indexRow - *originRow) == numberOfMoves) andNumberOfRows:NumOfRows numberOfColumns:NumOfCols] == YES)
+			break;
+	}// end of for loop
+}// end of getLocationOfDestinationToTheTopLeftCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
 
 -(void)getLocationOfDestinationToTheTopRightCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
 	// checks if the arugments are valid
