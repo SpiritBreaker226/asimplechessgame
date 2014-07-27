@@ -1,4 +1,4 @@
 language: objective-c
 
 script: 
- - xctool -project asimplechessgame.xcodeproj -scheme 'asimplechessgameTests' -configuration Release -sdk iphonesimulator -arch i386 build
+ - xctool -project asimplechessgame.xcodeproj -scheme 'asimplechessgame' -configuration Release -sdk iphonesimulator -arch i386 build
