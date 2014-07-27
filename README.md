@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/SpiritBreaker226/asimplechessgame.svg?branch=master)](https://travis-ci.org/SpiritBreaker226/asimplechessgame)
+
 A Simple Chess Game
 ================
 
