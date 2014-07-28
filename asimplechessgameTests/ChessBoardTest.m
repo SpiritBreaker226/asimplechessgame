@@ -316,6 +316,15 @@
 	XCTAssertEqual(2, [[movesForBlackPawn objectAtIndex:1] cellCol], @"Chess Board Doing En Passant: The destionasion can go to left to col at 2");
 }// end of testDoingEnPassant_withVaildChessPieceTypes_shouldGiveOptionToAttackTheWhitePawnOnLeftSide()
 
+/*-(void)testGetMovementForChessPiecePawn_withVaildChessPieceInFrontOfPawn_shouldNotBeAbleToMove {
+	[_testChessBoard moveCellStateFromRow:6 andColumn:3 toRow:2 andColumn:3];
+	
+	XCTAssertEqual(7, [[_testChessBoard getCurrentStateAtRow:2 andColumn:3] chessPieceType], @"Get Movement For Chess Piece Pawn: There is a White Pawn which is front of pawn");
+	
+	// it should not be able to move
+	XCTAssertEqual(0, [[_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:1 andColumn:3]] count], @"Get Movement For Chess Piece Pawn: The Black Pawn is not able to move");
+}// end of testGetMovementChessPieceInFrontOfPawn_withVaildChessPieceInFrontOfPawn_shouldNotBeAbleToMove()*/
+
 /*
  
  Rook Test
@@ -360,5 +369,32 @@
 	XCTAssertEqual(0, [[allPostionsAllowedForThisChessPiece objectAtIndex:1] cellRow], @"Chess Board Get Allow Movement For This Black Rook: The right destionasion can go up to row at 0");
 	XCTAssertEqual(1, [[allPostionsAllowedForThisChessPiece objectAtIndex:1] cellCol], @"Chess Board Get Allow Movement For This Black Rook: The right destionasion can go up to col at 1");
 }// end of testGetAllowMovementForThisBlackRook_withMoveToCenterOfBoard_shouldGiveFourPointsToMove()
+
+/*
+ 
+ Bishop Test
+ 
+*/
+
+- (void)testGetAllowMovementForThisBlackBishop_withMoveToCenterOfBoard_shouldGiveFourPointsToMove {
+	// moves the black rook to row 4 column 6
+	[_testChessBoard moveCellStateFromRow:0 andColumn:2 toRow:3 andColumn:4];
+	
+	// there should be a black bishop at row 3 column 4
+	XCTAssertEqual(4, [[_testChessBoard getCurrentStateAtRow:3 andColumn:4] chessPieceType], @"Chess Board Get Allow Movement For This Black Bishop: There is a black bishop in the center of the chess board for testing getting alloed movments");
+	
+	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:3 andColumn:4]];
+	
+	// it should return an array of four for all four main couners sides
+	XCTAssertEqual(4, [allPostionsAllowedForThisChessPiece count], @"Chess Board Get Allow Movement For This Black Bishop: There should be four move for the bishop");
+	XCTAssertEqual(6, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellRow], @"Chess Board Get Allow Movement For This Black Bishop: The top right destionasion can go up to row at 6");
+	XCTAssertEqual(7, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellCol], @"Chess Board Get Allow Movement For This Black Bishop: The top right destionasion can go up to col at 7");
+	XCTAssertEqual(2, [[allPostionsAllowedForThisChessPiece objectAtIndex:1] cellRow], @"Chess Board Get Allow Movement For This Black Bishop: The bottom right destionasion can go up to row at 2");
+	XCTAssertEqual(5, [[allPostionsAllowedForThisChessPiece objectAtIndex:1] cellCol], @"Chess Board Get Allow Movement For This Black Bishop: The bottom right destionasion can go up to col at 5");
+	XCTAssertEqual(2, [[allPostionsAllowedForThisChessPiece objectAtIndex:2] cellRow], @"Chess Board Get Allow Movement For This Black Bishop: The bottom left destionasion can go up to row at 2");
+	XCTAssertEqual(3, [[allPostionsAllowedForThisChessPiece objectAtIndex:2] cellCol], @"Chess Board Get Allow Movement For This Black Bishop: The bottom left destionasion can go up to col at 3");
+	XCTAssertEqual(6, [[allPostionsAllowedForThisChessPiece objectAtIndex:3] cellRow], @"Chess Board Get Allow Movement For This Black Bishop: The top Left destionasion can go up to row at 6");
+	XCTAssertEqual(1, [[allPostionsAllowedForThisChessPiece objectAtIndex:3] cellCol], @"Chess Board Get Allow Movement For This Black Bishop: The top Left destionasion can go up to col at 1");
+}// end of testGetAllowMovementForThisBlackBishop_withMoveToCenterOfBoard_shouldGiveFourPointsToMove()
 
 @end

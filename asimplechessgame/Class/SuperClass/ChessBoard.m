@@ -204,7 +204,12 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 		// Bishop
 		case 4:
 		case 10:
+			// gets all of the possible moves for the bishop
 			
+			// goes around getting each bishop movements
+			for (NSInteger indexSides = 4; indexSides < 8; indexSides++) {
+				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:indexSides whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:8];
+			}// end of for loop
 		break;
 		// King
 		case 5:
@@ -279,6 +284,18 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 			break;
 		case 3:
 			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheLeftCellOnRow:*(&locationOfDestinationRow) andColumn:*(&locationOfDestinationCol) onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:maxNumberOfMoves];
+			break;
+		case 4:
+			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheTopRightCellOnRow:*(&locationOfDestinationRow) andColumn:*(&locationOfDestinationCol) onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:maxNumberOfMoves];
+			break;
+		case 5:
+			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheBottomRightCellOnRow:*(&locationOfDestinationRow) andColumn:*(&locationOfDestinationCol) onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:maxNumberOfMoves];
+			break;
+		case 6:
+			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheBottomLeftCellOnRow:*(&locationOfDestinationRow) andColumn:*(&locationOfDestinationCol) onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:maxNumberOfMoves];
+			break;
+		case 7:
+			[_findingMovesForChessPiecesOnChessBoard getLocationOfDestinationToTheTopLeftCellOnRow:*(&locationOfDestinationRow) andColumn:*(&locationOfDestinationCol) onBoard:self forCellType:[chessPiece getChessPieceColour] withAllowedNumberOfMoves:maxNumberOfMoves];
 			break;
 	}// end of switch
 	
