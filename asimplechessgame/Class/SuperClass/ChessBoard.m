@@ -219,7 +219,12 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 		// Queen
 		case 6:
 		case 12:
+			// gets all of the possible moves for the queen
 			
+			// goes around getting each queen movements
+			for (NSInteger indexSides = 0; indexSides < 8; indexSides++) {
+				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:indexSides whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:8];
+			}// end of for loop
 		break;
 	}// end of switch
 	

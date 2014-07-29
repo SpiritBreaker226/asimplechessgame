@@ -397,4 +397,39 @@
 	XCTAssertEqual(1, [[allPostionsAllowedForThisChessPiece objectAtIndex:3] cellCol], @"Chess Board Get Allow Movement For This Black Bishop: The top Left destionasion can go up to col at 1");
 }// end of testGetAllowMovementForThisBlackBishop_withMoveToCenterOfBoard_shouldGiveFourPointsToMove()
 
+/*
+ 
+ Queen Test
+ 
+*/
+
+- (void)testGetAllowMovementForThisBlackQueen_withMoveToCenterOfBoard_shouldGiveFourPointsToMove {
+	// moves the black rook to row 4 column 6
+	[_testChessBoard moveCellStateFromRow:0 andColumn:4 toRow:3 andColumn:4];
+	
+	// there should be a black queen at row 3 column 4
+	XCTAssertEqual(6, [[_testChessBoard getCurrentStateAtRow:3 andColumn:4] chessPieceType], @"Chess Board Get Allow Movement For This Black Queen: There is a black Queen in the center of the chess board for testing getting alloed movments");
+	
+	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:3 andColumn:4]];
+	
+	// it should return an array of Eight for all eight sides
+	XCTAssertEqual(8, [allPostionsAllowedForThisChessPiece count], @"Chess Board Get Allow Movement For This Black Queen: There should be four move for the queen");
+	XCTAssertEqual(6, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellRow], @"Chess Board Get Allow Movement For This Black Queen: The top destionasion can go up to row at 6");
+	XCTAssertEqual(4, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellCol], @"Chess Board Get Allow Movement For This Black Queen: The top destionasion can go up to col at 4");
+	XCTAssertEqual(3, [[allPostionsAllowedForThisChessPiece objectAtIndex:1] cellRow], @"Chess Board Get Allow Movement For This Black Queen: The right destionasion can go up to row at 3");
+	XCTAssertEqual(7, [[allPostionsAllowedForThisChessPiece objectAtIndex:1] cellCol], @"Chess Board Get Allow Movement For This Black Queen: The right destionasion can go up to col at 7");
+	XCTAssertEqual(2, [[allPostionsAllowedForThisChessPiece objectAtIndex:2] cellRow], @"Chess Board Get Allow Movement For This Black Queen: The bottom destionasion can go up to row at 2");
+	XCTAssertEqual(4, [[allPostionsAllowedForThisChessPiece objectAtIndex:2] cellCol], @"Chess Board Get Allow Movement For This Black Queen: The bottom destionasion can go up to col at 4");
+	XCTAssertEqual(3, [[allPostionsAllowedForThisChessPiece objectAtIndex:3] cellRow], @"Chess Board Get Allow Movement For This Black Queen: The Left destionasion can go up to row at 3");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisChessPiece objectAtIndex:3] cellCol], @"Chess Board Get Allow Movement For This Black Queen: The Left destionasion can go up to col at 0");
+	XCTAssertEqual(6, [[allPostionsAllowedForThisChessPiece objectAtIndex:4] cellRow], @"Chess Board Get Allow Movement For This Black Queen: The top right destionasion can go up to row at 6");
+	XCTAssertEqual(7, [[allPostionsAllowedForThisChessPiece objectAtIndex:4] cellCol], @"Chess Board Get Allow Movement For This Black Queen: The top right destionasion can go up to col at 7");
+	XCTAssertEqual(2, [[allPostionsAllowedForThisChessPiece objectAtIndex:5] cellRow], @"Chess Board Get Allow Movement For This Black Queen: The bottom right destionasion can go up to row at 2");
+	XCTAssertEqual(5, [[allPostionsAllowedForThisChessPiece objectAtIndex:5] cellCol], @"Chess Board Get Allow Movement For This Black Queen: The bottom right destionasion can go up to col at 5");
+	XCTAssertEqual(2, [[allPostionsAllowedForThisChessPiece objectAtIndex:6] cellRow], @"Chess Board Get Allow Movement For This Black Queen: The bottom left destionasion can go up to row at 2");
+	XCTAssertEqual(3, [[allPostionsAllowedForThisChessPiece objectAtIndex:6] cellCol], @"Chess Board Get Allow Movement For This Black Queen: The bottom left destionasion can go up to col at 3");
+	XCTAssertEqual(6, [[allPostionsAllowedForThisChessPiece objectAtIndex:7] cellRow], @"Chess Board Get Allow Movement For This Black Queen: The top Left destionasion can go up to row at 6");
+	XCTAssertEqual(1, [[allPostionsAllowedForThisChessPiece objectAtIndex:7] cellCol], @"Chess Board Get Allow Movement For This Black Queen: The top Left destionasion can go up to col at 1");
+}// end of testGetAllowMovementForThisBlackQueen_withMoveToCenterOfBoard_shouldGiveFourPointsToMove()
+
 @end
