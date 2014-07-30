@@ -397,6 +397,13 @@
 	XCTAssertEqual(1, [[allPostionsAllowedForThisChessPiece objectAtIndex:3] cellCol], @"Chess Board Get Allow Movement For This Black Bishop: The top Left destionasion can go up to col at 1");
 }// end of testGetAllowMovementForThisBlackBishop_withMoveToCenterOfBoard_shouldGiveFourPointsToMove()
 
+- (void)testGetAllowMovementForThisBlackBishop_withInStartingPostion_shouldGiveNoOpions {
+	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:0 andColumn:2]];
+	
+	// it should return an array of four for all four main sides top, right, bottom and left
+	XCTAssertEqual(0, [allPostionsAllowedForThisChessPiece count], @"Chess Board Get Allow Movement For This Black Bishop: There should be no moves for the bishop");
+}// end of testGetAllowMovementForThisBlackRook_withMoveToCenterOfBoard_shouldGiveFourPointsToMove()
+
 /*
  
  Queen Test
@@ -413,7 +420,7 @@
 	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:3 andColumn:4]];
 	
 	// it should return an array of Eight for all eight sides
-	XCTAssertEqual(8, [allPostionsAllowedForThisChessPiece count], @"Chess Board Get Allow Movement For This Black Queen: There should be four move for the queen");
+	XCTAssertEqual(8, [allPostionsAllowedForThisChessPiece count], @"Chess Board Get Allow Movement For This Black Queen: There should be eight move for the queen");
 	XCTAssertEqual(6, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellRow], @"Chess Board Get Allow Movement For This Black Queen: The top destionasion can go up to row at 6");
 	XCTAssertEqual(4, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellCol], @"Chess Board Get Allow Movement For This Black Queen: The top destionasion can go up to col at 4");
 	XCTAssertEqual(3, [[allPostionsAllowedForThisChessPiece objectAtIndex:1] cellRow], @"Chess Board Get Allow Movement For This Black Queen: The right destionasion can go up to row at 3");
@@ -445,10 +452,13 @@
 	// there should be a black King at row 3 column 4
 	XCTAssertEqual(5, [[_testChessBoard getCurrentStateAtRow:3 andColumn:4] chessPieceType], @"Chess Board Get Allow Movement For This Black King: There is a black King in the center of the chess board for testing getting alloed movments");
 	
+	// sets the King piece as move in order not to infer with other test
+	[[_testChessBoard getCurrentStateAtRow:3 andColumn:4] setHasThisChessPieceMovedOnce:1];
+	
 	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:3 andColumn:4]];
 	
 	// it should return an array of Eight for all eight sides
-	XCTAssertEqual(8, [allPostionsAllowedForThisChessPiece count], @"Chess Board Get Allow Movement For This Black King: There should be four move for the King");
+	XCTAssertEqual(8, [allPostionsAllowedForThisChessPiece count], @"Chess Board Get Allow Movement For This Black King: There should be eight move for the King");
 	XCTAssertEqual(4, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellRow], @"Chess Board Get Allow Movement For This Black King: The top destionasion can go up to row at 3");
 	XCTAssertEqual(4, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellCol], @"Chess Board Get Allow Movement For This Black King: The top destionasion can go up to col at 4");
 	XCTAssertEqual(3, [[allPostionsAllowedForThisChessPiece objectAtIndex:1] cellRow], @"Chess Board Get Allow Movement For This Black King: The right destionasion can go up to row at 3");
@@ -466,5 +476,34 @@
 	XCTAssertEqual(4, [[allPostionsAllowedForThisChessPiece objectAtIndex:7] cellRow], @"Chess Board Get Allow Movement For This Black King: The top Left destionasion can go up to row at 4");
 	XCTAssertEqual(3, [[allPostionsAllowedForThisChessPiece objectAtIndex:7] cellCol], @"Chess Board Get Allow Movement For This Black King: The top Left destionasion can go up to col at 3");
 }// end of testGetAllowMovementForThisBlackKing_withMoveToCenterOfBoard_shouldGiveEightPointsToMove()
+
+-(void)testCastlingMoveForBothSides_withVaildBlackKing_shouldProvideFourOptions {
+	// moves both Kinights, Queen and Bishops to allow the King to do the castling
+	[_testChessBoard moveCellStateFromRow:0 andColumn:1 toRow:3 andColumn:1];
+	[_testChessBoard moveCellStateFromRow:0 andColumn:2 toRow:3 andColumn:2];
+	[_testChessBoard moveCellStateFromRow:0 andColumn:4 toRow:3 andColumn:4];
+	[_testChessBoard moveCellStateFromRow:0 andColumn:5 toRow:3 andColumn:5];
+	[_testChessBoard moveCellStateFromRow:0 andColumn:6 toRow:3 andColumn:6];
+	
+	// there should be both Kinights, Queen and Bishops to allow the King to do the castling
+	XCTAssertEqual(3, [[_testChessBoard getCurrentStateAtRow:3 andColumn:1] chessPieceType], @"Chess Board Castling For This Black King: There is a black Knight out of the way");
+	XCTAssertEqual(4, [[_testChessBoard getCurrentStateAtRow:3 andColumn:2] chessPieceType], @"Chess Board Castling For This Black King: There is a black Bishop out of the way");
+	XCTAssertEqual(6, [[_testChessBoard getCurrentStateAtRow:3 andColumn:4] chessPieceType], @"Chess Board Castling For This Black King: There is a black Queen out of the way");
+	XCTAssertEqual(4, [[_testChessBoard getCurrentStateAtRow:3 andColumn:5] chessPieceType], @"Chess Board Castling For This Black King: There is a black Bishop out of the way");
+	XCTAssertEqual(3, [[_testChessBoard getCurrentStateAtRow:3 andColumn:6] chessPieceType], @"Chess Board Castling For This Black King: There is a black Knight out of the way");
+	
+	NSArray* allPostionsAllowedForThisChessPiece = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:0 andColumn:3]];
+	
+	// it should be four Postions fir two are for normal moving then one to the the left where the knight was, for the Kingside castling and to the right where the bishop was for the Queenside castling
+	XCTAssertEqual(4, [allPostionsAllowedForThisChessPiece count], @"Chess Board Castling For This Black King: There should be four move for the King");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellRow], @"Chess Board Get Allow Movement For This Black King: The right destionasion can go up to row at 0");
+	XCTAssertEqual(4, [[allPostionsAllowedForThisChessPiece objectAtIndex:0] cellCol], @"Chess Board Get Allow Movement For This Black King: The right destionasion can go up to col at 4");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisChessPiece objectAtIndex:1] cellRow], @"Chess Board Get Allow Movement For This Black King: The left destionasion can go up to row at 0");
+	XCTAssertEqual(5, [[allPostionsAllowedForThisChessPiece objectAtIndex:1] cellCol], @"Chess Board Get Allow Movement For This Black King: The left destionasion can go up to col at 2");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisChessPiece objectAtIndex:2] cellRow], @"Chess Board Get Allow Movement For This Black King: The right caslting option row at 0");
+	XCTAssertEqual(5, [[allPostionsAllowedForThisChessPiece objectAtIndex:2] cellCol], @"Chess Board Get Allow Movement For This Black King: The right caslting option col at 5");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisChessPiece objectAtIndex:3] cellRow], @"Chess Board Get Allow Movement For This Black King: The left caslting option row at 0");
+	XCTAssertEqual(1, [[allPostionsAllowedForThisChessPiece objectAtIndex:3] cellCol], @"Chess Board Get Allow Movement For This Black King: The left caslting option col at 1");
+}// end of testCastlingMoveForBothSides_withVaildBlackKing_shouldProvideFourOptions()
 
 @end

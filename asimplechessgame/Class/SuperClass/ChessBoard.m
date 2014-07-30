@@ -220,6 +220,24 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 			for (NSInteger indexSides = 0; indexSides < 8; indexSides++) {
 				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:indexSides whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:1];
 			}// end of for loop
+			
+			// checks if the King has not move
+			if ([chessPiece hasThisChessPieceMovedOnce] == 2) {
+				// checks if the right side of the king to see if the Knight, Queen and Bishop have moved
+				if ([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:4] chessPieceType] == 0 && [[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:5] chessPieceType] == 0 && [[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:6] chessPieceType] == 0) {
+					// checks if there the rooks are still in the location
+					if([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:7] chessPieceType] == 2 || [[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:7] chessPieceType] == 8) {
+						[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:1 whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:2];
+					}// end of if
+				}// end of if
+				// checks if the left side is clear of Knight and Bishop
+				else if ([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:1] chessPieceType] == 0 && [[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:2] chessPieceType] == 0) {
+					// checks if there the rooks are still in the location
+					if([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:0] chessPieceType] == 2 || [[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:0] chessPieceType] == 8) {
+						[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:3 whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:2];
+					}// end of if
+				}// end of if
+			}// end of if
 		break;
 		// Queen
 		case 6:
