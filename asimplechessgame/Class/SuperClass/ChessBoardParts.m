@@ -34,6 +34,10 @@
  
 */
 
+-(NSString*) getSpriteImageName {
+	return @"";
+}// end of getSpriteImageName()
+
 -(void)updateCellRow:(NSInteger)row andCellColumn:(NSInteger)column {
 	[self setCellRow:row];
 	[self setCellCol:column];

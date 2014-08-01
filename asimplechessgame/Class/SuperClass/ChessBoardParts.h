@@ -38,16 +38,10 @@
  
  */
 
-// updates this Chess Peice location on the memory chess board
--(void)updateCellRow:(NSInteger)row andCellColumn:(NSInteger)column;
-
-/*
- 
- Interface Methods
- 
-*/
-
 // get name of the image that this chess piece is using
 -(NSString*) getSpriteImageName;
+
+// updates this Chess Peice location on the memory chess board
+-(void)updateCellRow:(NSInteger)row andCellColumn:(NSInteger)column;
 
 @end
