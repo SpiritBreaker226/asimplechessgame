@@ -230,8 +230,9 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 						[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:1 whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:2];
 					}// end of if
 				}// end of if
+				
 				// checks if the left side is clear of Knight and Bishop
-				else if ([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:1] chessPieceType] == 0 && [[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:2] chessPieceType] == 0) {
+				if ([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:1] chessPieceType] == 0 && [[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:2] chessPieceType] == 0) {
 					// checks if there the rooks are still in the location
 					if([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:0] chessPieceType] == 2 || [[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:0] chessPieceType] == 8) {
 						[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:3 whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:2];
