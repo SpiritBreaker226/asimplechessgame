@@ -199,7 +199,52 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 		// Knight
 		case 3:
 		case 9:
+			// gets all of the possible moves for the Knight
 			
+			// goes around for each row chcking if there is a chess peice on it and if so can this cell type remove it
+			for (NSInteger indexSides = 0; indexSides < 4; indexSides++) {
+				NSInteger checkThisCellFromCentreCellRow = 0;
+				NSInteger checkThisCellFromCentreCellColumn = 0;
+				
+				// checks which side the loop is order to check each is a valuded move or not
+				switch (indexSides) {
+					// Top
+					case 0:
+						checkThisCellFromCentreCellRow = ([chessPiece cellRow] + 2);
+						checkThisCellFromCentreCellColumn = ([chessPiece cellCol] +  1);
+					break;
+					// Right
+					case 1:
+						checkThisCellFromCentreCellRow = ([chessPiece cellRow] - 1);
+						checkThisCellFromCentreCellColumn = ([chessPiece cellCol] +  2);
+					break;
+					// Bottom
+					case 2:
+						checkThisCellFromCentreCellRow = ([chessPiece cellRow] - 2);
+						checkThisCellFromCentreCellColumn = ([chessPiece cellCol] - 1);
+					break;
+					// Left
+					case 3:
+						checkThisCellFromCentreCellRow = ([chessPiece cellRow] + 1);
+						checkThisCellFromCentreCellColumn = ([chessPiece cellCol] - 2);
+					break;
+				}// end of switch
+				
+				// checks if row and column are in the range of the board if not the skip it
+				if(checkThisCellFromCentreCellColumn > 0 && checkThisCellFromCentreCellColumn < (NumOfCols - 1) && checkThisCellFromCentreCellRow > 0 && checkThisCellFromCentreCellRow < (NumOfRows - 1)) {
+					ChessPiece* cellsChessPiece = [self getCurrentStateAtRow:checkThisCellFromCentreCellRow andColumn:checkThisCellFromCentreCellColumn];
+					
+					// checks if this not an empty cell
+					if ([cellsChessPiece chessPieceType] != 0) {
+						// checks if the cell type is the same colour as the originCell or not
+						if (![[cellsChessPiece getChessPieceColour] isEqualToString:[chessPiece getChessPieceColour]]) {
+							[foundPostionForThisChessPiece addObject:cellsChessPiece];
+						}// end of if
+					}// end of if
+					else
+						[foundPostionForThisChessPiece addObject:cellsChessPiece];
+				}// end of if
+			}// end of for loop
 		break;
 		// Bishop
 		case 4:

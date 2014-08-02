@@ -526,4 +526,58 @@
 	XCTAssertEqual(1, [[allPostionsAllowedForThisChessPiece objectAtIndex:3] cellCol], @"Chess Board Get Allow Movement For This Black King: The left caslting option col at 1");
 }// end of testCastlingMoveForBothSides_withVaildBlackKing_shouldProvideFourOptions()
 
+/*
+ 
+ Knight test
+ 
+*/
+
+-(void)testCheckAllFourMainSides_withValidCentrePostion_shouldReturnFourOptions {
+	// moves the black knight to row 4 column 4
+	[_testChessBoard moveCellStateFromRow:0 andColumn:1 toRow:4 andColumn:4];
+	
+	// there should be a black knight at row 4 column 4
+	XCTAssertEqual(3, [[_testChessBoard getCurrentStateAtRow:4 andColumn:4] chessPieceType], @"Chess Board Get Allow Movement For This Black Knight: There is a black Knight in the center of the chess board for testing getting alloed movments");
+	
+	NSArray* allPostionsAllowedForCentreCell = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:4 andColumn:4]];
+	
+	// it should return an array of four for all four main sides top, right, bottom and left
+	XCTAssertEqual(4, [allPostionsAllowedForCentreCell count], @"Chess Board Get Allow Movement For This Black Knight: There should be four move");
+	XCTAssertEqual(6, [[allPostionsAllowedForCentreCell objectAtIndex:0] cellRow], @"Chess Board Get Allow Movement For This Black Knight: The top destionasion can go up to row at 6");
+	XCTAssertEqual(5, [[allPostionsAllowedForCentreCell objectAtIndex:0] cellCol], @"Chess Board Get Allow Movement For This Black Knight: The top destionasion can go up to col at 5");
+	XCTAssertEqual(7, [[allPostionsAllowedForCentreCell objectAtIndex:0] chessPieceType], @"Chess Board Get Allow Movement For This Black Knight: Location of Destionation On Cell Type is Empty Space");
+	
+	XCTAssertEqual(3, [[allPostionsAllowedForCentreCell objectAtIndex:1] cellRow], @"Chess Board Get Allow Movement For This Black Knight: The right destionasion can go up to row at 3");
+	
+	XCTAssertEqual(6, [[allPostionsAllowedForCentreCell objectAtIndex:1] cellCol], @"Chess Board Get Allow Movement For This Black Knight: The right destionasion can go up to col at 6");
+	XCTAssertEqual(0, [[allPostionsAllowedForCentreCell objectAtIndex:1] chessPieceType], @"Chess Board Get Allow Movement For This Black Knight: Location of Destionation On Cell Type is Empty Space");
+	
+	XCTAssertEqual(2, [[allPostionsAllowedForCentreCell objectAtIndex:2] cellRow], @"Chess Board Get Allow Movement For This Black Knight: The bottom destionasion can go up to row at 2");
+	XCTAssertEqual(3, [[allPostionsAllowedForCentreCell objectAtIndex:2] cellCol], @"Chess Board Get Allow Movement For This Black Knight: The bottom destionasion can go up to col at 3");
+	XCTAssertEqual(0, [[allPostionsAllowedForCentreCell objectAtIndex:2] chessPieceType], @"Chess Board Get Allow Movement For This Black Knight: Location of Destionation On Cell Type is Empty Space");
+	
+	XCTAssertEqual(5, [[allPostionsAllowedForCentreCell objectAtIndex:3] cellRow], @"Chess Board Get Allow Movement For This Black Knight: The Left destionasion can go up to row at 5");
+	XCTAssertEqual(2, [[allPostionsAllowedForCentreCell objectAtIndex:3] cellCol], @"Chess Board Get Allow Movement For This Black Knight: The Left destionasion can go up to col at 2");
+	XCTAssertEqual(0, [[allPostionsAllowedForCentreCell objectAtIndex:3] chessPieceType], @"Chess Board Get Allow Movement For This Black Knight: Location of Destionation On Cell Type is Empty Space");
+}// end of testCheckAllFourMainSides_withVaildBlackKing_shouldProvideFourOptions()
+
+-(void)testCheckAllFourMainSides_withValidCentrePostionOnVaildBoard_shouldReturnFourOptions {
+	// moves the black knight to row 4 column 0
+	[_testChessBoard moveCellStateFromRow:0 andColumn:1 toRow:4 andColumn:0];
+	
+	// there should be a black knight at row 4 column 0
+	XCTAssertEqual(3, [[_testChessBoard getCurrentStateAtRow:4 andColumn:0] chessPieceType], @"Chess Board Get Allow Movement For This Black Knight: There is a black Knight in the center of the chess board for testing getting alloed movments");
+	
+	NSArray* allPostionsAllowedForCentreCell = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:4 andColumn:0]];
+	
+	// it should return an array of four for all four main sides top, right, bottom and left
+	XCTAssertEqual(2, [allPostionsAllowedForCentreCell count], @"Chess Board Get Allow Movement For This Black Knight: There should be four move for the Knight");
+	XCTAssertEqual(6, [[allPostionsAllowedForCentreCell objectAtIndex:0] cellRow], @"Chess Board Get Allow Movement For This Black Knight: The top destionasion can go up to row at 6");
+	XCTAssertEqual(1, [[allPostionsAllowedForCentreCell objectAtIndex:0] cellCol], @"Chess Board Get Allow Movement For This Black Knight: The top destionasion can go up to col at 1");
+	XCTAssertEqual(7, [[allPostionsAllowedForCentreCell objectAtIndex:0] chessPieceType], @"Chess Board Get Allow Movement For This Black Knight: Location of Destionation On Cell Type is White Pawn");
+	XCTAssertEqual(3, [[allPostionsAllowedForCentreCell objectAtIndex:1] cellRow], @"Chess Board Get Allow Movement For This Black Knight: The right destionasion can go up to row at 3");
+	XCTAssertEqual(2, [[allPostionsAllowedForCentreCell objectAtIndex:1] cellCol], @"Chess Board Get Allow Movement For This Black Knight: The right destionasion can go up to col at 2");
+	XCTAssertEqual(0, [[allPostionsAllowedForCentreCell objectAtIndex:1] chessPieceType], @"Chess Board Get Allow Movement For This Black Knight: Location of Destionation On Cell Type is Empty Space");
+}// end of testCheckAllFourMainSides_withValidCentrePostionOnVaildBoard_shouldReturnFourOptions()
+
 @end
