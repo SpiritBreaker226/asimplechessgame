@@ -41,6 +41,8 @@ leagend for this property
 */
 
 @property (nonatomic) NSInteger hasThisChessPieceMovedOnce;
+@property (readonly, nonatomic) NSInteger startingCellRow;
+@property (readonly, nonatomic) NSInteger startingCellCol;
 
 /*
  

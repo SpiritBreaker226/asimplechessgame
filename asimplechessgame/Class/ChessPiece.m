@@ -26,6 +26,10 @@
 	[self setChessPieceType:type];
 	[self setHasThisChessPieceMovedOnce:2];
 	
+	// sets the starting Row and Column to tell which side the chess pice is on at the start of the game
+	_startingCellRow = row;
+	_startingCellCol = column;
+	
 	return self;
 }// end of initWithRowColumnAndChessPieceType()
 
