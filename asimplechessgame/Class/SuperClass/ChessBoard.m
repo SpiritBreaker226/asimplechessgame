@@ -164,6 +164,9 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 }// end of findAllCellState()
 
 -(NSArray *)getAllAllowedMovementForChessPiece:(ChessPiece *)chessPiece {
+	if (chessPiece == nil)
+		[NSException raise:NSInvalidArgumentException format:@"Invaild chess piece"];
+	
 	NSMutableArray* foundPostionForThisChessPiece = [[NSMutableArray alloc] init];
 	NSInteger locationOfDestinationRow = [chessPiece cellRow];
 	NSInteger locationOfDestinationCol = [chessPiece cellCol];
