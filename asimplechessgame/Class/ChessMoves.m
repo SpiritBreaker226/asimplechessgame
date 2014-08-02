@@ -42,7 +42,7 @@
 	[self checkForVaildNumberOfMoves:numberOfMoves];
 	
 	// goes around for each row chcking if there is a chess peice on it and if so can this cell type remove it
-	for (NSInteger indexRow = (*originRow - 1), indexColumn = (*originColumn - 1); indexRow < NumOfRows && indexRow >= 0 && indexColumn >= 0; indexRow--, indexColumn--) {
+	for (NSInteger indexRow = (*originRow - 1), indexColumn = (*originColumn - 1); indexRow >= 0 && indexColumn >= 0; indexRow--, indexColumn--) {
 		if([self checkForFriendOrFoeOnRow:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:indexRow andColumn:indexColumn] andGoingBackToWhichCell:6] == YES)
 			break;
 		
@@ -57,7 +57,7 @@
 	[self checkForVaildNumberOfMoves:numberOfMoves];
 	
 	// goes around for each row chcking if there is a chess peice on it and if so can this cell type remove it
-	for (NSInteger indexRow = (*originRow - 1), indexColumn = (*originColumn + 1); indexRow < NumOfRows && indexRow >= 0; indexRow--, indexColumn++) {
+	for (NSInteger indexRow = (*originRow - 1), indexColumn = (*originColumn + 1); indexColumn < NumOfCols && indexRow >= 0; indexRow--, indexColumn++) {
 		if([self checkForFriendOrFoeOnRow:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:indexRow andColumn:indexColumn] andGoingBackToWhichCell:4] == YES)
 			break;
 		
@@ -138,7 +138,7 @@
 	[self checkForVaildNumberOfMoves:numberOfMoves];
 	
 	// goes around for each row chcking if there is a chess peice on it and if so can this cell type remove it
-	for (NSInteger indexRow = (*originRow + 1), indexColumn = (*originColumn + 1); indexRow < NumOfRows; indexRow++, indexColumn++) {
+	for (NSInteger indexRow = (*originRow + 1), indexColumn = (*originColumn + 1); indexRow < NumOfRows && indexColumn < NumOfCols; indexRow++, indexColumn++) {
 		if([self checkForFriendOrFoeOnRow:indexRow andColumn:indexColumn withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:indexRow andColumn:indexColumn] andGoingBackToWhichCell:2] == YES)
 			break;
 		

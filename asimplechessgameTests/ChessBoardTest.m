@@ -200,6 +200,106 @@
 
 /*
  
+ General Get Movment Test
+ 
+*/
+
+-(void)testGetAllMovmentOnFourQueensAtEachCouner_withValidChessPieceType_eachShouldGiveThreePostionsToMoveTo {
+	// goes around removes all other chess types from the board as they are not need for the test
+	for (int indexRow = 0; indexRow < NumOfRows; indexRow++) {
+		// goes around for each of the column
+		for (int indexCol = 0; indexCol < NumOfCols; indexCol++) {
+			// checks if this is not a queen piece
+			if([[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType] != 6 && [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType] != 12)
+				[_testChessBoard setCellState:0 OnRow:indexRow andColumn:indexCol];
+		}// end of column for loop
+	}// end of row for loop
+	
+	[_testChessBoard moveCellStateFromRow:0 andColumn:4 toRow:0 andColumn:0];
+	[_testChessBoard setCellState:12 OnRow:0 andColumn:7];
+	[_testChessBoard moveCellStateFromRow:7 andColumn:4 toRow:7 andColumn:7];
+	[_testChessBoard setCellState:6 OnRow:7 andColumn:0];
+	
+	XCTAssertEqual(6, [[_testChessBoard getCurrentStateAtRow:0 andColumn:0] chessPieceType], @"Chess Board Four Queen Test: There is a black queen in couner Row 0, Col: 0");
+	XCTAssertEqual(12, [[_testChessBoard getCurrentStateAtRow:0 andColumn:7] chessPieceType], @"Chess Board Four Queen Test: There is a white queen in couner Row 0, Col: 7");
+	XCTAssertEqual(12, [[_testChessBoard getCurrentStateAtRow:7 andColumn:7] chessPieceType], @"Chess Board Four Queen Test: There is a white queen in couner Row 7, Col: 7");
+	XCTAssertEqual(6, [[_testChessBoard getCurrentStateAtRow:7 andColumn:0] chessPieceType], @"Chess Board Four Queen Test: There is a black queen in couner Row 7, Col: 0");
+	
+	// in order to make sure all movements are working since the queen can almost move any where be having four
+	// queens on each corner this will test if out of bonads anrea as well as if it can pick their friends as well as the foe chess piece
+	
+	NSArray* allPostionsAllowedForThisQueen = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:0 andColumn:0]];
+	
+	// it should return an array of three for black queen
+	XCTAssertEqual(3, [allPostionsAllowedForThisQueen count], @"Chess Board Four Queen Test: There should be three move");
+	XCTAssertEqual(6, [[allPostionsAllowedForThisQueen objectAtIndex:0] cellRow], @"Chess Board Four Queen Test: The top destionasion can go up to row at 6");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:0] cellCol], @"Chess Board Four Queen Test: The top destionasion can go up to col at 0");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:0] chessPieceType], @"Chess Board Four Queen Test: Cell Type is Empty Space");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:1] cellRow], @"Chess Board Four Queen Test: The right destionasion can go up to row at 0");
+	XCTAssertEqual(7, [[allPostionsAllowedForThisQueen objectAtIndex:1] cellCol], @"Chess Board Four Queen Test: The right destionasion can go up to col at 7");
+	XCTAssertEqual(12, [[allPostionsAllowedForThisQueen objectAtIndex:1] chessPieceType], @"Chess Board Four Queen Test: Cell Type is White Queen");
+	XCTAssertEqual(7, [[allPostionsAllowedForThisQueen objectAtIndex:2] cellRow], @"Chess Board Four Queen Test: The top right destionasion can go up to row at 7");
+	XCTAssertEqual(7, [[allPostionsAllowedForThisQueen objectAtIndex:2] cellCol], @"Chess Board Four Queen Test: The top right destionasion can go up to col at 7");
+	XCTAssertEqual(12, [[allPostionsAllowedForThisQueen objectAtIndex:2] chessPieceType], @"Chess Board Four Queen Test: Cell Type is White Queen");
+	
+	// resets allPostionsAllowedForThisQueen for next queen piece
+	allPostionsAllowedForThisQueen = nil;
+	
+	allPostionsAllowedForThisQueen = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:0 andColumn:7]];
+	
+	// it should return an array of three for white queen
+	XCTAssertEqual(3, [allPostionsAllowedForThisQueen count], @"Chess Board Four Queen Test: There should be three move");
+	XCTAssertEqual(6, [[allPostionsAllowedForThisQueen objectAtIndex:0] cellRow], @"Chess Board Four Queen Test: The top destionasion can go up to row at 6");
+	XCTAssertEqual(7, [[allPostionsAllowedForThisQueen objectAtIndex:0] cellCol], @"Chess Board Four Queen Test: The top destionasion can go up to col at 7");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:0] chessPieceType], @"Chess Board Four Queen Test: Cell Type is Empty Space");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:1] cellRow], @"Chess Board Four Queen Test: The left destionasion can go up to row at 0");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:1] cellCol], @"Chess Board Four Queen Test: The left destionasion can go up to col at 0");
+	XCTAssertEqual(6, [[allPostionsAllowedForThisQueen objectAtIndex:1] chessPieceType], @"Chess Board Four Queen Test: Cell Type is Black Queen");
+	XCTAssertEqual(7, [[allPostionsAllowedForThisQueen objectAtIndex:2] cellRow], @"Chess Board Four Queen Test: The top left destionasion can go up to row at 7");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:2] cellCol], @"Chess Board Four Queen Test: The top left destionasion can go up to col at 0");
+	XCTAssertEqual(6, [[allPostionsAllowedForThisQueen objectAtIndex:2] chessPieceType], @"Chess Board Four Queen Test: Cell Type is Black Queen");
+	
+	// resets allPostionsAllowedForThisQueen for next queen piece
+	allPostionsAllowedForThisQueen = nil;
+	
+	allPostionsAllowedForThisQueen = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:7 andColumn:7]];
+	
+	// it should return an array of three for white queen
+	XCTAssertEqual(3, [allPostionsAllowedForThisQueen count], @"Chess Board Four Queen Test: There should be three move");
+	XCTAssertEqual(1, [[allPostionsAllowedForThisQueen objectAtIndex:0] cellRow], @"Chess Board Four Queen Test: The bottom destionasion can go up to row at 1");
+	XCTAssertEqual(7, [[allPostionsAllowedForThisQueen objectAtIndex:0] cellCol], @"Chess Board Four Queen Test: The bottom destionasion can go up to col at 7");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:0] chessPieceType], @"Chess Board Four Queen Test: Cell Type is Empty Space");
+	XCTAssertEqual(7, [[allPostionsAllowedForThisQueen objectAtIndex:1] cellRow], @"Chess Board Four Queen Test: The left destionasion can go up to row at 7");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:1] cellCol], @"Chess Board Four Queen Test: The left destionasion can go up to col at 0");
+	XCTAssertEqual(6, [[allPostionsAllowedForThisQueen objectAtIndex:1] chessPieceType], @"Chess Board Four Queen Test: Cell Type is Black Queen");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:2] cellRow], @"Chess Board Four Queen Test: The bottom left destionasion can go up to row at 0");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:2] cellCol], @"Chess Board Four Queen Test: The bottom left destionasion can go up to col at 0");
+	XCTAssertEqual(6, [[allPostionsAllowedForThisQueen objectAtIndex:2] chessPieceType], @"Chess Board Four Queen Test: Cell Type is Black Queen");
+
+	// resets allPostionsAllowedForThisQueen for next queen piece
+	allPostionsAllowedForThisQueen = nil;
+	
+	allPostionsAllowedForThisQueen = [_testChessBoard getAllAllowedMovementForChessPiece:[_testChessBoard getCurrentStateAtRow:7 andColumn:0]];
+	
+	// it should return an array of three for black queen
+	XCTAssertEqual(3, [allPostionsAllowedForThisQueen count], @"Chess Board Four Queen Test: There should be three move");
+	XCTAssertEqual(7, [[allPostionsAllowedForThisQueen objectAtIndex:0] cellRow], @"Chess Board Four Queen Test: The bottom destionasion can go up to row at 7");
+	XCTAssertEqual(7, [[allPostionsAllowedForThisQueen objectAtIndex:0] cellCol], @"Chess Board Four Queen Test: The bottom destionasion can go up to col at 7");
+	XCTAssertEqual(12, [[allPostionsAllowedForThisQueen objectAtIndex:0] chessPieceType], @"Chess Board Four Queen Test: Cell Type is White Queen");
+	XCTAssertEqual(1, [[allPostionsAllowedForThisQueen objectAtIndex:1] cellRow], @"Chess Board Four Queen Test: The right destionasion can go up to row at 1");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:1] cellCol], @"Chess Board Four Queen Test: The right destionasion can go up to col at 0");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:1] chessPieceType], @"Chess Board Four Queen Test: Cell Type is Empty Space");
+	XCTAssertEqual(0, [[allPostionsAllowedForThisQueen objectAtIndex:2] cellRow], @"Chess Board Four Queen Test: The bottom right destionasion can go up to row at 0");
+	XCTAssertEqual(7, [[allPostionsAllowedForThisQueen objectAtIndex:2] cellCol], @"Chess Board Four Queen Test: The bottom right destionasion can go up to col at 7");
+	XCTAssertEqual(12, [[allPostionsAllowedForThisQueen objectAtIndex:2] chessPieceType], @"Chess Board Four Queen Test: Cell Type is White Queen");
+}// end of testGetAllMovmentOnFourQueensAtEachCouner_withValidChessPieceType_eachShouldGiveThreePostionsToMoveTo()
+
+- (void)testGetAllowMovement_withInValidChessPieceType_shouldErrorOut {
+	XCTAssertThrows([_testChessBoard getAllAllowedMovementForChessPiece:nil], @"Chess Board InValid Chess Piece Type Test: No Valid Type");
+}// end of testGetAllowMovement_withInValidChessPieceType_shouldErrorOut()
+
+/*
+ 
  Pawn Test
  
 */
