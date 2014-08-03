@@ -179,11 +179,25 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 			// checks if the chess piece is starting at the bottom of the chess board so it need to move up else it needs to move down
 			if ([chessPiece startingCellRow] < 4) {
 				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideTop whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
+				
+				[self checkPawnKillingOptionsForThisPawn:chessPiece atSartingRow:(locationOfDestinationRow  + 1) andColumn:locationOfDestinationCol thenAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
 			}// end of if
 			else {
 				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideBottom whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
+				
+				[self checkPawnKillingOptionsForThisPawn:chessPiece atSartingRow:(locationOfDestinationRow - 1) andColumn:locationOfDestinationCol thenAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
 			}// end of else
-
+			
+			// checks to make sure that locationOfDestinationRow and locationOfDestinationCol have change
+			if (locationOfDestinationRow != [chessPiece cellRow] || locationOfDestinationCol != [chessPiece cellCol]) {
+				// adds to the array with a chessPiece object of that cell if there is any move ment for the pawn
+				[foundPostionForThisChessPiece addObject:[self getCurrentStateAtRow:locationOfDestinationRow andColumn:locationOfDestinationCol]];
+				
+				// reset the row and column for the next
+				locationOfDestinationRow = [chessPiece cellRow];
+				locationOfDestinationCol = [chessPiece cellCol];
+			}// end of if
+			
 			// checks either side of this pawn is a pawn that did the two column just during their last turn
 			if ([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:([chessPiece cellCol] + 1)] hasThisChessPieceMovedOnce] == 0) {
 				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideRight whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
@@ -338,6 +352,32 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 	if(column < 0 || column > (NumOfCols - 1) || row < 0 || row > (NumOfRows - 1))
 		[NSException raise:NSRangeException format:@"cell out of bounds"];
 }// end of checkArryBonundsForRowandColumn
+
+// checks if this Pawn has enemys dangle
+- (void)checkPawnKillingOptionsForThisPawn:(ChessPiece *)chessPiecePawn atSartingRow:(NSInteger)pawnsLocationRow andColumn:(NSInteger)pawnsLocationCol thenAddToFoundPostionForThisChessPiece:(NSMutableArray *)foundPostionForThisChessPiece {
+	
+	// goes around for both dangle sides in from of chessPiecePawn
+	for (NSInteger indexDangleSides = 0; indexDangleSides < 2; indexDangleSides++) {
+		ChessPiece* chessPieceCell = [self getCurrentStateAtRow:pawnsLocationRow andColumn:(pawnsLocationCol + 1)];
+		
+		//checks if this is on the right side which is 0 or 1 for left
+		if (indexDangleSides == 0) {
+			[_findingMovesForChessPiecesOnChessBoard checkForFriendOrFoeOnRowOrColumn:(pawnsLocationCol + 1) withOriginRowOrColumn:&pawnsLocationCol forCellType:[chessPieceCell getChessPieceColour] andCellsChessPiece:chessPiecePawn andAddToRow:NO];
+		}// end of if
+		else {
+			[_findingMovesForChessPiecesOnChessBoard checkForFriendOrFoeOnRowOrColumn:(pawnsLocationCol - 1) withOriginRowOrColumn:&pawnsLocationCol forCellType:[chessPieceCell getChessPieceColour] andCellsChessPiece:chessPiecePawn andAddToRow:YES];
+		}// end of else
+		
+		// checks to make sure that locationOfDestinationRow and locationOfDestinationCol have change
+		if (pawnsLocationCol != [chessPiecePawn cellRow] || pawnsLocationRow != [chessPiecePawn cellCol]) {
+			// adds to the array with a chessPiece object of that cell
+			[foundPostionForThisChessPiece addObject:[self getCurrentStateAtRow:pawnsLocationRow andColumn:pawnsLocationCol]];
+			
+			// reset the column for the next
+			pawnsLocationCol = [chessPiecePawn cellCol];
+		}// end of if
+	}// end of for loop
+}// end of checkPawnKillingOptionsForThisPawnAtSartingRowAndColumnThenAddToFoundPostionForThisChessPiece()
 
 // creates a new Chess Piece
 -(ChessPiece*) createCellState:(NSUInteger)newChessPeiceType OnRow:(NSInteger)row andColumn:(NSInteger)column {

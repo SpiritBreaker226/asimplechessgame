@@ -25,6 +25,9 @@
 // check if the cell is empty for the top if so then return the location of destination
 -(BOOL)checkIfTopCellIsEmptyOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard withAllowedNumberOfMoves:(NSInteger)numberOfMoves;
 
+// checks if this cell is either friend or Foe
+- (bool)checkForFriendOrFoeOnRowOrColumn:(NSInteger)indexRowColumn withOriginRowOrColumn:(NSInteger *)origin forCellType:(NSString *)cellType andCellsChessPiece:(ChessPiece *)cellsChessPiece andAddToRow:(bool)addToRow;
+
 // checks if this cell is either friend or Foe danglely
 - (bool)checkForFriendOrFoeOnRow:(NSInteger)indexRow andColumn:(NSInteger)indexColumn withOriginRow:(NSInteger *)originRow andColumn:(NSInteger*)originColumn forCellType:(NSString *)cellType andCellsChessPiece:(ChessPiece *)cellsChessPiece andGoingBackToWhichCell:(NSInteger)whichDiangleMovementToGoBackTo;
 

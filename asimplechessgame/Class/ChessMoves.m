@@ -55,6 +55,28 @@
 	return NO;
 }// end of checkIfTopCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
 
+// checks if this cell is either friend or Foe
+- (bool)checkForFriendOrFoeOnRowOrColumn:(NSInteger)indexRowColumn withOriginRowOrColumn:(NSInteger *)origin forCellType:(NSString *)cellType andCellsChessPiece:(ChessPiece *)cellsChessPiece andAddToRow:(bool)addToRow {
+	// checks if this not an empty cell
+	if ([cellsChessPiece chessPieceType] != 0) {
+		// checks if the cell type is the same colour as the originCell or not
+		if ([[cellsChessPiece getChessPieceColour] isEqualToString:cellType] || [cellType isEqualToString:@""]) {
+			// goes back one as this cell is the same colour as the originCell
+			if (addToRow == YES)
+				indexRowColumn++;
+			else
+				indexRowColumn--;
+		}// end of if
+		
+		// updates originRow
+		*origin = indexRowColumn;
+		
+		return YES;
+	}// end of if
+	else
+		return NO;
+}// end of checkForFriendOrFoeOnRowOrColumnWithOriginRowOrColumnForCellTypeAndCellsChessPieceAndAddToRow()
+
 - (bool)checkForFriendOrFoeOnRow:(NSInteger)indexRow andColumn:(NSInteger)indexColumn withOriginRow:(NSInteger *)originRow andColumn:(NSInteger*)originColumn forCellType:(NSString *)cellType andCellsChessPiece:(ChessPiece *)cellsChessPiece andGoingBackToWhichCell:(NSInteger)whichDiangleMovementToGoBackTo {
 	// checks if this not an empty cell
 	if ([cellsChessPiece chessPieceType] != 0) {
@@ -228,28 +250,6 @@
  Private Methods
  
 */
-
-// checks if this cell is either friend or Foe
-- (bool)checkForFriendOrFoeOnRowOrColumn:(NSInteger)indexRowColumn withOriginRowOrColumn:(NSInteger *)origin forCellType:(NSString *)cellType andCellsChessPiece:(ChessPiece *)cellsChessPiece andAddToRow:(bool)addToRow {
-	// checks if this not an empty cell
-	if ([cellsChessPiece chessPieceType] != 0) {
-		// checks if the cell type is the same colour as the originCell or not
-		if ([[cellsChessPiece getChessPieceColour] isEqualToString:cellType] || [cellType isEqualToString:@""]) {
-			// goes back one as this cell is the same colour as the originCell
-			if (addToRow == YES)
-				indexRowColumn++;
-			else
-				indexRowColumn--;
-		}// end of if
-		
-		// updates originRow
-		*origin = indexRowColumn;
-		
-		return YES;
-	}// end of if
-	else
-		return NO;
-}// end of checkForFriendOrFoeOnRowOrColumnWithOriginRowOrColumnForCellTypeAndCellsChessPieceAndAddToRow()
 
 // checks if there is this is a vaild board
 - (void)checkForVaildChessBoard:(ChessBoard *)chessBoard {
