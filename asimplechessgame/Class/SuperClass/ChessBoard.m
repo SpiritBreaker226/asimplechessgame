@@ -353,23 +353,27 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 		[NSException raise:NSRangeException format:@"cell out of bounds"];
 }// end of checkArryBonundsForRowandColumn
 
-// checks if this Pawn has enemys dangle
+// checks if this Pawn has enemies dangle
 - (void)checkPawnKillingOptionsForThisPawn:(ChessPiece *)chessPiecePawn atSartingRow:(NSInteger)pawnsLocationRow andColumn:(NSInteger)pawnsLocationCol thenAddToFoundPostionForThisChessPiece:(NSMutableArray *)foundPostionForThisChessPiece {
 	
 	// goes around for both dangle sides in from of chessPiecePawn
 	for (NSInteger indexDangleSides = 0; indexDangleSides < 2; indexDangleSides++) {
-		ChessPiece* chessPieceCell = [self getCurrentStateAtRow:pawnsLocationRow andColumn:(pawnsLocationCol + 1)];
+		ChessPiece* chessPieceCellBeingCheckForEnemies;
 		
 		//checks if this is on the right side which is 0 or 1 for left
 		if (indexDangleSides == 0) {
-			[_findingMovesForChessPiecesOnChessBoard checkForFriendOrFoeOnRowOrColumn:(pawnsLocationCol + 1) withOriginRowOrColumn:&pawnsLocationCol forCellType:[chessPieceCell getChessPieceColour] andCellsChessPiece:chessPiecePawn andAddToRow:NO];
+			chessPieceCellBeingCheckForEnemies = [self getCurrentStateAtRow:pawnsLocationRow andColumn:(pawnsLocationCol + 1)];
+			
+			[_findingMovesForChessPiecesOnChessBoard checkForFriendOrFoeOnRowOrColumn:(pawnsLocationCol + 1) withOriginRowOrColumn:&pawnsLocationCol forCellType:[chessPiecePawn getChessPieceColour] andCellsChessPiece:chessPieceCellBeingCheckForEnemies andAddToRow:NO];
 		}// end of if
 		else {
-			[_findingMovesForChessPiecesOnChessBoard checkForFriendOrFoeOnRowOrColumn:(pawnsLocationCol - 1) withOriginRowOrColumn:&pawnsLocationCol forCellType:[chessPieceCell getChessPieceColour] andCellsChessPiece:chessPiecePawn andAddToRow:YES];
+			chessPieceCellBeingCheckForEnemies = [self getCurrentStateAtRow:pawnsLocationRow andColumn:(pawnsLocationCol - 1)];
+			
+			[_findingMovesForChessPiecesOnChessBoard checkForFriendOrFoeOnRowOrColumn:(pawnsLocationCol - 1) withOriginRowOrColumn:&pawnsLocationCol forCellType:[chessPiecePawn getChessPieceColour] andCellsChessPiece:chessPieceCellBeingCheckForEnemies andAddToRow:YES];
 		}// end of else
 		
 		// checks to make sure that locationOfDestinationRow and locationOfDestinationCol have change
-		if (pawnsLocationCol != [chessPiecePawn cellRow] || pawnsLocationRow != [chessPiecePawn cellCol]) {
+		if (pawnsLocationCol != [chessPiecePawn cellCol]) {
 			// adds to the array with a chessPiece object of that cell
 			[foundPostionForThisChessPiece addObject:[self getCurrentStateAtRow:pawnsLocationRow andColumn:pawnsLocationCol]];
 			
