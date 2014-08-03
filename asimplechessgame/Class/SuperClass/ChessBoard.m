@@ -199,10 +199,10 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 			}// end of if
 			
 			// checks either side of this pawn is a pawn that did the two column just during their last turn
-			if ([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:([chessPiece cellCol] + 1)] hasThisChessPieceMovedOnce] == 0) {
+			if (([chessPiece cellCol]  + 1) < NumOfCols && [[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:([chessPiece cellCol] + 1)] hasThisChessPieceMovedOnce] == 0) {
 				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideRight whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
 			}// end of if
-			else if ([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:([chessPiece cellCol] - 1)] hasThisChessPieceMovedOnce] == 0) {
+			else if (([chessPiece cellCol]  - 1) >= 0 && [[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:([chessPiece cellCol] - 1)] hasThisChessPieceMovedOnce] == 0) {
 				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideLeft whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
 			}// end of else if
 		break;
@@ -361,12 +361,12 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 		ChessPiece* chessPieceCellBeingCheckForEnemies;
 		
 		//checks if this is on the right side which is 0 or 1 for left
-		if (indexDangleSides == 0) {
+		if (indexDangleSides == 0 && (pawnsLocationCol + 1) < NumOfCols) {
 			chessPieceCellBeingCheckForEnemies = [self getCurrentStateAtRow:pawnsLocationRow andColumn:(pawnsLocationCol + 1)];
 			
 			[_findingMovesForChessPiecesOnChessBoard checkForFriendOrFoeOnRowOrColumn:(pawnsLocationCol + 1) withOriginRowOrColumn:&pawnsLocationCol forCellType:[chessPiecePawn getChessPieceColour] andCellsChessPiece:chessPieceCellBeingCheckForEnemies andAddToRow:NO];
 		}// end of if
-		else {
+		else if(indexDangleSides == 1 && (pawnsLocationCol - 1) >= 0) {
 			chessPieceCellBeingCheckForEnemies = [self getCurrentStateAtRow:pawnsLocationRow andColumn:(pawnsLocationCol - 1)];
 			
 			[_findingMovesForChessPiecesOnChessBoard checkForFriendOrFoeOnRowOrColumn:(pawnsLocationCol - 1) withOriginRowOrColumn:&pawnsLocationCol forCellType:[chessPiecePawn getChessPieceColour] andCellsChessPiece:chessPieceCellBeingCheckForEnemies andAddToRow:YES];
