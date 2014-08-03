@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class ChessBoard;
+@class ChessPiece;
 
 @interface ChessMoves : NSObject
 
@@ -24,11 +25,8 @@
 // check if the cell is empty for the top if so then return the location of destination
 -(BOOL)checkIfTopCellIsEmptyOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard withAllowedNumberOfMoves:(NSInteger)numberOfMoves;
 
-// check if the cell is empty and an emeny for the top left if not then return the location of destination
--(void)checkIfTopLeftCellIsNotEmptyOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType;
-
-// check if the cell is empty and an emeny for the top right if not then return the location of destination
--(void)checkIfTopRightCellIsNotEmptyOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType;
+// checks if this cell is either friend or Foe danglely
+- (bool)checkForFriendOrFoeOnRow:(NSInteger)indexRow andColumn:(NSInteger)indexColumn withOriginRow:(NSInteger *)originRow andColumn:(NSInteger*)originColumn forCellType:(NSString *)cellType andCellsChessPiece:(ChessPiece *)cellsChessPiece andGoingBackToWhichCell:(NSInteger)whichDiangleMovementToGoBackTo;
 
 // finds the location of destination going to the bottom of the chess piece
 -(void)getLocationOfDestinationToTheBottomCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard*)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves;

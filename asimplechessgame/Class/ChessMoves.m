@@ -55,29 +55,45 @@
 	return NO;
 }// end of checkIfTopCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
 
--(void)checkIfTopLeftCellIsNotEmptyOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType {
-	// checks if the arugments are valid
-	[self checkForVaildChessBoard:chessBoard];
-	[self checkForVaildNumberOfMoves:(*originRow + 1)];
-	[self checkForVaildNumberOfMoves:(*originColumn - 1)];
-	
-	NSInteger row = (*originRow + 1);
-	NSInteger column = (*originColumn - 1);
-	
-	[self checkForFriendOrFoeOnRow:row andColumn:column withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:row andColumn:column] andGoingBackToWhichCell:1];
-}// end of checkIfTopLeftCellIsNotEmptyOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
-
--(void)checkIfTopRightCellIsNotEmptyOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType {
-	// checks if the arugments are valid
-	[self checkForVaildChessBoard:chessBoard];
-	[self checkForVaildNumberOfMoves:(*originRow + 1)];
-	[self checkForVaildNumberOfMoves:(*originColumn + 1)];
-	
-	NSInteger row = (*originRow + 1);
-	NSInteger column = (*originColumn + 1);
-
-	[self checkForFriendOrFoeOnRow:row andColumn:column withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:row andColumn:column] andGoingBackToWhichCell:1];
-}// end of checkIfTopRightCellIsNotEmptyOnRowAndColumnOnBoardForCellType()
+- (bool)checkForFriendOrFoeOnRow:(NSInteger)indexRow andColumn:(NSInteger)indexColumn withOriginRow:(NSInteger *)originRow andColumn:(NSInteger*)originColumn forCellType:(NSString *)cellType andCellsChessPiece:(ChessPiece *)cellsChessPiece andGoingBackToWhichCell:(NSInteger)whichDiangleMovementToGoBackTo {
+	// checks if this not an empty cell
+	if ([cellsChessPiece chessPieceType] != 0) {
+		// checks if the cell type is the same colour as the originCell or not
+		if ([[cellsChessPiece getChessPieceColour] isEqualToString:cellType] || [cellType isEqualToString:@""]) {
+			// because diagonal movement uses two numbers in order to go back both the indexRow and index column will need to change and some times in different directions so go back: 0 = top left, 2, top right, 4 = bottom right and 6 = bottom left
+			switch (whichDiangleMovementToGoBackTo) {
+					// top left
+				case 0:
+					indexRow--;
+					indexColumn++;
+					break;
+					// top right
+				case 2:
+					indexRow--;
+					indexColumn--;
+					break;
+					// bottom right
+				case 4:
+					indexRow++;
+					indexColumn--;
+					break;
+					// bottom left
+				case 6:
+					indexRow++;
+					indexColumn++;
+					break;
+			}// end of switch
+		}// end of if
+		
+		// both updates originRow and originColumn
+		*originRow = indexRow;
+		*originColumn = indexColumn;
+		
+		return YES;
+	}// end of if
+	else
+		return NO;
+}// end of checkForFriendOrFoeOnRowAndColumnWithOriginRowAndColumnForCellTypeAndCellsChessPieceAndGoingBackToWhichCell()
 
 -(void)getLocationOfDestinationToTheBottomCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
 	// checks if the arugments are valid
@@ -234,47 +250,6 @@
 	else
 		return NO;
 }// end of checkForFriendOrFoeOnRowOrColumnWithOriginRowOrColumnForCellTypeAndCellsChessPieceAndAddToRow()
-
-// checks if this cell is either friend or Foe
-- (bool)checkForFriendOrFoeOnRow:(NSInteger)indexRow andColumn:(NSInteger)indexColumn withOriginRow:(NSInteger *)originRow andColumn:(NSInteger*)originColumn forCellType:(NSString *)cellType andCellsChessPiece:(ChessPiece *)cellsChessPiece andGoingBackToWhichCell:(NSInteger)whichDiangleMovementToGoBackTo {
-	// checks if this not an empty cell
-	if ([cellsChessPiece chessPieceType] != 0) {
-		// checks if the cell type is the same colour as the originCell or not
-		if ([[cellsChessPiece getChessPieceColour] isEqualToString:cellType] || [cellType isEqualToString:@""]) {
-			// because diagonal movement uses two numbers in order to go back both the indexRow and index column will need to change and some times in different directions so go back: 0 = top left, 2, top right, 4 = bottom right and 6 = bottom left
-			switch (whichDiangleMovementToGoBackTo) {
-				// top left
-				case 0:
-					indexRow--;
-					indexColumn++;
-				break;
-				// top right
-				case 2:
-					indexRow--;
-					indexColumn--;
-				break;
-				// bottom right
-				case 4:
-					indexRow++;
-					indexColumn--;
-				break;
-				// bottom left
-				case 6:
-					indexRow++;
-					indexColumn++;
-				break;
-			}// end of switch
-		}// end of if
-		
-		// both updates originRow and originColumn
-		*originRow = indexRow;
-		*originColumn = indexColumn;
-		
-		return YES;
-	}// end of if
-	else
-		return NO;
-}// end of checkForFriendOrFoeOnRowAndColumnWithOriginRowAndColumnForCellTypeAndCellsChessPieceAndGoingBackToWhichCell()
 
 // checks if there is this is a vaild board
 - (void)checkForVaildChessBoard:(ChessBoard *)chessBoard {
