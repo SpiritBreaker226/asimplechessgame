@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/SpiritBreaker226/asimplechessgame.svg?branch=master)](https://travis-ci.org/SpiritBreaker226/asimplechessgame)
+[![Build Status](https://travis-ci.org/SpiritBreaker226/asimplechessgame.svg?branch=master)](https://travis-ci.org/SpiritBreaker226/asimplechessgame) 
+[![Coverage Status](https://img.shields.io/coveralls/SpiritBreaker226/asimplechessgame.svg)](https://coveralls.io/r/SpiritBreaker226/asimplechessgame)
 
 A Simple Chess Game
 ================
