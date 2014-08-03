@@ -173,10 +173,17 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 	
 	// checks which type of chess piece it is
 	switch ([chessPiece chessPieceType]) {
-		// Black Pawn
+		// Pawn
 		case 1:
-			[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideTop whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
-			
+		case 7:
+			// checks if the chess piece is starting at the bottom of the chess board so it need to move up else it needs to move down
+			if ([chessPiece startingCellRow] < 4) {
+				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideTop whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
+			}// end of if
+			else {
+				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideBottom whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
+			}// end of else
+
 			// checks either side of this pawn is a pawn that did the two column just during their last turn
 			if ([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:([chessPiece cellCol] + 1)] hasThisChessPieceMovedOnce] == 0) {
 				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideRight whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
@@ -184,10 +191,6 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 			else if ([[self getCurrentStateAtRow:[chessPiece cellRow] andColumn:([chessPiece cellCol] - 1)] hasThisChessPieceMovedOnce] == 0) {
 				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideLeft whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
 			}// end of else if
-		break;
-		// White Pawn
-		case 7:
-			[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideBottom whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
 		break;
 		// Rook
 		case 2:
