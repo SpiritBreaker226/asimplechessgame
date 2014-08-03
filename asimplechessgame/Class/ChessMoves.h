@@ -24,6 +24,12 @@
 // check if the cell is empty for the top if so then return the location of destination
 -(BOOL)checkIfTopCellIsEmptyOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard withAllowedNumberOfMoves:(NSInteger)numberOfMoves;
 
+// check if the cell is empty and an emeny for the top left if not then return the location of destination
+-(void)checkIfTopLeftCellIsNotEmptyOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType;
+
+// check if the cell is empty and an emeny for the top right if not then return the location of destination
+-(void)checkIfTopRightCellIsNotEmptyOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType;
+
 // finds the location of destination going to the bottom of the chess piece
 -(void)getLocationOfDestinationToTheBottomCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard*)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves;
 

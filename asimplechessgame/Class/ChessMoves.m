@@ -55,6 +55,30 @@
 	return NO;
 }// end of checkIfTopCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
 
+-(void)checkIfTopLeftCellIsNotEmptyOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType {
+	// checks if the arugments are valid
+	[self checkForVaildChessBoard:chessBoard];
+	[self checkForVaildNumberOfMoves:(*originRow + 1)];
+	[self checkForVaildNumberOfMoves:(*originColumn - 1)];
+	
+	NSInteger row = (*originRow + 1);
+	NSInteger column = (*originColumn - 1);
+	
+	[self checkForFriendOrFoeOnRow:row andColumn:column withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:row andColumn:column] andGoingBackToWhichCell:1];
+}// end of checkIfTopLeftCellIsNotEmptyOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
+
+-(void)checkIfTopRightCellIsNotEmptyOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType {
+	// checks if the arugments are valid
+	[self checkForVaildChessBoard:chessBoard];
+	[self checkForVaildNumberOfMoves:(*originRow + 1)];
+	[self checkForVaildNumberOfMoves:(*originColumn + 1)];
+	
+	NSInteger row = (*originRow + 1);
+	NSInteger column = (*originColumn + 1);
+
+	[self checkForFriendOrFoeOnRow:row andColumn:column withOriginRow:originRow andColumn:originColumn forCellType:cellType andCellsChessPiece:[chessBoard getCurrentStateAtRow:row andColumn:column] andGoingBackToWhichCell:1];
+}// end of checkIfTopRightCellIsNotEmptyOnRowAndColumnOnBoardForCellType()
+
 -(void)getLocationOfDestinationToTheBottomCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
 	// checks if the arugments are valid
 	[self checkForVaildChessBoard:chessBoard];
