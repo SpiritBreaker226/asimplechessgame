@@ -178,12 +178,12 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 		case 7:
 			// checks if the chess piece is starting at the bottom of the chess board so it need to move up else it needs to move down
 			if ([chessPiece startingCellRow] < 4) {
-				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideTop whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
+				[_findingMovesForChessPiecesOnChessBoard checkIfTopCellIsEmptyOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
 				
 				[self checkPawnKillingOptionsForThisPawn:chessPiece atSartingRow:(locationOfDestinationRow  + 1) andColumn:locationOfDestinationCol thenAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
 			}// end of if
 			else {
-				[self findMovesForChessPiece:chessPiece atLocationOfDestinationRow:&locationOfDestinationRow andLocationOfDestinationCol:&locationOfDestinationCol onThisSideOfChessPiece:chessPieceSideBottom whichWillBeAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
+				[_findingMovesForChessPiecesOnChessBoard checkIfBottomCellIsEmptyOnRow:&locationOfDestinationRow andColumn:&locationOfDestinationCol onBoard:self withAllowedNumberOfMoves:[chessPiece hasThisChessPieceMovedOnce]];
 				
 				[self checkPawnKillingOptionsForThisPawn:chessPiece atSartingRow:(locationOfDestinationRow - 1) andColumn:locationOfDestinationCol thenAddToFoundPostionForThisChessPiece:foundPostionForThisChessPiece];
 			}// end of else
