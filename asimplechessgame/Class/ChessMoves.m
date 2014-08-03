@@ -19,6 +19,42 @@
  
 */
 
+-(BOOL)checkIfBottomCellIsEmptyOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
+	// checks if the arugments are valid
+	[self checkForVaildChessBoard:chessBoard];
+	[self checkForVaildNumberOfMoves:numberOfMoves];
+	
+	// goes around for each row chcking if there is a chess peice on it and if so can this cell type remove it
+	for (NSInteger indexRow = (*originRow - 1); indexRow >= 0; indexRow--) {
+		ChessPiece* cellsChessPiece = [chessBoard getCurrentStateAtRow:indexRow andColumn:*originColumn];
+		
+		if([self checkForFriendOrFoeOnRowOrColumn:indexRow withOriginRowOrColumn:originRow forCellType:@"" andCellsChessPiece:cellsChessPiece andAddToRow:YES] == YES)
+			return NO;
+		
+		if([self checksMaxNumberOfRowsColumns:indexRow withOriginRowColumn:originRow andThereIsDIffForMaxNumberOfMoves:((*originRow - indexRow) == numberOfMoves)  andNumberOfRowsOrColumns:NumOfRows] == YES)
+			return YES;
+	}// end of for loop
+	
+	return NO;
+}// end of getLocationOfDestinationToTheBottomCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
+
+-(BOOL)checkIfTopCellIsEmptyOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
+	// checks if the arugmenxts are valid
+	[self checkForVaildChessBoard:chessBoard];
+	[self checkForVaildNumberOfMoves:numberOfMoves];
+	
+	// goes around for each row chcking if there is a chess peice on it and if so can this cell type remove it
+	for (NSInteger indexRow = (*originRow + 1); indexRow < NumOfRows; indexRow++) {
+		if([self checkForFriendOrFoeOnRowOrColumn:indexRow withOriginRowOrColumn:originRow forCellType:@"" andCellsChessPiece:[chessBoard getCurrentStateAtRow:indexRow andColumn:*originColumn] andAddToRow:NO] == YES)
+			return NO;
+		
+		if([self checksMaxNumberOfRowsColumns:indexRow withOriginRowColumn:originRow andThereIsDIffForMaxNumberOfMoves:((indexRow - *originRow) == numberOfMoves) andNumberOfRowsOrColumns:NumOfRows] == YES)
+			return YES;
+	}// end of for loop
+	
+	return NO;
+}// end of checkIfTopCellOnRowAndColumnOnBoardForCellTypeWithAllowedNumberOfMoves()
+
 -(void)getLocationOfDestinationToTheBottomCellOnRow:(NSInteger*)originRow andColumn:(NSInteger*)originColumn onBoard:(ChessBoard *)chessBoard forCellType:(NSString*)cellType withAllowedNumberOfMoves:(NSInteger)numberOfMoves {
 	// checks if the arugments are valid
 	[self checkForVaildChessBoard:chessBoard];
@@ -158,7 +194,7 @@
 	// checks if this not an empty cell
 	if ([cellsChessPiece chessPieceType] != 0) {
 		// checks if the cell type is the same colour as the originCell or not
-		if ([[cellsChessPiece getChessPieceColour] isEqualToString:cellType]) {
+		if ([[cellsChessPiece getChessPieceColour] isEqualToString:cellType] || [cellType isEqualToString:@""]) {
 			// goes back one as this cell is the same colour as the originCell
 			if (addToRow == YES)
 				indexRowColumn++;
@@ -180,7 +216,7 @@
 	// checks if this not an empty cell
 	if ([cellsChessPiece chessPieceType] != 0) {
 		// checks if the cell type is the same colour as the originCell or not
-		if ([[cellsChessPiece getChessPieceColour] isEqualToString:cellType]) {
+		if ([[cellsChessPiece getChessPieceColour] isEqualToString:cellType] || [cellType isEqualToString:@""]) {
 			// because diagonal movement uses two numbers in order to go back both the indexRow and index column will need to change and some times in different directions so go back: 0 = top left, 2, top right, 4 = bottom right and 6 = bottom left
 			switch (whichDiangleMovementToGoBackTo) {
 				// top left
