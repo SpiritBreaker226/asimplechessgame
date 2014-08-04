@@ -3,6 +3,5 @@ before_install:
   - sudo easy_install cpp-coveralls
 script:
    - xctool -project asimplechessgame.xcodeproj -scheme 'TravisCI' test ONLY_ACTIVE_ARCH=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug -sdk iphonesimulator -arch i386 build
-   - ./configure --enable-gcov && make && make check
 after_success:
   - coveralls --verbose --exclude Apptimize.framework --exclude lib --exclude tests --gcov-options '\-lp'
