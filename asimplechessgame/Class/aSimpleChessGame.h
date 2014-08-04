@@ -25,11 +25,6 @@
 @property (readonly) NSInteger whiteBishopOut;
 @property (readonly) NSInteger whiteQueenOut;
 
-typedef NS_ENUM(NSInteger, currentTurn) {
-	whitePeiceTurn = 0,
-	blackPeiceTurn = 1
-};// end of trype of def
-
 /*
  
  Public Method

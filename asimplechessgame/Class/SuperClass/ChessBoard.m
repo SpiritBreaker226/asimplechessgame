@@ -48,6 +48,10 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 -(NSArray*) clearBoardAndSetChessColour:(NSString*)chessColourType {
 	NSMutableArray* itemsOnTheBaord = [[NSMutableArray alloc] init];
 	NSInteger cellStateMultipler = 0;// holds the multipler in order to both the white chess pieces, which is add 6 to the cell state for the which pieces cell state and the black chess pieces, which is zero since the cell state from 1-6 is for black pieces
+
+	// sets the default properties
+	_whichPlayerIsInChessCheck = @"";
+	_currentPlayersTurn = chessColourType;
 	
 	// clears currentBoardBeingPlayed by setting each buty of the block of memory
 	// occupied by currentBoardBeingPlayed to zero

@@ -19,6 +19,15 @@ static const NSInteger NumOfCols = 8;
 
 /*
  
+ Properties
+ 
+*/
+
+@property(readonly, nonatomic) NSString* currentPlayersTurn;
+@property(readonly, nonatomic) NSString* whichPlayerIsInChessCheck;
+
+/*
+ 
  Public Methods
 
 */
