@@ -1,10 +1,6 @@
 language: objective-c
 compiler:
   - gcc
-before_install:
-  - pyenv rehash
-  - pip install cpp-coveralls
-  - pyenv rehash
 script:
   - ./configure --enable-gcov && make && make check
    - xctool -project asimplechessgame.xcodeproj -scheme 'asimplechessgame' test -configuration Debug -sdk iphonesimulator -arch i386 build
