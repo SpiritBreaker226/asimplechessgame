@@ -1,3 +1,10 @@
 language: objective-c
+before_install:
+  - sudo easy_install cpp-coveralls
+  - brew uninstall xctool
+  - brew update
+  - brew install xctool --HEAD
 script:
-   - xctool -project asimplechessgame.xcodeproj -scheme 'asimplechessgame' test -configuration Debug -sdk iphonesimulator -arch i386 build
+   - xctool -project asimplechessgame.xcodeproj -scheme 'asimplechessgame' test ONLY_ACTIVE_ARCH=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -configuration Debug -sdk iphonesimulator -arch i386 build
+after_success:
+  - ./script/coveralls.sh
