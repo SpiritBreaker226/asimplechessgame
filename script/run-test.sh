@@ -1,9 +1,9 @@
 #!/bin/sh
 
 xcodebuild \
-	-project Coveralls-iOS.xcodeproj \
+	-project asimplechessgameTests.xcodeproj \
 	-sdk iphonesimulator \
-	-target Coveralls-iOSTests \
+	-target asimplechessgameTests \
 	-configuration Debug \
 	clean build \
 	ONLY_ACTIVE_ARCH=NO \
