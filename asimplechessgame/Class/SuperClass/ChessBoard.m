@@ -80,28 +80,28 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 				
 				// checks if the is 1 or 6 as those rows are where the pawns will go
 				if(indexRow == 1 || indexRow == 6) {
-					[itemsOnTheBaord addObject:[self createCellState:(1 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
+					[itemsOnTheBaord addObject:[self setCellState:(1 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
 				}// end of if
 				else {
 					// checks which white chess peices this column will have to display them
 					switch (indexCol) {
 						case 0:
 						case 7:
-							[itemsOnTheBaord addObject:[self createCellState:(2 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
+							[itemsOnTheBaord addObject:[self setCellState:(2 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
 							break;
 						case 1:
 						case 6:
-							[itemsOnTheBaord addObject:[self createCellState:(3 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
+							[itemsOnTheBaord addObject:[self setCellState:(3 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
 							break;
 						case 2:
 						case 5:
-							[itemsOnTheBaord addObject:[self createCellState:(4 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
+							[itemsOnTheBaord addObject:[self setCellState:(4 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
 							break;
 						case 3:
-							[itemsOnTheBaord addObject:[self createCellState:(5 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
+							[itemsOnTheBaord addObject:[self setCellState:(5 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
 							break;
 						case 4:
-							[itemsOnTheBaord addObject:[self createCellState:(6 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
+							[itemsOnTheBaord addObject:[self setCellState:(6 + cellStateMultipler) OnRow:indexRow andColumn:indexCol]];
 							break;
 					}// end of switch
 				}// end of else
@@ -109,7 +109,7 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 			else {
 				// sets empty chess pieces if there is no peices type at the start in order to make
 				// the code a little simplier later one
-				[self createCellState:0 OnRow:indexRow andColumn:indexCol];
+				[self setCellState:0 OnRow:indexRow andColumn:indexCol];
 			}// end of else
 		}// end of column for loop
 	}// end of row for loop
@@ -338,10 +338,15 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 	[self setCellState:0 OnRow:fromRow andColumn:fromColumn];
 }// end of movreCellStateFromRowAndColumnToRowAndColumn()
 
--(void) setCellState:(NSUInteger)newChessPeiceType OnRow:(NSInteger)row andColumn:(NSInteger)column {
+-(ChessPiece*) setCellState:(NSUInteger)newChessPeiceType OnRow:(NSInteger)row andColumn:(NSInteger)column {
 	[self checkArrayBoundsForRow:row andColumn:column];
 	
-	_currentBoardBeingPlayed[row][column] = [[ChessPiece alloc] initWithRow:row Column:column andChessPieceType:newChessPeiceType];
+	// creates a new version of the chess piece and adds it to the board in memory
+	ChessPiece* newChessPiece = [[ChessPiece alloc] initWithRow:row Column:column andChessPieceType:newChessPeiceType];
+	
+	_currentBoardBeingPlayed[row][column] = newChessPiece;
+	
+	return newChessPiece;
 }// end of setCellStateOnRowandColumn()
 
 /*
@@ -386,17 +391,6 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 		}// end of if
 	}// end of for loop
 }// end of checkPawnKillingOptionsForThisPawnAtSartingRowAndColumnThenAddToFoundPostionForThisChessPiece()
-
-// creates a new Chess Piece
--(ChessPiece*) createCellState:(NSUInteger)newChessPeiceType OnRow:(NSInteger)row andColumn:(NSInteger)column {
-	[self checkArrayBoundsForRow:row andColumn:column];
-	
-	// creates a new version of the chess piece and adds it to the board in memory
-	ChessPiece* newChessPiece = [[ChessPiece alloc] initWithRow:row Column:column andChessPieceType:newChessPeiceType];
-	_currentBoardBeingPlayed[row][column] = newChessPiece;
-	
-	return newChessPiece;
-}// end of setCellStateOnRowandColumn()
 
 - (void)findMovesForChessPiece:(ChessPiece *)chessPiece atLocationOfDestinationRow:(NSInteger *)locationOfDestinationRow andLocationOfDestinationCol:(NSInteger *)locationOfDestinationCol onThisSideOfChessPiece:(NSInteger)indexSides whichWillBeAddToFoundPostionForThisChessPiece:(NSMutableArray *)foundPostionForThisChessPiece withAllowedNumberOfMoves:(NSInteger)maxNumberOfMoves {
 	// checks which side to check

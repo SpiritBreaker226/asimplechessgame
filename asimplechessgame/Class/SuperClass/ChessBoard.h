@@ -51,6 +51,6 @@ static const NSInteger NumOfCols = 8;
 -(void) moveCellStateFromRow:(NSInteger)fromRow andColumn:(NSInteger)fromColumn toRow:(NSInteger)toRow andColumn:(NSInteger)toColumn;
 
 // updates a cell state to whatever new state on column and row
--(void) setCellState:(NSUInteger)newChessPeiceType OnRow:(NSInteger)row andColumn:(NSInteger)column;
+-(ChessPiece*) setCellState:(NSUInteger)newChessPeiceType OnRow:(NSInteger)row andColumn:(NSInteger)column;
 	 
 @end
