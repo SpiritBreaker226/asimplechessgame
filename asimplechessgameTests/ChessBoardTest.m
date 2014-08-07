@@ -175,6 +175,12 @@
 	XCTAssertNotEqual(1, [findWhiteKnight count], @"Chess Board Search For Cell State: No White Knight Found by count them");
 }// end of testSearchForCellState_withInValidState_shouldFindNoResults()
 
+/*
+ 
+ Moving Test
+ 
+*/
+
 - (void)testMovingCellState_withVaildCoordsForBothOriginDest_shouldReturnTrue {
 	[_testChessBoard moveCellStateFromRow:0 andColumn:4 toRow:2 andColumn:5];
 	 
@@ -197,6 +203,30 @@
 	// it should error out
 	XCTAssertThrows([_testChessBoard moveCellStateFromRow:0 andColumn:4 toRow:22 andColumn:5], @"Chess Board Moving Cell State: An excetion should have been rised when trying to move cell state");
 }// end of testMovingCellState_withInVaildCoordsForBothOriginDest_shouldReturnDestCoords()
+
+/*
+ 
+ Checking Chess Check test
+ 
+*/
+
+/*- (void)testMovingCellState_withOnlyBlackKnightWhiteKing_shouldHaveKingInCheck {
+	// goes around removes all other chess types from the board as they are not need for the test
+	for (int indexRow = 0; indexRow < NumOfRows; indexRow++) {
+		// goes around for each of the column
+		for (int indexCol = 0; indexCol < NumOfCols; indexCol++) {
+			// checks if this is not the chess peices needs for this test
+			if([[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType] != 3 && [[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType] != 11)
+				[_testChessBoard setCellState:0 OnRow:indexRow andColumn:indexCol];
+		}// end of column for loop
+	}// end of row for loop
+	
+	[_testChessBoard moveCellStateFromRow:0 andColumn:1 toRow:5 andColumn:3];
+	
+	XCTAssertEqual(3, [[_testChessBoard getCurrentStateAtRow:5 andColumn:3] chessPieceType], @"Chess Board Checking For Check Test: There is a black Knight in position");
+
+	XCTAssertEqualObjects([_testChessBoard whichPlayerIsInChessCheck], @"White", @"Chess Board Checking For Check Test: The Player White is in check");
+}// end of testMovingCellState_withOnlyBlackKnightWhiteKing_shouldHaveKingInCheck()*/
 
 /*
  
@@ -530,6 +560,31 @@
 	XCTAssertEqual(3, [[movesForBlackPawn objectAtIndex:1] cellRow], @"Chess Board Doing En Passant: The destionasion can go to right to row at 3");
 	XCTAssertEqual(2, [[movesForBlackPawn objectAtIndex:1] cellCol], @"Chess Board Doing En Passant: The destionasion can go to left to col at 2");
 }// end of testDoingEnPassant_withVaildChessPieceTypes_shouldGiveOptionToAttackTheWhitePawnOnLeftSide()
+
+- (void)testSettingPromotionPawn_withValdPawn_shouldChangePawnToQueen {
+	// goes around removes all other chess types from the board as they are not need for the test
+	for (int indexRow = 0; indexRow < NumOfRows; indexRow++) {
+		// goes around for each of the column
+		for (int indexCol = 0; indexCol < NumOfCols; indexCol++) {
+			// checks if this is not the chess peices needs for this test
+			if([[_testChessBoard getCurrentStateAtRow:indexRow andColumn:indexCol] chessPieceType] != 1)
+				[_testChessBoard setCellState:0 OnRow:indexRow andColumn:indexCol];
+		}// end of column for loop
+	}// end of row for loop
+	
+	[_testChessBoard moveCellStateFromRow:1 andColumn:1 toRow:6 andColumn:1];
+	
+	XCTAssertEqual(1, [[_testChessBoard getCurrentStateAtRow:6 andColumn:1] chessPieceType], @"Chess Board Doing Promation: There is a black pawn in position");
+	
+	[_testChessBoard moveCellStateFromRow:6 andColumn:1 toRow:7 andColumn:1];
+	
+	ChessPiece* soonToBePromatedPawn = [_testChessBoard getCurrentStateAtRow:7 andColumn:1];
+	
+	// resets the cell to what the user would pick queen
+	[_testChessBoard setCellState:6 OnRow:[soonToBePromatedPawn cellRow] andColumn:[soonToBePromatedPawn cellCol]];
+	
+	XCTAssertEqual(6, [[_testChessBoard getCurrentStateAtRow:7 andColumn:1] chessPieceType], @"Chess Board Doing Promation: There is a black queen in position");
+}// end of testSettingPromotionPawn_withValdPawn_shouldChangePawnToQueen()
 
 /*
  
