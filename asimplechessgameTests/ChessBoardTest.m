@@ -210,7 +210,7 @@
  
 */
 
-/*- (void)testMovingCellState_withOnlyBlackKnightWhiteKing_shouldHaveKingInCheck {
+- (void)testMovingCellState_withOnlyBlackKnightWhiteKing_shouldHaveKingInCheck {
 	// goes around removes all other chess types from the board as they are not need for the test
 	for (int indexRow = 0; indexRow < NumOfRows; indexRow++) {
 		// goes around for each of the column
@@ -224,9 +224,11 @@
 	[_testChessBoard moveCellStateFromRow:0 andColumn:1 toRow:5 andColumn:3];
 	
 	XCTAssertEqual(3, [[_testChessBoard getCurrentStateAtRow:5 andColumn:3] chessPieceType], @"Chess Board Checking For Check Test: There is a black Knight in position");
+	
+	[_testChessBoard checkingKingCheckFromChessPieceStartingAtRow:5 andColumn:3];
 
 	XCTAssertEqualObjects([_testChessBoard whichPlayerIsInChessCheck], @"White", @"Chess Board Checking For Check Test: The Player White is in check");
-}// end of testMovingCellState_withOnlyBlackKnightWhiteKing_shouldHaveKingInCheck()*/
+}// end of testMovingCellState_withOnlyBlackKnightWhiteKing_shouldHaveKingInCheck()
 
 /*
  

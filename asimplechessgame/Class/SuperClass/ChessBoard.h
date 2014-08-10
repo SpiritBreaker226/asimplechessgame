@@ -32,6 +32,9 @@ static const NSInteger NumOfCols = 8;
 
 */
 
+// checks if a King is in check from the chess piece to the King
+- (void)checkingKingCheckFromChessPieceStartingAtRow:(NSInteger)startingRow andColumn:(NSInteger)startingColumn;
+
 // resets all chess board in memory to empty and re loads the peices into it
 - (NSArray*) clearBoardAndSetChessColour:(NSString*)chessColourType;
 

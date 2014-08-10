@@ -45,6 +45,23 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
  
 */
 
+- (void)checkingKingCheckFromChessPieceStartingAtRow:(NSInteger)startingRow andColumn:(NSInteger)startingColumn {
+	NSInteger cellStateMultipler = 0;// holds the multipler in order to both the white chess pieces, which is add 6 to the cell state for the which pieces cell state and the black chess pieces, which is zero since the cell state from 1-6 is for black pieces
+	NSArray* locationOfEneimiesKing;// in order to have a quick loop up of the current location of the king in order to tell if they are in troble
+	
+	// checks who turns it is if white then search for all its pieces
+	if ([_currentPlayersTurn isEqualToString:@"White"]) {
+		cellStateMultipler = 6;
+		locationOfEneimiesKing = [self findAllCellState:11];
+	}// end of if
+	else {
+		cellStateMultipler = 0;
+		locationOfEneimiesKing = [self findAllCellState:5];
+	}// end of else
+	
+	_whichPlayerIsInChessCheck = @"White";
+}// end of checkingKingCheckFromChessPiece()
+
 -(NSArray*) clearBoardAndSetChessColour:(NSString*)chessColourType {
 	NSMutableArray* itemsOnTheBaord = [[NSMutableArray alloc] init];
 	NSInteger cellStateMultipler = 0;// holds the multipler in order to both the white chess pieces, which is add 6 to the cell state for the which pieces cell state and the black chess pieces, which is zero since the cell state from 1-6 is for black pieces
@@ -331,7 +348,6 @@ typedef NS_ENUM(NSInteger, chessPieceSidesToCheck){
 }// end of getCurrentStateAtRowandColumn()
 
 -(void) moveCellStateFromRow:(NSInteger)fromRow andColumn:(NSInteger)fromColumn toRow:(NSInteger)toRow andColumn:(NSInteger)toColumn {
-	
 	// sets the cell of the destion cell with the origin cell state
 	// then removes the origin cell state to be empty in order to move it
 	[self setCellState:[[self getCurrentStateAtRow:fromRow andColumn:fromColumn] chessPieceType] OnRow:toRow andColumn:toColumn];
