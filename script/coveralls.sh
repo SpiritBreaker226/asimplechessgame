@@ -48,7 +48,7 @@ main()
  	generateGcov
 	copyGcovToProjectDir
 # post
-	coveralls ${@+"$@"}
+	coveralls ${@+"$@"} --exclude Apptimize.framework
 # clean up
 	removeGcov	
 }
